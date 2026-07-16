@@ -1,0 +1,5016 @@
+[
+  {
+    "model": "auth.permission",
+    "pk": 1,
+    "fields": {
+      "name": "Can add log entry",
+      "content_type": 1,
+      "codename": "add_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 2,
+    "fields": {
+      "name": "Can change log entry",
+      "content_type": 1,
+      "codename": "change_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 3,
+    "fields": {
+      "name": "Can delete log entry",
+      "content_type": 1,
+      "codename": "delete_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 4,
+    "fields": {
+      "name": "Can view log entry",
+      "content_type": 1,
+      "codename": "view_logentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 5,
+    "fields": {
+      "name": "Can add permission",
+      "content_type": 3,
+      "codename": "add_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 6,
+    "fields": {
+      "name": "Can change permission",
+      "content_type": 3,
+      "codename": "change_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 7,
+    "fields": {
+      "name": "Can delete permission",
+      "content_type": 3,
+      "codename": "delete_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 8,
+    "fields": {
+      "name": "Can view permission",
+      "content_type": 3,
+      "codename": "view_permission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 9,
+    "fields": {
+      "name": "Can add group",
+      "content_type": 2,
+      "codename": "add_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 10,
+    "fields": {
+      "name": "Can change group",
+      "content_type": 2,
+      "codename": "change_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 11,
+    "fields": {
+      "name": "Can delete group",
+      "content_type": 2,
+      "codename": "delete_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 12,
+    "fields": {
+      "name": "Can view group",
+      "content_type": 2,
+      "codename": "view_group"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 13,
+    "fields": {
+      "name": "Can add user",
+      "content_type": 4,
+      "codename": "add_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 14,
+    "fields": {
+      "name": "Can change user",
+      "content_type": 4,
+      "codename": "change_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 15,
+    "fields": {
+      "name": "Can delete user",
+      "content_type": 4,
+      "codename": "delete_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 16,
+    "fields": {
+      "name": "Can view user",
+      "content_type": 4,
+      "codename": "view_user"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 17,
+    "fields": {
+      "name": "Can add content type",
+      "content_type": 5,
+      "codename": "add_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 18,
+    "fields": {
+      "name": "Can change content type",
+      "content_type": 5,
+      "codename": "change_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 19,
+    "fields": {
+      "name": "Can delete content type",
+      "content_type": 5,
+      "codename": "delete_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 20,
+    "fields": {
+      "name": "Can view content type",
+      "content_type": 5,
+      "codename": "view_contenttype"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 21,
+    "fields": {
+      "name": "Can add session",
+      "content_type": 6,
+      "codename": "add_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 22,
+    "fields": {
+      "name": "Can change session",
+      "content_type": 6,
+      "codename": "change_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 23,
+    "fields": {
+      "name": "Can delete session",
+      "content_type": 6,
+      "codename": "delete_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 24,
+    "fields": {
+      "name": "Can view session",
+      "content_type": 6,
+      "codename": "view_session"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 25,
+    "fields": {
+      "name": "Can add department",
+      "content_type": 7,
+      "codename": "add_department"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 26,
+    "fields": {
+      "name": "Can change department",
+      "content_type": 7,
+      "codename": "change_department"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 27,
+    "fields": {
+      "name": "Can delete department",
+      "content_type": 7,
+      "codename": "delete_department"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 28,
+    "fields": {
+      "name": "Can view department",
+      "content_type": 7,
+      "codename": "view_department"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 29,
+    "fields": {
+      "name": "Can add project",
+      "content_type": 11,
+      "codename": "add_project"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 30,
+    "fields": {
+      "name": "Can change project",
+      "content_type": 11,
+      "codename": "change_project"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 31,
+    "fields": {
+      "name": "Can delete project",
+      "content_type": 11,
+      "codename": "delete_project"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 32,
+    "fields": {
+      "name": "Can view project",
+      "content_type": 11,
+      "codename": "view_project"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 33,
+    "fields": {
+      "name": "Can add role",
+      "content_type": 14,
+      "codename": "add_role"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 34,
+    "fields": {
+      "name": "Can change role",
+      "content_type": 14,
+      "codename": "change_role"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 35,
+    "fields": {
+      "name": "Can delete role",
+      "content_type": 14,
+      "codename": "delete_role"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 36,
+    "fields": {
+      "name": "Can view role",
+      "content_type": 14,
+      "codename": "view_role"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 37,
+    "fields": {
+      "name": "Can add status master",
+      "content_type": 16,
+      "codename": "add_statusmaster"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 38,
+    "fields": {
+      "name": "Can change status master",
+      "content_type": 16,
+      "codename": "change_statusmaster"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 39,
+    "fields": {
+      "name": "Can delete status master",
+      "content_type": 16,
+      "codename": "delete_statusmaster"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 40,
+    "fields": {
+      "name": "Can view status master",
+      "content_type": 16,
+      "codename": "view_statusmaster"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 41,
+    "fields": {
+      "name": "Can add role permission",
+      "content_type": 15,
+      "codename": "add_rolepermission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 42,
+    "fields": {
+      "name": "Can change role permission",
+      "content_type": 15,
+      "codename": "change_rolepermission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 43,
+    "fields": {
+      "name": "Can delete role permission",
+      "content_type": 15,
+      "codename": "delete_rolepermission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 44,
+    "fields": {
+      "name": "Can view role permission",
+      "content_type": 15,
+      "codename": "view_rolepermission"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 45,
+    "fields": {
+      "name": "Can add employee",
+      "content_type": 9,
+      "codename": "add_employee"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 46,
+    "fields": {
+      "name": "Can change employee",
+      "content_type": 9,
+      "codename": "change_employee"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 47,
+    "fields": {
+      "name": "Can delete employee",
+      "content_type": 9,
+      "codename": "delete_employee"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 48,
+    "fields": {
+      "name": "Can view employee",
+      "content_type": 9,
+      "codename": "view_employee"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 49,
+    "fields": {
+      "name": "Can add reporting manager",
+      "content_type": 13,
+      "codename": "add_reportingmanager"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 50,
+    "fields": {
+      "name": "Can change reporting manager",
+      "content_type": 13,
+      "codename": "change_reportingmanager"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 51,
+    "fields": {
+      "name": "Can delete reporting manager",
+      "content_type": 13,
+      "codename": "delete_reportingmanager"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 52,
+    "fields": {
+      "name": "Can view reporting manager",
+      "content_type": 13,
+      "codename": "view_reportingmanager"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 53,
+    "fields": {
+      "name": "Can add registration request",
+      "content_type": 12,
+      "codename": "add_registrationrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 54,
+    "fields": {
+      "name": "Can change registration request",
+      "content_type": 12,
+      "codename": "change_registrationrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 55,
+    "fields": {
+      "name": "Can delete registration request",
+      "content_type": 12,
+      "codename": "delete_registrationrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 56,
+    "fields": {
+      "name": "Can view registration request",
+      "content_type": 12,
+      "codename": "view_registrationrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 57,
+    "fields": {
+      "name": "Can add document",
+      "content_type": 8,
+      "codename": "add_document"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 58,
+    "fields": {
+      "name": "Can change document",
+      "content_type": 8,
+      "codename": "change_document"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 59,
+    "fields": {
+      "name": "Can delete document",
+      "content_type": 8,
+      "codename": "delete_document"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 60,
+    "fields": {
+      "name": "Can view document",
+      "content_type": 8,
+      "codename": "view_document"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 61,
+    "fields": {
+      "name": "Can add task",
+      "content_type": 17,
+      "codename": "add_task"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 62,
+    "fields": {
+      "name": "Can change task",
+      "content_type": 17,
+      "codename": "change_task"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 63,
+    "fields": {
+      "name": "Can delete task",
+      "content_type": 17,
+      "codename": "delete_task"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 64,
+    "fields": {
+      "name": "Can view task",
+      "content_type": 17,
+      "codename": "view_task"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 65,
+    "fields": {
+      "name": "Can add permission request",
+      "content_type": 10,
+      "codename": "add_permissionrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 66,
+    "fields": {
+      "name": "Can change permission request",
+      "content_type": 10,
+      "codename": "change_permissionrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 67,
+    "fields": {
+      "name": "Can delete permission request",
+      "content_type": 10,
+      "codename": "delete_permissionrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 68,
+    "fields": {
+      "name": "Can view permission request",
+      "content_type": 10,
+      "codename": "view_permissionrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 69,
+    "fields": {
+      "name": "Can add distributor",
+      "content_type": 19,
+      "codename": "add_distributor"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 70,
+    "fields": {
+      "name": "Can change distributor",
+      "content_type": 19,
+      "codename": "change_distributor"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 71,
+    "fields": {
+      "name": "Can delete distributor",
+      "content_type": 19,
+      "codename": "delete_distributor"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 72,
+    "fields": {
+      "name": "Can view distributor",
+      "content_type": 19,
+      "codename": "view_distributor"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 73,
+    "fields": {
+      "name": "Can add sales target",
+      "content_type": 23,
+      "codename": "add_salestarget"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 74,
+    "fields": {
+      "name": "Can change sales target",
+      "content_type": 23,
+      "codename": "change_salestarget"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 75,
+    "fields": {
+      "name": "Can delete sales target",
+      "content_type": 23,
+      "codename": "delete_salestarget"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 76,
+    "fields": {
+      "name": "Can view sales target",
+      "content_type": 23,
+      "codename": "view_salestarget"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 77,
+    "fields": {
+      "name": "Can add territory",
+      "content_type": 24,
+      "codename": "add_territory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 78,
+    "fields": {
+      "name": "Can change territory",
+      "content_type": 24,
+      "codename": "change_territory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 79,
+    "fields": {
+      "name": "Can delete territory",
+      "content_type": 24,
+      "codename": "delete_territory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 80,
+    "fields": {
+      "name": "Can view territory",
+      "content_type": 24,
+      "codename": "view_territory"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 81,
+    "fields": {
+      "name": "Can add distributor link",
+      "content_type": 20,
+      "codename": "add_distributorlink"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 82,
+    "fields": {
+      "name": "Can change distributor link",
+      "content_type": 20,
+      "codename": "change_distributorlink"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 83,
+    "fields": {
+      "name": "Can delete distributor link",
+      "content_type": 20,
+      "codename": "delete_distributorlink"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 84,
+    "fields": {
+      "name": "Can view distributor link",
+      "content_type": 20,
+      "codename": "view_distributorlink"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 85,
+    "fields": {
+      "name": "Can add sales executive",
+      "content_type": 22,
+      "codename": "add_salesexecutive"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 86,
+    "fields": {
+      "name": "Can change sales executive",
+      "content_type": 22,
+      "codename": "change_salesexecutive"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 87,
+    "fields": {
+      "name": "Can delete sales executive",
+      "content_type": 22,
+      "codename": "delete_salesexecutive"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 88,
+    "fields": {
+      "name": "Can view sales executive",
+      "content_type": 22,
+      "codename": "view_salesexecutive"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 89,
+    "fields": {
+      "name": "Can add customer",
+      "content_type": 18,
+      "codename": "add_customer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 90,
+    "fields": {
+      "name": "Can change customer",
+      "content_type": 18,
+      "codename": "change_customer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 91,
+    "fields": {
+      "name": "Can delete customer",
+      "content_type": 18,
+      "codename": "delete_customer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 92,
+    "fields": {
+      "name": "Can view customer",
+      "content_type": 18,
+      "codename": "view_customer"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 93,
+    "fields": {
+      "name": "Can add lead",
+      "content_type": 21,
+      "codename": "add_lead"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 94,
+    "fields": {
+      "name": "Can change lead",
+      "content_type": 21,
+      "codename": "change_lead"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 95,
+    "fields": {
+      "name": "Can delete lead",
+      "content_type": 21,
+      "codename": "delete_lead"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 96,
+    "fields": {
+      "name": "Can view lead",
+      "content_type": 21,
+      "codename": "view_lead"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 97,
+    "fields": {
+      "name": "Can add category",
+      "content_type": 25,
+      "codename": "add_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 98,
+    "fields": {
+      "name": "Can change category",
+      "content_type": 25,
+      "codename": "change_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 99,
+    "fields": {
+      "name": "Can delete category",
+      "content_type": 25,
+      "codename": "delete_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 100,
+    "fields": {
+      "name": "Can view category",
+      "content_type": 25,
+      "codename": "view_category"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 101,
+    "fields": {
+      "name": "Can add location",
+      "content_type": 26,
+      "codename": "add_location"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 102,
+    "fields": {
+      "name": "Can change location",
+      "content_type": 26,
+      "codename": "change_location"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 103,
+    "fields": {
+      "name": "Can delete location",
+      "content_type": 26,
+      "codename": "delete_location"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 104,
+    "fields": {
+      "name": "Can view location",
+      "content_type": 26,
+      "codename": "view_location"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 105,
+    "fields": {
+      "name": "Can add product",
+      "content_type": 29,
+      "codename": "add_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 106,
+    "fields": {
+      "name": "Can change product",
+      "content_type": 29,
+      "codename": "change_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 107,
+    "fields": {
+      "name": "Can delete product",
+      "content_type": 29,
+      "codename": "delete_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 108,
+    "fields": {
+      "name": "Can view product",
+      "content_type": 29,
+      "codename": "view_product"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 109,
+    "fields": {
+      "name": "Can add uom",
+      "content_type": 30,
+      "codename": "add_uom"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 110,
+    "fields": {
+      "name": "Can change uom",
+      "content_type": 30,
+      "codename": "change_uom"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 111,
+    "fields": {
+      "name": "Can delete uom",
+      "content_type": 30,
+      "codename": "delete_uom"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 112,
+    "fields": {
+      "name": "Can view uom",
+      "content_type": 30,
+      "codename": "view_uom"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 113,
+    "fields": {
+      "name": "Can add vendor",
+      "content_type": 31,
+      "codename": "add_vendor"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 114,
+    "fields": {
+      "name": "Can change vendor",
+      "content_type": 31,
+      "codename": "change_vendor"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 115,
+    "fields": {
+      "name": "Can delete vendor",
+      "content_type": 31,
+      "codename": "delete_vendor"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 116,
+    "fields": {
+      "name": "Can view vendor",
+      "content_type": 31,
+      "codename": "view_vendor"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 117,
+    "fields": {
+      "name": "Can add pos alert",
+      "content_type": 27,
+      "codename": "add_posalert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 118,
+    "fields": {
+      "name": "Can change pos alert",
+      "content_type": 27,
+      "codename": "change_posalert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 119,
+    "fields": {
+      "name": "Can delete pos alert",
+      "content_type": 27,
+      "codename": "delete_posalert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 120,
+    "fields": {
+      "name": "Can view pos alert",
+      "content_type": 27,
+      "codename": "view_posalert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 121,
+    "fields": {
+      "name": "Can add pos terminal",
+      "content_type": 28,
+      "codename": "add_posterminal"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 122,
+    "fields": {
+      "name": "Can change pos terminal",
+      "content_type": 28,
+      "codename": "change_posterminal"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 123,
+    "fields": {
+      "name": "Can delete pos terminal",
+      "content_type": 28,
+      "codename": "delete_posterminal"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 124,
+    "fields": {
+      "name": "Can view pos terminal",
+      "content_type": 28,
+      "codename": "view_posterminal"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 125,
+    "fields": {
+      "name": "Can add alert",
+      "content_type": 32,
+      "codename": "add_alert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 126,
+    "fields": {
+      "name": "Can change alert",
+      "content_type": 32,
+      "codename": "change_alert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 127,
+    "fields": {
+      "name": "Can delete alert",
+      "content_type": 32,
+      "codename": "delete_alert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 128,
+    "fields": {
+      "name": "Can view alert",
+      "content_type": 32,
+      "codename": "view_alert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 129,
+    "fields": {
+      "name": "Can add employee task",
+      "content_type": 34,
+      "codename": "add_employeetask"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 130,
+    "fields": {
+      "name": "Can change employee task",
+      "content_type": 34,
+      "codename": "change_employeetask"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 131,
+    "fields": {
+      "name": "Can delete employee task",
+      "content_type": 34,
+      "codename": "delete_employeetask"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 132,
+    "fields": {
+      "name": "Can view employee task",
+      "content_type": 34,
+      "codename": "view_employeetask"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 133,
+    "fields": {
+      "name": "Can add meeting",
+      "content_type": 39,
+      "codename": "add_meeting"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 134,
+    "fields": {
+      "name": "Can change meeting",
+      "content_type": 39,
+      "codename": "change_meeting"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 135,
+    "fields": {
+      "name": "Can delete meeting",
+      "content_type": 39,
+      "codename": "delete_meeting"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 136,
+    "fields": {
+      "name": "Can view meeting",
+      "content_type": 39,
+      "codename": "view_meeting"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 137,
+    "fields": {
+      "name": "Can add tracking entry",
+      "content_type": 42,
+      "codename": "add_trackingentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 138,
+    "fields": {
+      "name": "Can change tracking entry",
+      "content_type": 42,
+      "codename": "change_trackingentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 139,
+    "fields": {
+      "name": "Can delete tracking entry",
+      "content_type": 42,
+      "codename": "delete_trackingentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 140,
+    "fields": {
+      "name": "Can view tracking entry",
+      "content_type": 42,
+      "codename": "view_trackingentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 141,
+    "fields": {
+      "name": "Can add attendance entry",
+      "content_type": 33,
+      "codename": "add_attendanceentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 142,
+    "fields": {
+      "name": "Can change attendance entry",
+      "content_type": 33,
+      "codename": "change_attendanceentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 143,
+    "fields": {
+      "name": "Can delete attendance entry",
+      "content_type": 33,
+      "codename": "delete_attendanceentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 144,
+    "fields": {
+      "name": "Can view attendance entry",
+      "content_type": 33,
+      "codename": "view_attendanceentry"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 145,
+    "fields": {
+      "name": "Can add geo fence alert",
+      "content_type": 36,
+      "codename": "add_geofencealert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 146,
+    "fields": {
+      "name": "Can change geo fence alert",
+      "content_type": 36,
+      "codename": "change_geofencealert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 147,
+    "fields": {
+      "name": "Can delete geo fence alert",
+      "content_type": 36,
+      "codename": "delete_geofencealert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 148,
+    "fields": {
+      "name": "Can view geo fence alert",
+      "content_type": 36,
+      "codename": "view_geofencealert"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 149,
+    "fields": {
+      "name": "Can add leave balance",
+      "content_type": 37,
+      "codename": "add_leavebalance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 150,
+    "fields": {
+      "name": "Can change leave balance",
+      "content_type": 37,
+      "codename": "change_leavebalance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 151,
+    "fields": {
+      "name": "Can delete leave balance",
+      "content_type": 37,
+      "codename": "delete_leavebalance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 152,
+    "fields": {
+      "name": "Can view leave balance",
+      "content_type": 37,
+      "codename": "view_leavebalance"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 153,
+    "fields": {
+      "name": "Can add performance metric",
+      "content_type": 41,
+      "codename": "add_performancemetric"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 154,
+    "fields": {
+      "name": "Can change performance metric",
+      "content_type": 41,
+      "codename": "change_performancemetric"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 155,
+    "fields": {
+      "name": "Can delete performance metric",
+      "content_type": 41,
+      "codename": "delete_performancemetric"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 156,
+    "fields": {
+      "name": "Can view performance metric",
+      "content_type": 41,
+      "codename": "view_performancemetric"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 157,
+    "fields": {
+      "name": "Can add employee wallet",
+      "content_type": 35,
+      "codename": "add_employeewallet"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 158,
+    "fields": {
+      "name": "Can change employee wallet",
+      "content_type": 35,
+      "codename": "change_employeewallet"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 159,
+    "fields": {
+      "name": "Can delete employee wallet",
+      "content_type": 35,
+      "codename": "delete_employeewallet"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 160,
+    "fields": {
+      "name": "Can view employee wallet",
+      "content_type": 35,
+      "codename": "view_employeewallet"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 161,
+    "fields": {
+      "name": "Can add withdrawal request",
+      "content_type": 43,
+      "codename": "add_withdrawalrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 162,
+    "fields": {
+      "name": "Can change withdrawal request",
+      "content_type": 43,
+      "codename": "change_withdrawalrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 163,
+    "fields": {
+      "name": "Can delete withdrawal request",
+      "content_type": 43,
+      "codename": "delete_withdrawalrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 164,
+    "fields": {
+      "name": "Can view withdrawal request",
+      "content_type": 43,
+      "codename": "view_withdrawalrequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 165,
+    "fields": {
+      "name": "Can add leave request",
+      "content_type": 38,
+      "codename": "add_leaverequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 166,
+    "fields": {
+      "name": "Can change leave request",
+      "content_type": 38,
+      "codename": "change_leaverequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 167,
+    "fields": {
+      "name": "Can delete leave request",
+      "content_type": 38,
+      "codename": "delete_leaverequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 168,
+    "fields": {
+      "name": "Can view leave request",
+      "content_type": 38,
+      "codename": "view_leaverequest"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 169,
+    "fields": {
+      "name": "Can add message",
+      "content_type": 40,
+      "codename": "add_message"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 170,
+    "fields": {
+      "name": "Can change message",
+      "content_type": 40,
+      "codename": "change_message"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 171,
+    "fields": {
+      "name": "Can delete message",
+      "content_type": 40,
+      "codename": "delete_message"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 172,
+    "fields": {
+      "name": "Can view message",
+      "content_type": 40,
+      "codename": "view_message"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 173,
+    "fields": {
+      "name": "Can add site",
+      "content_type": 46,
+      "codename": "add_site"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 174,
+    "fields": {
+      "name": "Can change site",
+      "content_type": 46,
+      "codename": "change_site"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 175,
+    "fields": {
+      "name": "Can delete site",
+      "content_type": 46,
+      "codename": "delete_site"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 176,
+    "fields": {
+      "name": "Can view site",
+      "content_type": 46,
+      "codename": "view_site"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 177,
+    "fields": {
+      "name": "Can add route stop",
+      "content_type": 45,
+      "codename": "add_routestop"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 178,
+    "fields": {
+      "name": "Can change route stop",
+      "content_type": 45,
+      "codename": "change_routestop"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 179,
+    "fields": {
+      "name": "Can delete route stop",
+      "content_type": 45,
+      "codename": "delete_routestop"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 180,
+    "fields": {
+      "name": "Can view route stop",
+      "content_type": 45,
+      "codename": "view_routestop"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 181,
+    "fields": {
+      "name": "Can add visit log",
+      "content_type": 47,
+      "codename": "add_visitlog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 182,
+    "fields": {
+      "name": "Can change visit log",
+      "content_type": 47,
+      "codename": "change_visitlog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 183,
+    "fields": {
+      "name": "Can delete visit log",
+      "content_type": 47,
+      "codename": "delete_visitlog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 184,
+    "fields": {
+      "name": "Can view visit log",
+      "content_type": 47,
+      "codename": "view_visitlog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 185,
+    "fields": {
+      "name": "Can add daily route",
+      "content_type": 44,
+      "codename": "add_dailyroute"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 186,
+    "fields": {
+      "name": "Can change daily route",
+      "content_type": 44,
+      "codename": "change_dailyroute"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 187,
+    "fields": {
+      "name": "Can delete daily route",
+      "content_type": 44,
+      "codename": "delete_dailyroute"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 188,
+    "fields": {
+      "name": "Can view daily route",
+      "content_type": 44,
+      "codename": "view_dailyroute"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 189,
+    "fields": {
+      "name": "Can add site visit form template",
+      "content_type": 48,
+      "codename": "add_sitevisitformtemplate"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 190,
+    "fields": {
+      "name": "Can change site visit form template",
+      "content_type": 48,
+      "codename": "change_sitevisitformtemplate"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 191,
+    "fields": {
+      "name": "Can delete site visit form template",
+      "content_type": 48,
+      "codename": "delete_sitevisitformtemplate"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 192,
+    "fields": {
+      "name": "Can view site visit form template",
+      "content_type": 48,
+      "codename": "view_sitevisitformtemplate"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 193,
+    "fields": {
+      "name": "Can add audit log",
+      "content_type": 49,
+      "codename": "add_auditlog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 194,
+    "fields": {
+      "name": "Can change audit log",
+      "content_type": 49,
+      "codename": "change_auditlog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 195,
+    "fields": {
+      "name": "Can delete audit log",
+      "content_type": 49,
+      "codename": "delete_auditlog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 196,
+    "fields": {
+      "name": "Can view audit log",
+      "content_type": 49,
+      "codename": "view_auditlog"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 197,
+    "fields": {
+      "name": "Can add ad hoc meeting",
+      "content_type": 50,
+      "codename": "add_adhocmeeting"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 198,
+    "fields": {
+      "name": "Can change ad hoc meeting",
+      "content_type": 50,
+      "codename": "change_adhocmeeting"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 199,
+    "fields": {
+      "name": "Can delete ad hoc meeting",
+      "content_type": 50,
+      "codename": "delete_adhocmeeting"
+    }
+  },
+  {
+    "model": "auth.permission",
+    "pk": 200,
+    "fields": {
+      "name": "Can view ad hoc meeting",
+      "content_type": 50,
+      "codename": "view_adhocmeeting"
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "Password@123",
+      "last_login": "2026-06-06T05:05:08.423Z",
+      "is_superuser": true,
+      "username": "admin",
+      
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2026-06-03T06:04:43.089Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "Password@123",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "charlie@example.com",
+      "first_name": "Charlie",
+      "last_name": "Davis",
+      "email": "charlie@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-04T06:02:26.019Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "Password@123",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "admin@example.com",
+      "first_name": "System",
+      "last_name": "Admin",
+      "email": "admin@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-04T06:19:37.423Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "Password@123",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "testappdev",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-04T10:48:39.823Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "Password@123",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "postman_test",
+      "first_name": "",
+      "last_name": "",
+      "email": "",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-04T12:52:18.045Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "password": "Password@123",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "kashsharma8591@gmail.com",
+      "first_name": "Kash",
+      "last_name": "Sharma",
+      "email": "kashsharma8591@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-04T13:54:59.762Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "Password@123",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "guru@gmail.com",
+      "first_name": "Guru",
+      "last_name": "",
+      "email": "guru@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-08T05:50:16.145Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+      "password": "Password@123",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "logicon@gmail.com",
+      "first_name": "Logicon",
+      "last_name": "",
+      "email": "logicon@gmail.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2026-06-08T07:21:46.114Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 1,
+    "fields": {
+      "app_label": "admin",
+      "model": "logentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 2,
+    "fields": {
+      "app_label": "auth",
+      "model": "group"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 3,
+    "fields": {
+      "app_label": "auth",
+      "model": "permission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 4,
+    "fields": {
+      "app_label": "auth",
+      "model": "user"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 5,
+    "fields": {
+      "app_label": "contenttypes",
+      "model": "contenttype"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 6,
+    "fields": {
+      "app_label": "sessions",
+      "model": "session"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 7,
+    "fields": {
+      "app_label": "core",
+      "model": "department"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 8,
+    "fields": {
+      "app_label": "core",
+      "model": "document"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 9,
+    "fields": {
+      "app_label": "core",
+      "model": "employee"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 10,
+    "fields": {
+      "app_label": "core",
+      "model": "permissionrequest"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 11,
+    "fields": {
+      "app_label": "core",
+      "model": "project"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 12,
+    "fields": {
+      "app_label": "core",
+      "model": "registrationrequest"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 13,
+    "fields": {
+      "app_label": "core",
+      "model": "reportingmanager"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 14,
+    "fields": {
+      "app_label": "core",
+      "model": "role"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 15,
+    "fields": {
+      "app_label": "core",
+      "model": "rolepermission"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 16,
+    "fields": {
+      "app_label": "core",
+      "model": "statusmaster"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 17,
+    "fields": {
+      "app_label": "core",
+      "model": "task"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 18,
+    "fields": {
+      "app_label": "crm",
+      "model": "customer"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 19,
+    "fields": {
+      "app_label": "crm",
+      "model": "distributor"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 20,
+    "fields": {
+      "app_label": "crm",
+      "model": "distributorlink"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 21,
+    "fields": {
+      "app_label": "crm",
+      "model": "lead"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 22,
+    "fields": {
+      "app_label": "crm",
+      "model": "salesexecutive"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 23,
+    "fields": {
+      "app_label": "crm",
+      "model": "salestarget"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 24,
+    "fields": {
+      "app_label": "crm",
+      "model": "territory"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 25,
+    "fields": {
+      "app_label": "inventory",
+      "model": "category"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 26,
+    "fields": {
+      "app_label": "inventory",
+      "model": "location"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 27,
+    "fields": {
+      "app_label": "inventory",
+      "model": "posalert"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 28,
+    "fields": {
+      "app_label": "inventory",
+      "model": "posterminal"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 29,
+    "fields": {
+      "app_label": "inventory",
+      "model": "product"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 30,
+    "fields": {
+      "app_label": "inventory",
+      "model": "uom"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 31,
+    "fields": {
+      "app_label": "inventory",
+      "model": "vendor"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 32,
+    "fields": {
+      "app_label": "ops",
+      "model": "alert"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 33,
+    "fields": {
+      "app_label": "ops",
+      "model": "attendanceentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 34,
+    "fields": {
+      "app_label": "ops",
+      "model": "employeetask"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 35,
+    "fields": {
+      "app_label": "ops",
+      "model": "employeewallet"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 36,
+    "fields": {
+      "app_label": "ops",
+      "model": "geofencealert"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 37,
+    "fields": {
+      "app_label": "ops",
+      "model": "leavebalance"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 38,
+    "fields": {
+      "app_label": "ops",
+      "model": "leaverequest"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 39,
+    "fields": {
+      "app_label": "ops",
+      "model": "meeting"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 40,
+    "fields": {
+      "app_label": "ops",
+      "model": "message"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 41,
+    "fields": {
+      "app_label": "ops",
+      "model": "performancemetric"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 42,
+    "fields": {
+      "app_label": "ops",
+      "model": "trackingentry"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 43,
+    "fields": {
+      "app_label": "ops",
+      "model": "withdrawalrequest"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 44,
+    "fields": {
+      "app_label": "field_tracking",
+      "model": "dailyroute"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 45,
+    "fields": {
+      "app_label": "field_tracking",
+      "model": "routestop"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 46,
+    "fields": {
+      "app_label": "field_tracking",
+      "model": "site"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 47,
+    "fields": {
+      "app_label": "field_tracking",
+      "model": "visitlog"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 48,
+    "fields": {
+      "app_label": "field_tracking",
+      "model": "sitevisitformtemplate"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 49,
+    "fields": {
+      "app_label": "field_tracking",
+      "model": "auditlog"
+    }
+  },
+  {
+    "model": "contenttypes.contenttype",
+    "pk": 50,
+    "fields": {
+      "app_label": "field_tracking",
+      "model": "adhocmeeting"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "8ujm1xsrgf4ydap86vzd3k0z7svvsvs9",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQAP9lz4bAUmi3R-9-A1leUjWQlPZk_HfTpAe9zkzmDY73rbi9p9UtEWZQcPllnsMz1UPEB9d7E6HVbV28OBJx2i5uLabX9Wz_BoV7gRkos7aIhnnQowocQg6Us1XWKkx61GSkn6SiKaEZsiK2pFFqiZYMSg-fL9RoNqw:1wV1Pg:ViCwemKzAsjYP1CJtHVcBJyOPa1ogJolSDxqQWDHwBs",
+      "expire_date": "2026-06-18T06:18:44.949Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "dv4u08s9qvpyz5ea0skixu4h9ubov0ad",
+    "fields": {
+      "session_data": ".eJxVjDkOwjAQAP-yNbJ2HZ8p6XmD5WODA8iR4qRC_B1FSgHtzGjeEOK-1bB3XsNcYASCyy9LMT-5HaI8YrsvIi9tW-ckjkSctovbUvh1Pdu_QY29wggOJ6VIZU2DQ5Ke2WRmSSWmiRR6soaMd6jRDqSSYSzKWi2ZMqMhhs8XtSE2oQ:1wVjDY:feMpDqyGTmbkZIR-5ltFWVPXy4jT3wwqkbt5poRwMB8",
+      "expire_date": "2026-06-20T05:05:08.431Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ycae1hl2iv9lvxmahhvm4hhkvasmsjuq",
+    "fields": {
+      "session_data": ".eJxVjMsOwiAQAP9lz4bAUmi3R-9-A1leUjWQlPZk_HfTpAe9zkzmDY73rbi9p9UtEWZQcPllnsMz1UPEB9d7E6HVbV28OBJx2i5uLabX9Wz_BoV7gRkos7aIhnnQowocQg6Us1XWKkx61GSkn6SiKaEZsiK2pFFqiZYMSg-fL9RoNqw:1wVT4w:qQ0wr3d0JT-1ZfzHIHq2Xpl3nT8E2bfywiVqTb69nFU",
+      "expire_date": "2026-06-19T11:51:10.402Z"
+    }
+  },
+  {
+    "model": "core.role",
+    "pk": "06abd555-9f67-4c33-9131-005fe1166d2c",
+    "fields": {
+      "roleName": "System Admin",
+      "roleCode": "ADMIN",
+      "roleType": "Management",
+      "defaultDashboard": "/admin",
+      "rolePriority": 1,
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.role",
+    "pk": "20cc0736-6d8e-4d17-ace3-2856f84f428b",
+    "fields": {
+      "roleName": "Manager",
+      "roleCode": "MANAGER",
+      "roleType": "Management",
+      "defaultDashboard": "/dashboard",
+      "rolePriority": 2,
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.role",
+    "pk": "2e29b7c6-78ab-438e-b06f-60979b68d913",
+    "fields": {
+      "roleName": "Sales Executive",
+      "roleCode": "SALES_EXEC",
+      "roleType": "Execution",
+      "defaultDashboard": "/sales",
+      "rolePriority": 3,
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.role",
+    "pk": "3d3eba0d-9b74-4142-9026-9735cff1417d",
+    "fields": {
+      "roleName": "Employee",
+      "roleCode": "EMPLOYEE",
+      "roleType": "Execution",
+      "defaultDashboard": "/employee-portal",
+      "rolePriority": 3,
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.role",
+    "pk": "948309e6-1c71-4c9a-bb0f-97d49dcf4074",
+    "fields": {
+      "roleName": "Warehouse Manager",
+      "roleCode": "WH_MGR",
+      "roleType": "Execution",
+      "defaultDashboard": "/inventory",
+      "rolePriority": 3,
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.department",
+    "pk": "1b479ef6-4e1c-4498-9edf-ccbeae3b3a49",
+    "fields": {
+      "departmentName": "Operations",
+      "departmentCode": "OPS",
+      "parentDepartmentId": null,
+      "departmentHeadId": null,
+      "trackingEnabled": true,
+      "kpiCategory": [],
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.department",
+    "pk": "3ece9756-9e77-4434-bac7-99a4fcf29885",
+    "fields": {
+      "departmentName": "Management",
+      "departmentCode": "MGMT",
+      "parentDepartmentId": null,
+      "departmentHeadId": null,
+      "trackingEnabled": true,
+      "kpiCategory": [],
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.department",
+    "pk": "495b19d5-aeab-4c28-8b84-5ee1ec8e6c81",
+    "fields": {
+      "departmentName": "Sales",
+      "departmentCode": "SALES",
+      "parentDepartmentId": null,
+      "departmentHeadId": null,
+      "trackingEnabled": true,
+      "kpiCategory": [],
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.statusmaster",
+    "pk": "9bbcb562-c56a-40e1-b980-df2719138c35",
+    "fields": {
+      "statusName": "Suspended",
+      "tracking": false,
+      "visibility": "Admin Only",
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.statusmaster",
+    "pk": "a4fa0954-9e01-485a-8b2c-0e7a36d7db99",
+    "fields": {
+      "statusName": "On Leave",
+      "tracking": false,
+      "visibility": "All",
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.statusmaster",
+    "pk": "a6b24e44-647d-422d-b222-ec1be29d1d40",
+    "fields": {
+      "statusName": "Probation",
+      "tracking": true,
+      "visibility": "All",
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.statusmaster",
+    "pk": "ceba2cf9-3512-4d0e-92f4-72d2304da3b1",
+    "fields": {
+      "statusName": "Resigned",
+      "tracking": false,
+      "visibility": "Manager Only",
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.statusmaster",
+    "pk": "d7c16447-dd37-4c06-9ccb-8d0db674540d",
+    "fields": {
+      "statusName": "Active",
+      "tracking": true,
+      "visibility": "All",
+      "activeStatus": true
+    }
+  },
+  {
+    "model": "core.employee",
+    "pk": "9d7c882f-ca5c-4114-a6f5-e0f015bbd527",
+    "fields": {
+      "employeeId": "admin",
+      "fullName": "System Admin",
+      "email": "admin@example.com",
+      "mobileNumber": "1234567890",
+      "password": "Admin@123",
+      "profilePhoto": null,
+      "roleId": "06abd555-9f67-4c33-9131-005fe1166d2c",
+      "departmentId": "3ece9756-9e77-4434-bac7-99a4fcf29885",
+      "designation": "Administrator",
+      "reportingManager": null,
+      "employmentType": "Full-time",
+      "workMode": "Office",
+      "travelMode": "Bike",
+      "joiningDate": "2023-01-15",
+      "trackingEnabled": false,
+      "attendanceRequired": true,
+      "taskAssignmentAllowed": true,
+      "statusId": "d7c16447-dd37-4c06-9ccb-8d0db674540d",
+      "accountStatus": true
+    }
+  },
+  {
+    "model": "core.employee",
+    "pk": "ef378c9b-ea6c-49a4-9f79-1bac2555c8d5",
+    "fields": {
+      "employeeId": "EMP-1004",
+      "fullName": "Logicon",
+      "email": "logicon@gmail.com",
+      "mobileNumber": "8591744403",
+      "password": "Logicon@123",
+      "profilePhoto": null,
+      "roleId": "3d3eba0d-9b74-4142-9026-9735cff1417d",
+      "departmentId": "495b19d5-aeab-4c28-8b84-5ee1ec8e6c81",
+      "designation": "tet",
+      "reportingManager": "Charlie Davis",
+      "employmentType": "Full-time",
+      "workMode": "Office",
+      "travelMode": "Scooty",
+      "joiningDate": "2026-06-08",
+      "trackingEnabled": true,
+      "attendanceRequired": true,
+      "taskAssignmentAllowed": true,
+      "statusId": "d7c16447-dd37-4c06-9ccb-8d0db674540d",
+      "accountStatus": true
+    }
+  },
+  {
+    "model": "core.rolepermission",
+    "pk": "8b9a7520-c82d-433e-8f4c-1a6165a43ad4",
+    "fields": {
+      "roleId": "20cc0736-6d8e-4d17-ace3-2856f84f428b",
+      "roleName": "Manager",
+      "module": "Projects",
+      "view": true,
+      "create": false,
+      "edit": false,
+      "delete": false,
+      "approve": false,
+      "export": false
+    }
+  },
+  {
+    "model": "core.project",
+    "pk": "33bbb1cf-490d-4675-988f-52f26f416a75",
+    "fields": {
+      "name": "Q3 Sales Expansion",
+      "description": null,
+      "status": "Active",
+      "projectType": "Group",
+      "startDate": null,
+      "endDate": null,
+      "createdAt": "2026-06-04T07:06:57.019Z",
+      "updatedAt": "2026-06-04T07:06:57.019Z",
+      "assignedEmployees": []
+    }
+  },
+  {
+    "model": "core.project",
+    "pk": "5f8de36b-4469-4095-9086-a868b695b94e",
+    "fields": {
+      "name": "Operations Overhaul",
+      "description": null,
+      "status": "Active",
+      "projectType": "Group",
+      "startDate": null,
+      "endDate": null,
+      "createdAt": "2026-06-04T07:06:57.029Z",
+      "updatedAt": "2026-06-04T07:06:57.029Z",
+      "assignedEmployees": []
+    }
+  },
+  {
+    "model": "core.task",
+    "pk": "244df8f6-71ae-496a-94c6-34046618ac9d",
+    "fields": {
+      "title": "Equipment Maintenance",
+      "description": null,
+      "status": "Done",
+      "dueDate": null,
+      "project": "5f8de36b-4469-4095-9086-a868b695b94e",
+      "createdAt": "2026-06-04T07:06:57.067Z",
+      "updatedAt": "2026-06-04T07:06:57.067Z",
+      "assignedEmployees": []
+    }
+  },
+  {
+    "model": "core.task",
+    "pk": "362732ba-70e2-495f-a71c-8a4762ea67a7",
+    "fields": {
+      "title": "Client Follow-ups",
+      "description": null,
+      "status": "Pending",
+      "dueDate": null,
+      "project": "33bbb1cf-490d-4675-988f-52f26f416a75",
+      "createdAt": "2026-06-04T07:06:57.053Z",
+      "updatedAt": "2026-06-04T07:06:57.053Z",
+      "assignedEmployees": []
+    }
+  },
+  {
+    "model": "core.task",
+    "pk": "6f9eee9a-ed57-49c7-8efa-726653cf10e8",
+    "fields": {
+      "title": "Lead Generation Campaign",
+      "description": null,
+      "status": "In Progress",
+      "dueDate": null,
+      "project": "33bbb1cf-490d-4675-988f-52f26f416a75",
+      "createdAt": "2026-06-04T07:06:57.041Z",
+      "updatedAt": "2026-06-04T07:06:57.041Z",
+      "assignedEmployees": []
+    }
+  },
+  {
+    "model": "crm.territory",
+    "pk": "0a36b5e5-346e-444f-b824-4471be8293e8",
+    "fields": {
+      "name": "North Region",
+      "region": "North",
+      "district": "New Delhi",
+      "assignedSalesExecutiveId": null,
+      "linkedDistributorIds": [],
+      "coverageArea": "100 sq km",
+      "geoFencing": false,
+      "status": "Active"
+    }
+  },
+  {
+    "model": "crm.customer",
+    "pk": "a5e0ccf9-1133-47e3-a081-3f8b560d2f9b",
+    "fields": {
+      "name": "Metro Builders",
+      "company": "Metro Construction",
+      "email": "contact@metro.com",
+      "phone": "555-1234",
+      "territory": "North Region",
+      "lastContact": "2025-01-08",
+      "status": "active"
+    }
+  },
+  {
+    "model": "inventory.posterminal",
+    "pk": "513c2e28-b13c-4d47-9b06-a1f63c32d75d",
+    "fields": {
+      "name": "POS-1001 Main Store",
+      "location": "Downtown",
+      "type": "Hardware",
+      "status": "online",
+      "lastSync": "2025-01-01T10:00:00Z",
+      "todayTransactions": 0,
+      "todaySales": 0.0,
+      "errorCount": 0,
+      "ipAddress": "192.168.1.10",
+      "version": "1.0",
+      "operator": "Admin"
+    }
+  },
+  {
+    "model": "ops.trackingentry",
+    "pk": "17ead675-cbca-4a30-889e-468bc6949b8b",
+    "fields": {
+      "employeeId": "EMP-MGR-01",
+      "employeeName": "Alice Smith",
+      "role": "Manager",
+      "currentLocation": "Office",
+      "checkInTime": "2026-06-04T07:06:57.130Z",
+      "checkOutTime": null,
+      "travelDistance": 0.0,
+      "idleTime": 0.0,
+      "planVsActual": 0.0,
+      "routePath": [],
+      "reimbursementAmount": 0.0,
+      "timeSpentOnSite": 0.0,
+      "status": "online",
+      "date": "2026-06-04"
+    }
+  },
+  {
+    "model": "ops.trackingentry",
+    "pk": "686b434e-ae02-4827-816f-93d5c56e7d68",
+    "fields": {
+      "employeeId": "EMP-001",
+      "employeeName": "Charlie Davis",
+      "role": "Sales Executive",
+      "currentLocation": "Downtown",
+      "checkInTime": "2026-06-04T07:06:57.115Z",
+      "checkOutTime": null,
+      "travelDistance": 0.0,
+      "idleTime": 0.0,
+      "planVsActual": 0.0,
+      "routePath": [],
+      "reimbursementAmount": 0.0,
+      "timeSpentOnSite": 0.0,
+      "status": "online",
+      "date": "2026-06-04"
+    }
+  },
+  {
+    "model": "ops.trackingentry",
+    "pk": "77f6b992-2799-48e1-bbcf-60d214e2f277",
+    "fields": {
+      "employeeId": "EMP-002",
+      "employeeName": "Diana Evans",
+      "role": "Sales Executive",
+      "currentLocation": "Uptown",
+      "checkInTime": "2026-06-04T07:06:57.120Z",
+      "checkOutTime": null,
+      "travelDistance": 0.0,
+      "idleTime": 0.0,
+      "planVsActual": 0.0,
+      "routePath": [],
+      "reimbursementAmount": 0.0,
+      "timeSpentOnSite": 0.0,
+      "status": "offline",
+      "date": "2026-06-04"
+    }
+  },
+  {
+    "model": "ops.trackingentry",
+    "pk": "cfc69098-19c0-4cc7-803a-60565a3a6b02",
+    "fields": {
+      "employeeId": "EMP-003",
+      "employeeName": "Eve Foster",
+      "role": "Employee",
+      "currentLocation": "Industrial Park",
+      "checkInTime": "2026-06-04T07:06:57.125Z",
+      "checkOutTime": null,
+      "travelDistance": 0.0,
+      "idleTime": 0.0,
+      "planVsActual": 0.0,
+      "routePath": [],
+      "reimbursementAmount": 0.0,
+      "timeSpentOnSite": 0.0,
+      "status": "idle",
+      "date": "2026-06-04"
+    }
+  },
+  {
+    "model": "ops.alert",
+    "pk": "45014b56-3ae6-44c4-a88b-3ccaa4123668",
+    "fields": {
+      "type": "tracking_update",
+      "message": "Eve Foster has started their trip from Bandra.",
+      "timestamp": "2026-06-03T06:03:29.647Z",
+      "severity": "medium",
+      "resolved": true,
+      "relatedEntityId": "EMP-003",
+      "relatedEntityType": "employee"
+    }
+  },
+  {
+    "model": "ops.employeewallet",
+    "pk": "123bdb0e-1b87-4060-9e30-7644573d2b8f",
+    "fields": {
+      "employeeId": "EMP-003",
+      "balance": 1200.0,
+      "totalEarned": 3000.0,
+      "totalWithdrawn": 1800.0
+    }
+  },
+  {
+    "model": "ops.employeewallet",
+    "pk": "8f3b01ca-eb8f-49b2-91e4-7ec7bd280f28",
+    "fields": {
+      "employeeId": "EMP-001",
+      "balance": 5000.0,
+      "totalEarned": 15000.0,
+      "totalWithdrawn": 10000.0
+    }
+  },
+  {
+    "model": "ops.employeewallet",
+    "pk": "9c26e8e8-7e24-4178-8371-b1700dfadc66",
+    "fields": {
+      "employeeId": "EMP-002",
+      "balance": 2500.0,
+      "totalEarned": 8000.0,
+      "totalWithdrawn": 5500.0
+    }
+  },
+  {
+    "model": "ops.withdrawalrequest",
+    "pk": "77ec77cd-0e24-422f-8b8a-9f70b4293e91",
+    "fields": {
+      "employeeId": "EMP-001",
+      "amount": 1000.0,
+      "status": "pending",
+      "requestDate": "2026-06-04T07:06:57.094Z"
+    }
+  },
+  {
+    "model": "ops.withdrawalrequest",
+    "pk": "b80838b5-f927-4c46-86f3-2973c7c4f568",
+    "fields": {
+      "employeeId": "EMP-002",
+      "amount": 2000.0,
+      "status": "approved",
+      "requestDate": "2026-06-04T07:06:57.100Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 1,
+    "fields": {
+      "name": "xyz",
+      "address": "hdhs",
+      "latitude": "19.578400",
+      "longitude": "72.889800",
+      "geofence_radius": 100,
+      "created_at": "2026-06-04T07:22:30.750Z",
+      "updated_at": "2026-06-04T07:22:30.750Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 2,
+    "fields": {
+      "name": "2",
+      "address": "fgf",
+      "latitude": "10.008580",
+      "longitude": "87.048560",
+      "geofence_radius": 500,
+      "created_at": "2026-06-04T09:56:16.755Z",
+      "updated_at": "2026-06-04T09:56:16.755Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 3,
+    "fields": {
+      "name": "Test Site",
+      "address": "123 Test St",
+      "latitude": "12.345600",
+      "longitude": "78.910100",
+      "geofence_radius": 100,
+      "created_at": "2026-06-06T12:55:37.947Z",
+      "updated_at": "2026-06-06T12:55:37.947Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 6,
+    "fields": {
+      "name": "Kane Plaza, Mumbai, Maharashtra, India",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.178466",
+      "longitude": "72.834512",
+      "geofence_radius": 500,
+      "created_at": "2026-06-06T14:01:00.308Z",
+      "updated_at": "2026-06-06T14:01:00.308Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 7,
+    "fields": {
+      "name": "Ad-Hoc Location A",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.076000",
+      "longitude": "72.877700",
+      "geofence_radius": 500,
+      "created_at": "2026-06-06T14:04:37.503Z",
+      "updated_at": "2026-06-06T14:04:37.503Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 8,
+    "fields": {
+      "name": "Ad-Hoc Location A",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.076000",
+      "longitude": "72.877700",
+      "geofence_radius": 500,
+      "created_at": "2026-06-06T14:10:15.111Z",
+      "updated_at": "2026-06-06T14:10:15.111Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 9,
+    "fields": {
+      "name": "Kane Plaza, Mumbai, Maharashtra, India",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.178466",
+      "longitude": "72.834512",
+      "geofence_radius": 500,
+      "created_at": "2026-06-06T14:11:30.689Z",
+      "updated_at": "2026-06-06T14:11:30.689Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 11,
+    "fields": {
+      "name": "Ad-Hoc Location A",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.076000",
+      "longitude": "72.877700",
+      "geofence_radius": 500,
+      "created_at": "2026-06-06T14:16:45.943Z",
+      "updated_at": "2026-06-06T14:16:45.943Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 12,
+    "fields": {
+      "name": "Kane Plaza, Mumbai, Maharashtra, India",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.178446",
+      "longitude": "72.834512",
+      "geofence_radius": 500,
+      "created_at": "2026-06-06T14:22:59.586Z",
+      "updated_at": "2026-06-06T14:22:59.586Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 18,
+    "fields": {
+      "name": "Kane Plaza, Mumbai, Maharashtra, India",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.178468",
+      "longitude": "72.834508",
+      "geofence_radius": 500,
+      "created_at": "2026-06-08T12:10:28.285Z",
+      "updated_at": "2026-06-08T12:10:28.285Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 19,
+    "fields": {
+      "name": "Ad-Hoc Check-In",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.178437",
+      "longitude": "72.834528",
+      "geofence_radius": 500,
+      "created_at": "2026-06-08T12:57:27.801Z",
+      "updated_at": "2026-06-08T12:57:27.801Z"
+    }
+  },
+  {
+    "model": "field_tracking.site",
+    "pk": 20,
+    "fields": {
+      "name": "Ad-Hoc Check-In",
+      "address": "Auto-generated check-in location",
+      "latitude": "19.178437",
+      "longitude": "72.834528",
+      "geofence_radius": 500,
+      "created_at": "2026-06-09T07:33:09.032Z",
+      "updated_at": "2026-06-09T07:33:09.032Z"
+    }
+  },
+  {
+    "model": "field_tracking.visitlog",
+    "pk": 1,
+    "fields": {
+      "employee": 6,
+      "site": 1,
+      "check_in_time": "2026-06-08T06:19:12.078Z",
+      "recorded_lat": "12.971598",
+      "recorded_lng": "77.594562",
+      "distance_from_site": 889676.7312811951,
+      "meeting": null,
+      "photo": "",
+      "is_verified": false,
+      "remarks": null,
+      "report_data": null
+    }
+  },
+  {
+    "model": "field_tracking.visitlog",
+    "pk": 2,
+    "fields": {
+      "employee": 2,
+      "site": 8,
+      "check_in_time": "2026-06-08T06:19:12.078Z",
+      "recorded_lat": "19.076000",
+      "recorded_lng": "72.877700",
+      "distance_from_site": 0.0,
+      "meeting": 1,
+      "photo": "",
+      "is_verified": true,
+      "remarks": null,
+      "report_data": null
+    }
+  },
+  {
+    "model": "field_tracking.visitlog",
+    "pk": 3,
+    "fields": {
+      "employee": 2,
+      "site": 9,
+      "check_in_time": "2026-06-08T06:19:12.078Z",
+      "recorded_lat": "19.178466",
+      "recorded_lng": "72.834512",
+      "distance_from_site": 0.0,
+      "meeting": 13,
+      "photo": "visit_photos/CAP2300678511909266773.jpg",
+      "is_verified": true,
+      "remarks": null,
+      "report_data": null
+    }
+  },
+  {
+    "model": "field_tracking.visitlog",
+    "pk": 5,
+    "fields": {
+      "employee": 2,
+      "site": 11,
+      "check_in_time": "2026-06-08T06:19:12.078Z",
+      "recorded_lat": "19.076000",
+      "recorded_lng": "72.877700",
+      "distance_from_site": 0.0,
+      "meeting": 1,
+      "photo": "",
+      "is_verified": true,
+      "remarks": null,
+      "report_data": null
+    }
+  },
+  {
+    "model": "field_tracking.visitlog",
+    "pk": 6,
+    "fields": {
+      "employee": 2,
+      "site": 12,
+      "check_in_time": "2026-06-08T06:19:12.078Z",
+      "recorded_lat": "19.178446",
+      "recorded_lng": "72.834512",
+      "distance_from_site": 0.0,
+      "meeting": 13,
+      "photo": "visit_photos/CAP712773927415194340.jpg",
+      "is_verified": true,
+      "remarks": null,
+      "report_data": null
+    }
+  },
+  {
+    "model": "field_tracking.visitlog",
+    "pk": 14,
+    "fields": {
+      "employee": 8,
+      "site": 18,
+      "check_in_time": "2026-06-08T06:19:12.078Z",
+      "recorded_lat": "19.178468",
+      "recorded_lng": "72.834508",
+      "distance_from_site": 0.0,
+      "meeting": 20,
+      "photo": "visit_photos/CAP3147734883954472676.jpg",
+      "is_verified": true,
+      "remarks": null,
+      "report_data": {
+        "data": "{\"site_operations_checklist\":{\"answer\":\"Not Maintained\",\"comment\":\"hshs\"},\"attendance_register\":{\"answer\":\"Incomplete\",\"comment\":\"bshsh\"},\"daily_logbooks\":{\"answer\":\"Pending Entries\",\"comment\":\"hshshs\"},\"logbooks_authorization\":{\"answer\":\"No\",\"comment\":\"hshhs\"},\"housekeeping_machineries\":{\"answer\":\"No\",\"comment\":\"hshsshs\"},\"working_condition\":{\"answer\":\"Requires Repair\",\"comment\":\"hshshss\"},\"maintenance_description\":{\"answer\":\"bsbshs\",\"comment\":\"bshs\"},\"consumables_tools\":{\"answer\":\"Shortage\",\"comment\":\"hdhdd\"},\"uniform_status\":{\"answer\":\"Partial\",\"comment\":\"hshsdh\"},\"id_cards\":{\"answer\":\"Not Issued\",\"comment\":\"hshs\"},\"esic_mediclaim\":{\"answer\":\"Pending\",\"comment\":\"hdhdhd\"},\"daily_briefing\":{\"answer\":\"No\",\"comment\":\"dhhdhd\"},\"night_round\":{\"answer\":\"Yes\",\"comment\":\"hshshdd\"},\"observations_rounds\":{\"answer\":\"ndhdhdd\",\"comment\":\"hshshjs\"},\"outstanding_dues\":{\"answer\":\"Yes\",\"comment\":\"hdhhddh\"},\"invoice_submission\":{\"answer\":\"Pending\",\"comment\":\"hshdhdhd\"},\"other_observations\":{\"answer\":\"nsnsnd\",\"comment\":\"hdhd\"},\"corrective_actions\":{\"answer\":\"ndndjd\",\"comment\":\"hdhdd\"}}",
+        "photo_site_operations_checklist": "http://192.168.1.20:8000/media/visit_proofs/scaled_08b4e807-f131-4d3e-a621-56dde96aaf3d283967866412333832.jpg",
+        "photo_attendance_register": "http://192.168.1.20:8000/media/visit_proofs/scaled_88ee5335-7e6f-40a2-a27a-f4ddf428eba0652906761914847283.jpg",
+        "photo_daily_logbooks": "http://192.168.1.20:8000/media/visit_proofs/scaled_698e5de5-4e92-4376-912c-011a141c8533453960276028223603.jpg",
+        "photo_logbooks_authorization": "http://192.168.1.20:8000/media/visit_proofs/scaled_48789b60-f861-44ca-aac2-916c25d64353714544922164225863.jpg",
+        "photo_housekeeping_machineries": "http://192.168.1.20:8000/media/visit_proofs/scaled_48b89725-0f3c-4e79-b766-0cdcfad8a2a94258664977704173023.jpg",
+        "photo_working_condition": "http://192.168.1.20:8000/media/visit_proofs/scaled_bd4d5a57-08fd-41f4-8eea-5ad68f1c85c44297089703821758023.jpg",
+        "photo_maintenance_description": "http://192.168.1.20:8000/media/visit_proofs/scaled_4d5698d6-6380-4cca-abe2-3861d8d1250b6632950034623704762.jpg",
+        "photo_consumables_tools": "http://192.168.1.20:8000/media/visit_proofs/scaled_9c3bfabd-a92e-4512-94b2-bb094bd92f6a6122438733316400231.jpg",
+        "photo_uniform_status": "http://192.168.1.20:8000/media/visit_proofs/scaled_5d3ca5fe-19ec-4c1d-9fe0-53efa4c7b4593727719460586786631.jpg",
+        "photo_id_cards": "http://192.168.1.20:8000/media/visit_proofs/scaled_9908f745-9f52-4eb2-94d8-c91882f1b8bd3124233420819124997.jpg",
+        "photo_esic_mediclaim": "http://192.168.1.20:8000/media/visit_proofs/scaled_9359cfc2-fdbe-425a-b06c-ad1d963ea2e6824204002362173485.jpg",
+        "photo_daily_briefing": "http://192.168.1.20:8000/media/visit_proofs/scaled_3a77028a-6772-4b76-a82c-1220a88c7cd74171592573361256959.jpg",
+        "photo_night_round": "http://192.168.1.20:8000/media/visit_proofs/scaled_3826910b-59f5-46ef-bd42-2b3e536ede8a1952702830483878697.jpg",
+        "photo_observations_rounds": "http://192.168.1.20:8000/media/visit_proofs/scaled_db800550-d841-4473-8bf1-984c3deac7e12666037469262492516.jpg",
+        "photo_outstanding_dues": "http://192.168.1.20:8000/media/visit_proofs/scaled_5a262a5c-9199-4796-a4bd-ed49f1b49eec1002347229286069002.jpg",
+        "photo_invoice_submission": "http://192.168.1.20:8000/media/visit_proofs/scaled_d6604037-1261-4b91-b126-160dba76742b3535903878770670851.jpg",
+        "photo_other_observations": "http://192.168.1.20:8000/media/visit_proofs/scaled_7b761f9f-aa94-4d59-8a85-32eea0ff10ea7397269589480921400.jpg",
+        "photo_corrective_actions": "http://192.168.1.20:8000/media/visit_proofs/scaled_76be9b90-ea83-4604-81ae-aff913ca17be1438200209295879429.jpg"
+      }
+    }
+  },
+  {
+    "model": "field_tracking.visitlog",
+    "pk": 15,
+    "fields": {
+      "employee": 8,
+      "site": 19,
+      "check_in_time": "2026-06-08T06:19:12.078Z",
+      "recorded_lat": "19.178437",
+      "recorded_lng": "72.834528",
+      "distance_from_site": 0.0,
+      "meeting": 19,
+      "photo": "visit_photos/CAP1320943853292142405.jpg",
+      "is_verified": true,
+      "remarks": null,
+      "report_data": null
+    }
+  },
+  {
+    "model": "field_tracking.visitlog",
+    "pk": 16,
+    "fields": {
+      "employee": 8,
+      "site": 20,
+      "check_in_time": "2026-06-09T07:33:09.055Z",
+      "recorded_lat": "19.178437",
+      "recorded_lng": "72.834528",
+      "distance_from_site": 0.0,
+      "meeting": 21,
+      "photo": "visit_photos/CAP8852003618890769304.jpg",
+      "is_verified": true,
+      "remarks": null,
+      "report_data": {
+        "data": "{\"site_operations_checklist\":{\"answer\":\"Not Maintained\",\"comment\":\"\"},\"attendance_register\":{\"answer\":\"Incomplete\",\"comment\":\"\"},\"daily_logbooks\":{\"answer\":\"Pending Entries\",\"comment\":\"\"},\"logbooks_authorization\":{\"answer\":\"Yes\",\"comment\":\"\"},\"housekeeping_machineries\":{\"answer\":\"Yes\",\"comment\":\"\"},\"working_condition\":{\"answer\":\"Requires Repair\",\"comment\":\"\"},\"maintenance_description\":{\"answer\":\"hhshsjswj\",\"comment\":\"\"},\"consumables_tools\":{\"answer\":\"Shortage\",\"comment\":\"\"},\"uniform_status\":{\"answer\":\"Properly Dressed\",\"comment\":\"\"},\"id_cards\":{\"answer\":\"Issued & Displayed\",\"comment\":\"\"},\"esic_mediclaim\":{\"answer\":\"Pending\",\"comment\":\"\"},\"daily_briefing\":{\"answer\":\"Yes\",\"comment\":\"\"},\"night_round\":{\"answer\":\"Yes\",\"comment\":\"\"},\"observations_rounds\":{\"answer\":\"gjfunjk\",\"comment\":\"\"},\"outstanding_dues\":{\"answer\":\"Yes\",\"comment\":\"\"},\"invoice_submission\":{\"answer\":\"Submitted\",\"comment\":\"\"},\"other_observations\":{\"answer\":\"hdjj\",\"comment\":\"\"},\"corrective_actions\":{\"answer\":\"hdhdjsjw\",\"comment\":\"\"}}",
+        "photo_site_operations_checklist": "http://192.168.1.20:8000/media/visit_proofs/scaled_d35b89cf-816f-4702-9fc0-099b71a7eff13722392237294984750.jpg",
+        "photo_attendance_register": "http://192.168.1.20:8000/media/visit_proofs/scaled_fffc9d16-23f7-4a04-af69-9342cef0be786982197103967960063.jpg",
+        "photo_daily_logbooks": "http://192.168.1.20:8000/media/visit_proofs/scaled_90dd1256-43bd-4ea5-9976-16afc5a321116931186430474734045.jpg",
+        "photo_logbooks_authorization": "http://192.168.1.20:8000/media/visit_proofs/scaled_660900c3-0eee-4261-8671-7e927d3333022570304468844907108.jpg",
+        "photo_housekeeping_machineries": "http://192.168.1.20:8000/media/visit_proofs/scaled_80670345-b9ed-43f7-b81c-660eac97081a1875103514132940662.jpg",
+        "photo_working_condition": "http://192.168.1.20:8000/media/visit_proofs/scaled_c772aa40-7d42-4368-ab66-8592bf1049a06832714965676808127.jpg",
+        "photo_maintenance_description": "http://192.168.1.20:8000/media/visit_proofs/scaled_0ec6b97a-3401-4a25-bbb9-6fb507efec118207174697144942742.jpg",
+        "photo_consumables_tools": "http://192.168.1.20:8000/media/visit_proofs/scaled_905a499f-7f9a-4539-aeb2-137d3273c4e66512255822296313010.jpg",
+        "photo_uniform_status": "http://192.168.1.20:8000/media/visit_proofs/scaled_4bd65d74-5e6e-4dae-8397-8306e073f6238838087065394618794.jpg",
+        "photo_id_cards": "http://192.168.1.20:8000/media/visit_proofs/scaled_7cd9f647-49e5-496c-90fa-8e3ae10c07ba360765410775312660.jpg",
+        "photo_esic_mediclaim": "http://192.168.1.20:8000/media/visit_proofs/scaled_b1e57bc3-9c89-41fb-b059-33c8817f52c28876876115037002015.jpg",
+        "photo_daily_briefing": "http://192.168.1.20:8000/media/visit_proofs/scaled_4b2384a1-a159-4376-b3d2-f8099fc8c50f4376122586449111464.jpg",
+        "photo_night_round": "http://192.168.1.20:8000/media/visit_proofs/scaled_4caeb955-e760-44b0-b10e-a6bbabefd8ed3674063851735232304.jpg",
+        "photo_observations_rounds": "http://192.168.1.20:8000/media/visit_proofs/scaled_a1138edc-b9cd-46df-8471-bd4a1328c04b5259075137577537062.jpg",
+        "photo_outstanding_dues": "http://192.168.1.20:8000/media/visit_proofs/scaled_fe83dc86-4eba-4582-8adc-c526b44565427972277965904339135.jpg",
+        "photo_invoice_submission": "http://192.168.1.20:8000/media/visit_proofs/scaled_6e76124f-3bbc-47bd-87bd-985816ff36d17446154064508628428.jpg",
+        "photo_other_observations": "http://192.168.1.20:8000/media/visit_proofs/scaled_e5436b1a-bd01-4c66-a607-7b740f130d893600583733049940529.jpg",
+        "photo_corrective_actions": "http://192.168.1.20:8000/media/visit_proofs/scaled_ab502b80-0314-4c3f-ac21-10f7bee84c7d4801570901238808226.jpg"
+      }
+    }
+  },
+  {
+    "model": "field_tracking.sitevisitformtemplate",
+    "pk": 1,
+    "fields": {
+      "name": "Logicon Site Visit Report",
+      "schema": [
+        {
+          "id": "site_operations_checklist",
+          "type": "radio",
+          "label": "Site Operations Checklist",
+          "options": [
+            "Maintained",
+            "Not Maintained",
+            "Partial"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "attendance_register",
+          "type": "radio",
+          "label": "Attendance Register",
+          "options": [
+            "Up to Date",
+            "Incomplete",
+            "Not Maintained"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "daily_logbooks",
+          "type": "radio",
+          "label": "Daily Logbooks",
+          "options": [
+            "Updated",
+            "Pending Entries",
+            "Not Available"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "logbooks_authorization",
+          "type": "radio",
+          "label": "Daily Logbooks & Checklist Authorisation by operations",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "housekeeping_machineries",
+          "type": "radio",
+          "label": "Housekeeping Machineries (Vacuum Cleaner, Scrubber, Jet Machine, etc.) Availability",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "working_condition",
+          "type": "radio",
+          "label": "Working Condition",
+          "options": [
+            "Good",
+            "Requires Repair",
+            "Not Functional"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "maintenance_description",
+          "type": "text",
+          "label": "Under maintenance Description",
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "consumables_tools",
+          "type": "radio",
+          "label": "Consumables/Tools",
+          "options": [
+            "Adequate",
+            "Shortage",
+            "Pending Indent"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "uniform_status",
+          "type": "radio",
+          "label": "Uniform Status",
+          "options": [
+            "Properly Dressed",
+            "Partial",
+            "Not Compliant"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "id_cards",
+          "type": "radio",
+          "label": "ID Cards",
+          "options": [
+            "Issued & Displayed",
+            "Pending",
+            "Not Issued"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "esic_mediclaim",
+          "type": "radio",
+          "label": "ESIC & Mediclaim Coverage",
+          "options": [
+            "Active",
+            "Pending",
+            "Not Available"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "daily_briefing",
+          "type": "radio",
+          "label": "Daily Briefing Conducted",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "night_round",
+          "type": "radio",
+          "label": "Night Round Conducted",
+          "options": [
+            "Yes",
+            "No"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "observations_rounds",
+          "type": "text",
+          "label": "Observations from Rounds (if any)",
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "outstanding_dues",
+          "type": "radio",
+          "label": "Outstanding Dues (if any) - Add Details in Comment",
+          "options": [
+            "None",
+            "Yes"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "invoice_submission",
+          "type": "radio",
+          "label": "Invoice Submission Status",
+          "options": [
+            "Submitted",
+            "Pending"
+          ],
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "other_observations",
+          "type": "text",
+          "label": "Other Observations / Issues",
+          "requirePhoto": true,
+          "requireComment": true
+        },
+        {
+          "id": "corrective_actions",
+          "type": "text",
+          "label": "Corrective & Preventive Actions Suggested",
+          "requirePhoto": true,
+          "requireComment": true
+        }
+      ],
+      "created_at": "2026-06-03T12:02:23.491Z",
+      "updated_at": "2026-06-09T07:52:15.430Z",
+      "is_active": true
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 1,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site '2' was added to the system.",
+      "timestamp": "2026-06-04T09:56:16.768Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 2,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: Initial Pitch with Acme Corp",
+      "timestamp": "2026-06-04T12:52:18.237Z",
+      "user_id": 5,
+      "employee_name": "postman_test"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 3,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: Test Meeting with Test Client",
+      "timestamp": "2026-06-04T13:04:42.315Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 4,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: Test Meeting with Test Client",
+      "timestamp": "2026-06-04T13:05:39.162Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 5,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: Test Meeting with Test Client",
+      "timestamp": "2026-06-04T13:05:42.467Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 6,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: Test Meeting with Test Client",
+      "timestamp": "2026-06-04T13:05:44.741Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 7,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: Quarterly Operations Review with Northwind Logistics",
+      "timestamp": "2026-06-04T13:16:55.340Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 8,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: Quarterly Operations Review with Northwind Logistics",
+      "timestamp": "2026-06-04T14:16:45.332Z",
+      "user_id": 6,
+      "employee_name": "Kash Sharma"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 9,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: Quarterly Operations Review with Northwind Logistics",
+      "timestamp": "2026-06-05T04:44:13.322Z",
+      "user_id": 6,
+      "employee_name": "Kash Sharma"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 10,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at xyz [Unverified (Out of Geofence)]",
+      "timestamp": "2026-06-05T05:37:49.918Z",
+      "user_id": 6,
+      "employee_name": "Kash Sharma"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 11,
+    "fields": {
+      "event_type": "FORM_SUBMIT",
+      "description": "Report form submitted for xyz",
+      "timestamp": "2026-06-05T05:38:43.445Z",
+      "user_id": 6,
+      "employee_name": "Kash Sharma"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 12,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: project related with manthan",
+      "timestamp": "2026-06-05T08:14:48.083Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 13,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: project related with manthan",
+      "timestamp": "2026-06-06T06:13:08.997Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 14,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: project related with manthan",
+      "timestamp": "2026-06-06T06:35:09.879Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 15,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: project related with manthan",
+      "timestamp": "2026-06-06T06:47:31.782Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 16,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: project related with manthan",
+      "timestamp": "2026-06-06T06:48:13.677Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 17,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Ended: project related with manthan",
+      "timestamp": "2026-06-06T07:04:22.651Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 18,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: project related with manthan",
+      "timestamp": "2026-06-06T07:18:55.871Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 19,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Ended: project related with manthan",
+      "timestamp": "2026-06-06T07:19:11.943Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 20,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: Quarterly Operations Review with Northwind Logistics",
+      "timestamp": "2026-06-06T07:28:16.523Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 21,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Ended: Quarterly Operations Review with Northwind Logistics",
+      "timestamp": "2026-06-06T07:28:42.500Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 22,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: project related with manthan",
+      "timestamp": "2026-06-06T07:35:28.255Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 23,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: project related with manthan",
+      "timestamp": "2026-06-06T07:36:27.586Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 24,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Ended: project related with manthan",
+      "timestamp": "2026-06-06T07:36:44.352Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 25,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: project related with manthan",
+      "timestamp": "2026-06-06T10:25:52.755Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 26,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Ended: project related with manthan",
+      "timestamp": "2026-06-06T10:26:06.483Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 27,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: project research with kash Sharma",
+      "timestamp": "2026-06-06T11:28:44.829Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 28,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: project research with kash Sharma",
+      "timestamp": "2026-06-06T11:46:54.630Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 29,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Ended: project research with kash Sharma",
+      "timestamp": "2026-06-06T11:47:12.276Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 30,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: development related with mohit pasi",
+      "timestamp": "2026-06-06T12:03:16.853Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 31,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: development related with mohit pasi",
+      "timestamp": "2026-06-06T12:07:12.898Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 32,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Ended: development related with mohit pasi",
+      "timestamp": "2026-06-06T12:32:44.235Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 33,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: App development with pravesh singh",
+      "timestamp": "2026-06-06T12:51:52.341Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 34,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: App development with pravesh singh",
+      "timestamp": "2026-06-06T12:52:46.936Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 35,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Test Site' was added to the system.",
+      "timestamp": "2026-06-06T12:55:37.952Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 36,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Samruddhi Commercial Complex, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T13:35:56.518Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 37,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Samruddhi Commercial Complex, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T13:53:58.415Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 38,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Kane Plaza, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T14:01:00.316Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 39,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Ad-Hoc Location A' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T14:04:37.518Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 40,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Ad-Hoc Location A' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T14:10:15.118Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 41,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Ad-Hoc Location A [Verified]",
+      "timestamp": "2026-06-06T14:10:15.136Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 42,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Kane Plaza, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T14:11:30.694Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 43,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Kane Plaza, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-06T14:11:30.714Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 44,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Samruddhi Commercial Complex, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T14:15:46.014Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 45,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Samruddhi Commercial Complex, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-06T14:15:46.053Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 46,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Ad-Hoc Location A' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T14:16:45.953Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 47,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Ad-Hoc Location A [Verified]",
+      "timestamp": "2026-06-06T14:16:45.971Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 48,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Kane Plaza, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-06T14:22:59.591Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 49,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Kane Plaza, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-06T14:22:59.613Z",
+      "user_id": 2,
+      "employee_name": "Charlie Davis"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 50,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: demo with kash",
+      "timestamp": "2026-06-08T05:51:07.053Z",
+      "user_id": 7,
+      "employee_name": "Guru"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 51,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: demo with kash",
+      "timestamp": "2026-06-08T06:11:48.396Z",
+      "user_id": 7,
+      "employee_name": "Guru"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 52,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Samruddhi Commercial Complex, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-08T06:17:39.574Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 53,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Samruddhi Commercial Complex, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-08T06:17:39.610Z",
+      "user_id": 7,
+      "employee_name": "Guru"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 54,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: demo with mohit",
+      "timestamp": "2026-06-08T06:56:58.859Z",
+      "user_id": 7,
+      "employee_name": "Guru"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 55,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: demo with mohit",
+      "timestamp": "2026-06-08T07:12:26.329Z",
+      "user_id": 7,
+      "employee_name": "Guru"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 56,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Samruddhi Commercial Complex, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-08T07:14:55.849Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 57,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Samruddhi Commercial Complex, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-08T07:14:55.870Z",
+      "user_id": 7,
+      "employee_name": "Guru"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 58,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: deno with kash",
+      "timestamp": "2026-06-08T07:23:19.783Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 59,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: deno with kash",
+      "timestamp": "2026-06-08T07:26:20.690Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 60,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Samruddhi Commercial Complex, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-08T07:27:07.368Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 61,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Samruddhi Commercial Complex, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-08T07:27:07.396Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 62,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: demo meeting with manthan (7.38km)",
+      "timestamp": "2026-06-08T07:57:03.705Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 63,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: demo meeting with manthan",
+      "timestamp": "2026-06-08T07:57:15.699Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 64,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Samruddhi Commercial Complex, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-08T07:57:33.426Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 65,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Samruddhi Commercial Complex, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-08T07:57:33.452Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 66,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: demo meeting with logicon (7.38km)",
+      "timestamp": "2026-06-08T08:29:04.756Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 67,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: demo meeting with logicon",
+      "timestamp": "2026-06-08T08:30:36.707Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 68,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Samruddhi Commercial Complex, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-08T08:34:54.206Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 69,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Samruddhi Commercial Complex, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-08T08:34:54.240Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 70,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: demo meetings with nitesh demo (17.68km)",
+      "timestamp": "2026-06-08T08:44:37.450Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 71,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: demo meetings with nitesh demo",
+      "timestamp": "2026-06-08T12:01:41.870Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 72,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: tere with test (8.51km)",
+      "timestamp": "2026-06-08T12:07:31.534Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 73,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: tere with test",
+      "timestamp": "2026-06-08T12:10:10.901Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 74,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: tere with test",
+      "timestamp": "2026-06-08T12:10:10.926Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 75,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Kane Plaza, Mumbai, Maharashtra, India' was added automatically via Check-in.",
+      "timestamp": "2026-06-08T12:10:28.291Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 76,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Kane Plaza, Mumbai, Maharashtra, India [Verified]",
+      "timestamp": "2026-06-08T12:10:28.314Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 77,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Ad-Hoc Check-In' was added automatically via Check-in.",
+      "timestamp": "2026-06-08T12:57:27.808Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 78,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Ad-Hoc Check-In [Verified]",
+      "timestamp": "2026-06-08T12:57:27.828Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 79,
+    "fields": {
+      "event_type": "FORM_SUBMIT",
+      "description": "Report form submitted for Kane Plaza, Mumbai, Maharashtra, India",
+      "timestamp": "2026-06-09T06:38:50.164Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 80,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Ad-Hoc Meeting created: hshsnss with kash (7.38km)",
+      "timestamp": "2026-06-09T07:11:36.343Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 81,
+    "fields": {
+      "event_type": "OTHER",
+      "description": "Meeting Started: hshsnss with kash",
+      "timestamp": "2026-06-09T07:12:37.753Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 82,
+    "fields": {
+      "event_type": "SITE_ADD",
+      "description": "Site 'Ad-Hoc Check-In' was added automatically via Check-in.",
+      "timestamp": "2026-06-09T07:33:09.039Z",
+      "user_id": null,
+      "employee_name": null
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 83,
+    "fields": {
+      "event_type": "CHECK_IN",
+      "description": "Check-in at Ad-Hoc Check-In [Verified]",
+      "timestamp": "2026-06-09T07:33:09.068Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.auditlog",
+    "pk": 84,
+    "fields": {
+      "event_type": "FORM_SUBMIT",
+      "description": "Report form submitted for Ad-Hoc Check-In",
+      "timestamp": "2026-06-09T08:37:53.237Z",
+      "user_id": 8,
+      "employee_name": "Logicon"
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 1,
+    "fields": {
+      "employee": 5,
+      "client_name": "Acme Corp",
+      "meeting_title": "Initial Pitch",
+      "meeting_type": "Sales",
+      "date": "2026-06-08",
+      "time": "14:30:00",
+      "location_name": "Downtown Cafe",
+      "priority": "High",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": null,
+      "current_lat": "12.971598",
+      "current_lng": "77.594562",
+      "destination_lat": "12.981598",
+      "destination_lng": "77.604562",
+      "created_at": "2026-06-04T12:52:18.230Z",
+      "updated_at": "2026-06-08T07:47:30.992Z",
+      "distance_km": 1.55,
+      "fuel_cost": 12.4,
+      "fuel_approved": false,
+      "start_time": null,
+      "start_lat": null,
+      "start_lng": null,
+      "end_time": "2026-06-04T13:37:18.230Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 2,
+    "fields": {
+      "employee": 2,
+      "client_name": "Test Client",
+      "meeting_title": "Test Meeting",
+      "meeting_type": "Sales",
+      "date": "2026-06-08",
+      "time": "14:30:00",
+      "location_name": "Test Location",
+      "priority": "High",
+      "status": "Upcoming",
+      "contact_person": null,
+      "designation": null,
+      "description": null,
+      "current_lat": "12.971598",
+      "current_lng": "77.594562",
+      "destination_lat": "12.981598",
+      "destination_lng": "77.604562",
+      "created_at": "2026-06-04T13:04:42.295Z",
+      "updated_at": "2026-06-08T07:36:31.241Z",
+      "distance_km": 1.55,
+      "fuel_cost": 12.4,
+      "fuel_approved": false,
+      "start_time": null,
+      "start_lat": null,
+      "start_lng": null,
+      "end_time": null,
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 3,
+    "fields": {
+      "employee": 2,
+      "client_name": "Test Client",
+      "meeting_title": "Test Meeting",
+      "meeting_type": "Sales",
+      "date": "2026-06-08",
+      "time": "14:30:00",
+      "location_name": "Test Location",
+      "priority": "High",
+      "status": "Upcoming",
+      "contact_person": null,
+      "designation": null,
+      "description": null,
+      "current_lat": "12.971598",
+      "current_lng": "77.594562",
+      "destination_lat": "12.981598",
+      "destination_lng": "77.604562",
+      "created_at": "2026-06-04T13:05:39.149Z",
+      "updated_at": "2026-06-08T07:36:31.247Z",
+      "distance_km": 1.55,
+      "fuel_cost": 12.4,
+      "fuel_approved": false,
+      "start_time": null,
+      "start_lat": null,
+      "start_lng": null,
+      "end_time": null,
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 4,
+    "fields": {
+      "employee": 2,
+      "client_name": "Test Client",
+      "meeting_title": "Test Meeting",
+      "meeting_type": "Sales",
+      "date": "2026-06-08",
+      "time": "14:30:00",
+      "location_name": "Test Location",
+      "priority": "High",
+      "status": "Upcoming",
+      "contact_person": null,
+      "designation": null,
+      "description": null,
+      "current_lat": "12.971598",
+      "current_lng": "77.594562",
+      "destination_lat": "12.981598",
+      "destination_lng": "77.604562",
+      "created_at": "2026-06-04T13:05:42.458Z",
+      "updated_at": "2026-06-08T07:36:31.252Z",
+      "distance_km": 1.55,
+      "fuel_cost": 12.4,
+      "fuel_approved": false,
+      "start_time": null,
+      "start_lat": null,
+      "start_lng": null,
+      "end_time": null,
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 5,
+    "fields": {
+      "employee": 2,
+      "client_name": "Test Client",
+      "meeting_title": "Test Meeting",
+      "meeting_type": "Sales",
+      "date": "2026-06-08",
+      "time": "14:30:00",
+      "location_name": "Test Location",
+      "priority": "High",
+      "status": "Upcoming",
+      "contact_person": null,
+      "designation": null,
+      "description": null,
+      "current_lat": "12.971598",
+      "current_lng": "77.594562",
+      "destination_lat": "12.981598",
+      "destination_lng": "77.604562",
+      "created_at": "2026-06-04T13:05:44.733Z",
+      "updated_at": "2026-06-08T07:36:31.257Z",
+      "distance_km": 1.55,
+      "fuel_cost": 12.4,
+      "fuel_approved": false,
+      "start_time": null,
+      "start_lat": null,
+      "start_lng": null,
+      "end_time": null,
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 6,
+    "fields": {
+      "employee": 2,
+      "client_name": "Northwind Logistics",
+      "meeting_title": "Quarterly Operations Review",
+      "meeting_type": "On-site",
+      "date": "2026-06-08",
+      "time": "10:30:00",
+      "location_name": "Tower B, Cyber Hub, Sector 24, Gurugram",
+      "priority": "High",
+      "status": "Closed",
+      "contact_person": "Priya Menon",
+      "designation": "VP Operations",
+      "description": "Discussing Q2 metrics",
+      "current_lat": "28.495000",
+      "current_lng": "77.089000",
+      "destination_lat": "28.495200",
+      "destination_lng": "77.089500",
+      "created_at": "2026-06-04T13:16:55.332Z",
+      "updated_at": "2026-06-08T07:36:31.293Z",
+      "distance_km": 0.05,
+      "fuel_cost": 0.4,
+      "fuel_approved": false,
+      "start_time": "2026-06-06T07:28:16.511Z",
+      "start_lat": "19.178448",
+      "start_lng": "72.834517",
+      "end_time": "2026-06-06T07:28:42.470Z",
+      "end_lat": "19.178434",
+      "end_lng": "72.834533",
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 7,
+    "fields": {
+      "employee": 6,
+      "client_name": "Northwind Logistics",
+      "meeting_title": "Quarterly Operations Review",
+      "meeting_type": "On-site",
+      "date": "2026-06-08",
+      "time": "10:30:00",
+      "location_name": "Tower B, Cyber Hub, Sector 24, Gurugram",
+      "priority": "High",
+      "status": "Upcoming",
+      "contact_person": "Priya Menon",
+      "designation": "VP Operations",
+      "description": "Discussing Q2 metrics",
+      "current_lat": "28.495000",
+      "current_lng": "77.089000",
+      "destination_lat": "28.495200",
+      "destination_lng": "77.089500",
+      "created_at": "2026-06-04T14:16:45.311Z",
+      "updated_at": "2026-06-08T07:36:31.300Z",
+      "distance_km": 0.05,
+      "fuel_cost": 0.4,
+      "fuel_approved": false,
+      "start_time": null,
+      "start_lat": null,
+      "start_lng": null,
+      "end_time": null,
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 8,
+    "fields": {
+      "employee": 6,
+      "client_name": "Northwind Logistics",
+      "meeting_title": "Quarterly Operations Review",
+      "meeting_type": "On-site",
+      "date": "2026-06-08",
+      "time": "10:30:00",
+      "location_name": "Tower B, Cyber Hub, Sector 24, Gurugram",
+      "priority": "High",
+      "status": "Upcoming",
+      "contact_person": "Priya Menon",
+      "designation": "VP Operations",
+      "description": "Discussing Q2 metrics",
+      "current_lat": "28.495000",
+      "current_lng": "77.089000",
+      "destination_lat": "28.495200",
+      "destination_lng": "77.089500",
+      "created_at": "2026-06-05T04:44:13.305Z",
+      "updated_at": "2026-06-08T07:36:31.306Z",
+      "distance_km": 0.05,
+      "fuel_cost": 0.4,
+      "fuel_approved": false,
+      "start_time": null,
+      "start_lat": null,
+      "start_lng": null,
+      "end_time": null,
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 9,
+    "fields": {
+      "employee": 2,
+      "client_name": "manthan",
+      "meeting_title": "project related",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "13:44:00",
+      "location_name": "Andheri East, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "demo",
+      "current_lat": "19.178470",
+      "current_lng": "72.834510",
+      "destination_lat": "19.117850",
+      "destination_lng": "72.863130",
+      "created_at": "2026-06-05T08:14:48.072Z",
+      "updated_at": "2026-06-08T07:36:31.269Z",
+      "distance_km": 7.38,
+      "fuel_cost": 59.04,
+      "fuel_approved": false,
+      "start_time": "2026-06-06T07:18:55.864Z",
+      "start_lat": "19.178433",
+      "start_lng": "72.834537",
+      "end_time": "2026-06-06T07:19:11.935Z",
+      "end_lat": "19.178426",
+      "end_lng": "72.834523",
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 10,
+    "fields": {
+      "employee": 2,
+      "client_name": "manthan",
+      "meeting_title": "project related",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "14:05:00",
+      "location_name": "Andheri East, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "demo",
+      "current_lat": "19.178460",
+      "current_lng": "72.834510",
+      "destination_lat": "19.117850",
+      "destination_lng": "72.863130",
+      "created_at": "2026-06-06T07:35:28.249Z",
+      "updated_at": "2026-06-08T07:36:31.262Z",
+      "distance_km": 7.38,
+      "fuel_cost": 59.04,
+      "fuel_approved": false,
+      "start_time": "2026-06-06T10:25:52.704Z",
+      "start_lat": "19.178435",
+      "start_lng": "72.834515",
+      "end_time": "2026-06-06T10:26:06.463Z",
+      "end_lat": "19.178440",
+      "end_lng": "72.834526",
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 11,
+    "fields": {
+      "employee": 2,
+      "client_name": "kash Sharma",
+      "meeting_title": "project research",
+      "meeting_type": "Client Visit",
+      "date": "2026-06-08",
+      "time": "16:57:00",
+      "location_name": "Colaba Causeway, Badhwar Park, Azad Nagar, Colaba, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "demo testing",
+      "current_lat": "19.178440",
+      "current_lng": "72.834520",
+      "destination_lat": "18.916100",
+      "destination_lng": "72.826440",
+      "created_at": "2026-06-06T11:28:44.822Z",
+      "updated_at": "2026-06-08T07:36:31.231Z",
+      "distance_km": 29.18,
+      "fuel_cost": 233.44,
+      "fuel_approved": false,
+      "start_time": "2026-06-06T11:46:54.609Z",
+      "start_lat": "19.178429",
+      "start_lng": "72.834519",
+      "end_time": "2026-06-06T11:47:12.264Z",
+      "end_lat": "19.178424",
+      "end_lng": "72.834527",
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 12,
+    "fields": {
+      "employee": 2,
+      "client_name": "mohit pasi",
+      "meeting_title": "development related",
+      "meeting_type": "Client Visit",
+      "date": "2026-06-08",
+      "time": "17:32:00",
+      "location_name": "Dadar Railway Station, Dadar, Mumbai, Maharashtra",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "this deno",
+      "current_lat": "19.178430",
+      "current_lng": "72.834530",
+      "destination_lat": "19.019710",
+      "destination_lng": "72.843790",
+      "created_at": "2026-06-06T12:03:16.843Z",
+      "updated_at": "2026-06-08T07:36:31.225Z",
+      "distance_km": 17.68,
+      "fuel_cost": 141.44,
+      "fuel_approved": false,
+      "start_time": "2026-06-06T12:07:12.892Z",
+      "start_lat": "19.178429",
+      "start_lng": "72.834530",
+      "end_time": "2026-06-06T12:32:44.223Z",
+      "end_lat": "19.178435",
+      "end_lng": "72.834527",
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 13,
+    "fields": {
+      "employee": 2,
+      "client_name": "pravesh singh",
+      "meeting_title": "App development",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "18:20:00",
+      "location_name": "Prabhadevi, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "urgent meeting",
+      "current_lat": "19.178430",
+      "current_lng": "72.834530",
+      "destination_lat": "19.016330",
+      "destination_lng": "72.829110",
+      "created_at": "2026-06-06T12:51:52.333Z",
+      "updated_at": "2026-06-08T07:47:30.978Z",
+      "distance_km": 18.03,
+      "fuel_cost": 144.24,
+      "fuel_approved": false,
+      "start_time": "2026-06-06T12:52:46.928Z",
+      "start_lat": "19.178432",
+      "start_lng": "72.834525",
+      "end_time": "2026-06-06T13:36:52.333Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 14,
+    "fields": {
+      "employee": 7,
+      "client_name": "kash",
+      "meeting_title": "demo",
+      "meeting_type": "Client Visit",
+      "date": "2026-06-08",
+      "time": "11:20:00",
+      "location_name": "Andheri Railway Station East Northern Overpass, Railway Colony, Andheri East, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "Okk",
+      "current_lat": "19.178450",
+      "current_lng": "72.834530",
+      "destination_lat": "19.119830",
+      "destination_lng": "72.847370",
+      "created_at": "2026-06-08T05:51:07.042Z",
+      "updated_at": "2026-06-08T07:47:31.009Z",
+      "distance_km": 6.66,
+      "fuel_cost": 53.28,
+      "fuel_approved": false,
+      "start_time": "2026-06-08T06:11:48.382Z",
+      "start_lat": "19.178460",
+      "start_lng": "72.834518",
+      "end_time": "2026-06-08T06:36:07.042Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 15,
+    "fields": {
+      "employee": 7,
+      "client_name": "mohit",
+      "meeting_title": "demo",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "12:26:00",
+      "location_name": "Dadar Railway Station, Dadar, Mumbai, Maharashtra",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "demo",
+      "current_lat": "19.178420",
+      "current_lng": "72.834520",
+      "destination_lat": "19.019710",
+      "destination_lng": "72.843790",
+      "created_at": "2026-06-08T06:56:58.852Z",
+      "updated_at": "2026-06-08T07:47:31.004Z",
+      "distance_km": 17.67,
+      "fuel_cost": 141.36,
+      "fuel_approved": false,
+      "start_time": "2026-06-08T07:12:26.320Z",
+      "start_lat": "19.178470",
+      "start_lng": "72.834495",
+      "end_time": "2026-06-08T07:41:58.852Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 16,
+    "fields": {
+      "employee": 8,
+      "client_name": "kash",
+      "meeting_title": "deno",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "12:52:00",
+      "location_name": "Lokhandwala, Andheri West, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "hello",
+      "current_lat": "19.178460",
+      "current_lng": "72.834510",
+      "destination_lat": "19.143590",
+      "destination_lng": "72.824630",
+      "created_at": "2026-06-08T07:23:19.771Z",
+      "updated_at": "2026-06-08T07:47:30.998Z",
+      "distance_km": 4.01,
+      "fuel_cost": 32.08,
+      "fuel_approved": false,
+      "start_time": "2026-06-08T07:26:20.676Z",
+      "start_lat": "19.178429",
+      "start_lng": "72.834528",
+      "end_time": "2026-06-08T08:08:19.771Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 17,
+    "fields": {
+      "employee": 8,
+      "client_name": "manthan",
+      "meeting_title": "demo meeting",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "13:26:00",
+      "location_name": "Andheri East, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "demo description",
+      "current_lat": "19.178430",
+      "current_lng": "72.834520",
+      "destination_lat": "19.117850",
+      "destination_lng": "72.863130",
+      "created_at": "2026-06-08T07:57:03.689Z",
+      "updated_at": "2026-06-08T07:57:33.432Z",
+      "distance_km": 7.38,
+      "fuel_cost": 59.04,
+      "fuel_approved": false,
+      "start_time": "2026-06-08T07:57:15.688Z",
+      "start_lat": "19.178435",
+      "start_lng": "72.834522",
+      "end_time": "2026-06-08T07:57:33.432Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 18,
+    "fields": {
+      "employee": 8,
+      "client_name": "logicon",
+      "meeting_title": "demo meeting",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "13:57:00",
+      "location_name": "Andheri East, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "demo description",
+      "current_lat": "19.178440",
+      "current_lng": "72.834530",
+      "destination_lat": "19.117850",
+      "destination_lng": "72.863130",
+      "created_at": "2026-06-08T08:29:04.743Z",
+      "updated_at": "2026-06-08T08:34:54.214Z",
+      "distance_km": 7.38,
+      "fuel_cost": 59.04,
+      "fuel_approved": false,
+      "start_time": "2026-06-08T08:30:36.695Z",
+      "start_lat": "19.178424",
+      "start_lng": "72.834527",
+      "end_time": "2026-06-08T08:34:54.214Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 19,
+    "fields": {
+      "employee": 8,
+      "client_name": "nitesh demo",
+      "meeting_title": "demo meetings",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "14:13:00",
+      "location_name": "Dadar Railway Station, Dadar, Mumbai, Maharashtra",
+      "priority": "High",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "demo description",
+      "current_lat": "19.178440",
+      "current_lng": "72.834520",
+      "destination_lat": "19.019710",
+      "destination_lng": "72.843790",
+      "created_at": "2026-06-08T08:44:37.435Z",
+      "updated_at": "2026-06-08T12:57:27.814Z",
+      "distance_km": 17.68,
+      "fuel_cost": 141.44,
+      "fuel_approved": false,
+      "start_time": "2026-06-08T12:01:41.854Z",
+      "start_lat": "19.178435",
+      "start_lng": "72.834523",
+      "end_time": "2026-06-08T12:57:27.814Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 20,
+    "fields": {
+      "employee": 8,
+      "client_name": "test",
+      "meeting_title": "tere",
+      "meeting_type": "Demo",
+      "date": "2026-06-08",
+      "time": "17:36:00",
+      "location_name": "Parleshwar Mandir, Mahatma Gandhi Road, Navpada, Vile Parle East, Vile Parle, Mumbai, Maharashtra, India",
+      "priority": "High",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "gfrfhhff htfff",
+      "current_lat": "19.178480",
+      "current_lng": "72.834490",
+      "destination_lat": "19.102850",
+      "destination_lng": "72.847010",
+      "created_at": "2026-06-08T12:07:31.517Z",
+      "updated_at": "2026-06-09T06:38:50.156Z",
+      "distance_km": 8.51,
+      "fuel_cost": 68.08,
+      "fuel_approved": false,
+      "start_time": "2026-06-08T12:10:10.889Z",
+      "start_lat": "19.178469",
+      "start_lng": "72.834513",
+      "end_time": "2026-06-08T12:10:28.297Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  },
+  {
+    "model": "field_tracking.adhocmeeting",
+    "pk": 21,
+    "fields": {
+      "employee": 8,
+      "client_name": "kash",
+      "meeting_title": "hshsnss",
+      "meeting_type": "Demo",
+      "date": "2026-06-09",
+      "time": "12:25:00",
+      "location_name": "Andheri East, Mumbai, Maharashtra, India",
+      "priority": "Medium",
+      "status": "Closed",
+      "contact_person": null,
+      "designation": null,
+      "description": "ghfrthh",
+      "current_lat": "19.178430",
+      "current_lng": "72.834530",
+      "destination_lat": "19.117850",
+      "destination_lng": "72.863130",
+      "created_at": "2026-06-09T07:11:36.329Z",
+      "updated_at": "2026-06-09T08:37:53.225Z",
+      "distance_km": 7.38,
+      "fuel_cost": 59.04,
+      "fuel_approved": false,
+      "start_time": "2026-06-09T07:12:37.744Z",
+      "start_lat": "19.178451",
+      "start_lng": "72.834515",
+      "end_time": "2026-06-09T07:33:09.047Z",
+      "end_lat": null,
+      "end_lng": null,
+      "photo": ""
+    }
+  }
+]
