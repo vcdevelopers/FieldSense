@@ -63,9 +63,15 @@ def process_checklist_report_data(data, request=None):
     for key in list(data.keys()):
         if key.startswith('photo_'):
             file_obj = data.pop(key)
-            if isinstance(file_obj, list):
+            while isinstance(file_obj, list):
+                if not file_obj:
+                    file_obj = None
+                    break
                 file_obj = file_obj[0]
                 
+            if not file_obj:
+                continue
+
             path = default_storage.save(f'visit_proofs/{file_obj.name}', file_obj)
             url = default_storage.url(path)
             if request:
