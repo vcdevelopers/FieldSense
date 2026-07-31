@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from .models import Site, DailyRoute, RouteStop, VisitLog, SiteVisitFormTemplate
 from .serializers import SiteSerializer, DailyRouteSerializer, VisitLogSerializer, SiteVisitFormTemplateSerializer
 from .utils import calculate_haversine_distance
-from drf_spectacular.utils import extend_schema, OpenApiExample
+from drf_spectacular.utils import extend_schema, extend_schema_view, OpenApiExample
 
 class IsAdminOrManagerWeb(permissions.BasePermission):
     def has_permission(self, request, view):
@@ -160,9 +160,26 @@ class CheckInView(generics.CreateAPIView):
             employee_name=user.get_full_name() or user.username
         )
 
-class VisitLogUpdateView(generics.UpdateAPIView):
+@extend_schema_view(
+    get=extend_schema(
+        tags=['field-tracking'],
+        summary="Get Submitted Visit Checklist Data",
+        description="Retrieves a specific visit log and its submitted checklist form response (report_data), uploaded photo proof, and check-in details."
+    ),
+    put=extend_schema(
+        tags=['field-tracking'],
+        summary="Submit or Update Visit Checklist Data",
+        description="Submits or updates the checklist form response (report_data) and photo proof for a specific visit log."
+    ),
+    patch=extend_schema(
+        tags=['field-tracking'],
+        summary="Partial Update Visit Checklist Data",
+        description="Partially updates the checklist form response (report_data) for a specific visit log."
+    )
+)
+class VisitLogUpdateView(generics.RetrieveUpdateAPIView):
     """
-    Allows mobile apps to submit or update the report_data (filled form) for a specific VisitLog.
+    Allows mobile apps to view (GET) or submit/update (PUT/PATCH) the report_data (filled form) for a specific VisitLog.
     """
     serializer_class = VisitLogSerializer
     permission_classes = [AllowAny]
@@ -958,10 +975,22 @@ class OfflineSyncView(APIView):
 from .serializers import AdHocMeetingSerializer
 from .models import AdHocMeeting
 
+@extend_schema_view(
+    get=extend_schema(
+        tags=['field-tracking'],
+        summary="List Meetings (Today or Future Dates)",
+        description="Returns list of meetings assigned to the logged-in user. Supports filtering by date (?date=YYYY-MM-DD or ?date=DD/MM/YYYY), status (?status=Completed), and search (?search=query)."
+    ),
+    post=extend_schema(
+        tags=['field-tracking'],
+        summary="Create Meeting (Today or Future Date)",
+        description="Creates a new meeting for today or a future date specified in the request payload (date field accepts YYYY-MM-DD, DD/MM/YYYY)."
+    )
+)
 class AdHocMeetingListCreateView(generics.ListCreateAPIView):
     """
-    Allows mobile app to list their previous meetings or create a new spontaneous meeting.
-    Supports filtering by ?status=Completed and searching by ?search=Acme
+    Allows mobile app to list their previous meetings or create a new meeting for today or future dates.
+    Supports filtering by ?date=YYYY-MM-DD, ?status=Completed, and searching by ?search=Acme
     """
     serializer_class = AdHocMeetingSerializer
     permission_classes = [IsAuthenticated]
@@ -970,6 +999,29 @@ class AdHocMeetingListCreateView(generics.ListCreateAPIView):
         from django.db.models import Q
         qs = AdHocMeeting.objects.filter(employee=self.request.user).order_by('-date', '-time')
         
+        # Date Filter
+        date_param = self.request.query_params.get('date', None)
+        if date_param:
+            try:
+                from django.utils import timezone
+                if '-' in date_param:
+                    parts = date_param.split('-')
+                    if len(parts[0]) == 4:
+                        parsed_date = timezone.datetime.strptime(date_param, '%Y-%m-%d').date()
+                    else:
+                        parsed_date = timezone.datetime.strptime(date_param, '%d-%m-%Y').date()
+                elif '/' in date_param:
+                    parts = date_param.split('/')
+                    if len(parts[2]) == 4:
+                        parsed_date = timezone.datetime.strptime(date_param, '%d/%m/%Y').date()
+                    else:
+                        parsed_date = timezone.datetime.strptime(date_param, '%Y/%m/%d').date()
+                else:
+                    parsed_date = date_param
+                qs = qs.filter(date=parsed_date)
+            except Exception:
+                pass
+
         # Status Filter
         status_param = self.request.query_params.get('status', None)
         if status_param:
@@ -991,9 +1043,9 @@ class AdHocMeetingListCreateView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         from django.utils import timezone
-        # Force the meeting date to today to prevent formatting bugs from the mobile app (YYYY-DD-MM vs YYYY-MM-DD)
-        # since Ad-Hoc meetings are spontaneous and meant to occur today.
-        meeting = serializer.save(employee=self.request.user, date=timezone.now().date())
+        # Use provided meeting date if submitted by the mobile app/client, otherwise default to today
+        meeting_date = serializer.validated_data.get('date') or timezone.now().date()
+        meeting = serializer.save(employee=self.request.user, date=meeting_date)
         
         # Calculate distance and estimated fuel cost
         if meeting.current_lat and meeting.current_lng and meeting.destination_lat and meeting.destination_lng:
@@ -1015,6 +1067,28 @@ class AdHocMeetingListCreateView(generics.ListCreateAPIView):
             employee_name=self.request.user.get_full_name() or self.request.user.username
         )
 
+@extend_schema_view(
+    get=extend_schema(
+        tags=['field-tracking'],
+        summary="Get Meeting Details & Submitted MOM/Checklist Data",
+        description="Retrieves full details of a specific meeting including submitted MOM or checklist data (report_data) and photo proof."
+    ),
+    put=extend_schema(
+        tags=['field-tracking'],
+        summary="Update Meeting Details",
+        description="Updates details of a specific meeting."
+    ),
+    patch=extend_schema(
+        tags=['field-tracking'],
+        summary="Partial Update Meeting Details",
+        description="Partially updates details of a specific meeting."
+    ),
+    delete=extend_schema(
+        tags=['field-tracking'],
+        summary="Delete Meeting",
+        description="Deletes a specific meeting."
+    )
+)
 class AdHocMeetingDetailView(generics.RetrieveUpdateDestroyAPIView):
     """
     Allows mobile app to view or update a specific meeting.
@@ -1074,7 +1148,7 @@ def get_employee_stats(user, month=None, year=None):
             'site_name': f"{m.meeting_title} ({m.client_name})",
             'time': time_combined,
             'status': 'Ad-Hoc',
-            'report_data': None
+            'report_data': m.report_data
         })
         
     recent_visits.sort(key=lambda x: x['time'], reverse=True)
