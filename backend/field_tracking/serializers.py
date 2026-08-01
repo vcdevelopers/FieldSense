@@ -86,19 +86,12 @@ class VisitLogSerializer(serializers.ModelSerializer):
 
     def to_representation(self, instance):
         ret = super().to_representation(instance)
-        if ret.get('report_data'):
-            if isinstance(ret['report_data'], str):
-                try:
-                    import json
-                    ret['report_data'] = json.loads(ret['report_data'])
-                except Exception:
-                    pass
-            if isinstance(ret['report_data'], dict) and isinstance(ret['report_data'].get('data'), str):
-                try:
-                    import json
-                    ret['report_data']['data'] = json.loads(ret['report_data']['data'])
-                except Exception:
-                    pass
+        if ret.get('report_data') and isinstance(ret['report_data'], str):
+            try:
+                import json
+                ret['report_data'] = json.loads(ret['report_data'])
+            except Exception:
+                pass
         return ret
 
 class SiteVisitFormTemplateSerializer(serializers.ModelSerializer):
@@ -126,8 +119,19 @@ import logging
 logger = logging.getLogger(__name__)
 
 class AdHocMeetingSerializer(serializers.ModelSerializer):
-    date = serializers.DateField(format='%d/%m/%Y', input_formats=['%m/%d/%Y', '%d/%m/%Y', '%Y-%m-%d', 'iso-8601'])
-    time = serializers.TimeField(format='%I:%M %p', input_formats=['%I:%M %p', '%H:%M', 'iso-8601'])
+    date = serializers.DateField(required=False, allow_null=True, format='%d/%m/%Y', input_formats=['%d/%m/%Y', '%d-%m-%Y', '%Y-%m-%d', '%m/%d/%Y', 'iso-8601'])
+    time = serializers.TimeField(required=False, allow_null=True, format='%I:%M %p', input_formats=['%I:%M %p', '%H:%M', '%H:%M:%S', '%I:%M:%S %p', 'iso-8601'])
+    current_lat = serializers.DecimalField(max_digits=9, decimal_places=6, required=False, allow_null=True)
+    current_lng = serializers.DecimalField(max_digits=9, decimal_places=6, required=False, allow_null=True)
+    destination_lat = serializers.DecimalField(max_digits=9, decimal_places=6, required=False, allow_null=True)
+    destination_lng = serializers.DecimalField(max_digits=9, decimal_places=6, required=False, allow_null=True)
+    location_name = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    client_name = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    meeting_title = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    meeting_type = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    priority = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+    status = serializers.CharField(required=False, allow_blank=True, allow_null=True)
+
     eta_time = serializers.SerializerMethodField()
     total_distance = serializers.SerializerMethodField()
     traffic_status = serializers.SerializerMethodField()
@@ -142,6 +146,51 @@ class AdHocMeetingSerializer(serializers.ModelSerializer):
         model = AdHocMeeting
         fields = '__all__'
         read_only_fields = ['employee', 'eta_time', 'total_distance', 'traffic_status', 'reached_time', 'duration', 'journey_distance', 'journey_traffic_condition', 'visit_report_data']
+
+    def to_internal_value(self, data):
+        if hasattr(data, '_mutable'):
+            data = data.copy()
+
+        for field in ['current_lat', 'current_lng', 'destination_lat', 'destination_lng']:
+            if field not in data or data[field] in [None, '', 'null', 'undefined']:
+                data[field] = 0.0
+
+        if not data.get('client_name'):
+            data['client_name'] = 'Client'
+        if not data.get('meeting_title'):
+            data['meeting_title'] = data.get('client_name', 'Meeting')
+        if not data.get('meeting_type'):
+            data['meeting_type'] = 'Client Visit'
+        if not data.get('location_name'):
+            data['location_name'] = 'Location'
+        if not data.get('priority'):
+            data['priority'] = 'Medium'
+        if not data.get('status'):
+            data['status'] = 'Upcoming'
+
+        if 'date' in data and data['date']:
+            d_str = str(data['date']).strip()
+            if 'T' in d_str:
+                d_str = d_str.split('T')[0]
+            if '/' in d_str:
+                parts = d_str.split('/')
+                if len(parts) == 3 and len(parts[2]) == 4:
+                    day, month, year = parts[0], parts[1], parts[2]
+                    d_str = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+            elif '-' in d_str:
+                parts = d_str.split('-')
+                if len(parts) == 3 and len(parts[2]) == 4:
+                    day, month, year = parts[0], parts[1], parts[2]
+                    d_str = f"{year}-{month.zfill(2)}-{day.zfill(2)}"
+            data['date'] = d_str
+
+        if 'time' in data and data['time']:
+            t_str = str(data['time']).strip()
+            if 'T' in t_str:
+                t_str = t_str.split('T')[1].split('.')[0].split('+')[0].split('Z')[0]
+                data['time'] = t_str
+
+        return super().to_internal_value(data)
 
     def get_google_maps_data(self, obj):
         # Cache the API result in the serializer context to avoid duplicate calls per meeting
