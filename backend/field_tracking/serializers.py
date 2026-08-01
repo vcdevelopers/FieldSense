@@ -84,6 +84,23 @@ class VisitLogSerializer(serializers.ModelSerializer):
             
         return super().to_internal_value(data)
 
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+        if ret.get('report_data'):
+            if isinstance(ret['report_data'], str):
+                try:
+                    import json
+                    ret['report_data'] = json.loads(ret['report_data'])
+                except Exception:
+                    pass
+            if isinstance(ret['report_data'], dict) and isinstance(ret['report_data'].get('data'), str):
+                try:
+                    import json
+                    ret['report_data']['data'] = json.loads(ret['report_data']['data'])
+                except Exception:
+                    pass
+        return ret
+
 class SiteVisitFormTemplateSerializer(serializers.ModelSerializer):
     class Meta:
         model = FormTemplate
@@ -119,11 +136,12 @@ class AdHocMeetingSerializer(serializers.ModelSerializer):
     duration = serializers.SerializerMethodField()
     journey_distance = serializers.SerializerMethodField()
     journey_traffic_condition = serializers.SerializerMethodField()
+    visit_report_data = serializers.SerializerMethodField()
 
     class Meta:
         model = AdHocMeeting
         fields = '__all__'
-        read_only_fields = ['employee', 'eta_time', 'total_distance', 'traffic_status', 'reached_time', 'duration', 'journey_distance', 'journey_traffic_condition']
+        read_only_fields = ['employee', 'eta_time', 'total_distance', 'traffic_status', 'reached_time', 'duration', 'journey_distance', 'journey_traffic_condition', 'visit_report_data']
 
     def get_google_maps_data(self, obj):
         # Cache the API result in the serializer context to avoid duplicate calls per meeting
@@ -327,6 +345,59 @@ class AdHocMeetingSerializer(serializers.ModelSerializer):
     def get_journey_traffic_condition(self, obj):
         data = self._get_journey_data(obj)
         return data['traffic_condition'] if data else None
+
+    def get_visit_report_data(self, obj):
+        linked_visit = obj.visit_logs.first()
+        if linked_visit and linked_visit.report_data:
+            data = linked_visit.report_data
+            if isinstance(data, str):
+                try:
+                    import json
+                    return json.loads(data)
+                except Exception:
+                    return data
+            return data
+        return None
+
+    def to_representation(self, instance):
+        ret = super().to_representation(instance)
+
+        def normalize_dict(obj):
+            if isinstance(obj, str):
+                try:
+                    import json
+                    obj = json.loads(obj)
+                except Exception:
+                    return obj
+            if isinstance(obj, dict):
+                if isinstance(obj.get('data'), str):
+                    try:
+                        import json
+                        obj['data'] = json.loads(obj['data'])
+                    except Exception:
+                        pass
+            return obj
+
+        if ret.get('report_data'):
+            ret['report_data'] = normalize_dict(ret['report_data'])
+
+        visit_data = ret.get('visit_report_data')
+        if visit_data:
+            visit_data = normalize_dict(visit_data)
+            ret['visit_report_data'] = visit_data
+
+            if not ret.get('report_data'):
+                ret['report_data'] = visit_data
+            elif isinstance(ret.get('report_data'), dict) and isinstance(visit_data, dict):
+                merged = dict(visit_data)
+                if isinstance(merged.get('data'), dict) and isinstance(ret['report_data'].get('data'), dict):
+                    merged_inner = dict(merged['data'])
+                    merged_inner.update(ret['report_data']['data'])
+                    merged['data'] = merged_inner
+                merged.update(ret['report_data'])
+                ret['report_data'] = merged
+
+        return ret
 
 from .models import FormTemplate
 

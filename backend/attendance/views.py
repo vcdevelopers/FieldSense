@@ -141,9 +141,26 @@ class AttendanceRecordViewSet(viewsets.ReadOnlyModelViewSet):
     
     def get_queryset(self):
         # Admins can see all, employees see their own
-        if self.request.user.is_staff or self.request.user.is_superuser: # Assuming basic admin check for now
-            return AttendanceRecord.objects.all()
-        return AttendanceRecord.objects.filter(employee=self.request.user)
+        if self.request.user.is_staff or self.request.user.is_superuser:
+            qs = AttendanceRecord.objects.all()
+        else:
+            qs = AttendanceRecord.objects.filter(employee=self.request.user)
+            
+        date_param = self.request.query_params.get('date', None)
+        if date_param:
+            qs = qs.filter(date=date_param)
+
+        start_date = self.request.query_params.get('start_date', None)
+        end_date = self.request.query_params.get('end_date', None)
+        if start_date and end_date:
+            qs = qs.filter(date__range=[start_date, end_date])
+
+        month = self.request.query_params.get('month', None)
+        year = self.request.query_params.get('year', None)
+        if month and year:
+            qs = qs.filter(date__month=month, date__year=year)
+
+        return qs.order_by('-date')
 
 class AdminDashboardAttendanceView(views.APIView):
 
