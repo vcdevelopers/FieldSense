@@ -1040,31 +1040,49 @@ class AdHocMeetingListCreateView(generics.ListCreateAPIView):
             )
             
         return qs
-    
+
     def perform_create(self, serializer):
-        from django.utils import timezone
-        # Use provided meeting date if submitted by the mobile app/client, otherwise default to today
-        meeting_date = serializer.validated_data.get('date') or timezone.now().date()
-        meeting = serializer.save(employee=self.request.user, date=meeting_date)
-        
-        # Calculate distance and estimated fuel cost
-        if meeting.current_lat and meeting.current_lng and meeting.destination_lat and meeting.destination_lng:
+        # The serializer already validated and converted the submitted date/time.
+        meeting = serializer.save(employee=self.request.user)
+
+        if all([
+            meeting.current_lat,
+            meeting.current_lng,
+            meeting.destination_lat,
+            meeting.destination_lng,
+        ]):
             from .utils import calculate_haversine_distance
+
             dist = calculate_haversine_distance(
-                float(meeting.current_lat), float(meeting.current_lng),
-                float(meeting.destination_lat), float(meeting.destination_lng)
+                float(meeting.current_lat),
+                float(meeting.current_lng),
+                float(meeting.destination_lat),
+                float(meeting.destination_lng),
             )
-            meeting.distance_km = round(dist / 1000.0, 2) # convert meters to km
-            # Assume ₹8 per km for fuel reimbursement (standard rate)
+
+            meeting.distance_km = round(dist / 1000.0, 2)
             meeting.fuel_cost = round(meeting.distance_km * 8.0, 2)
-            meeting.save()
+
+            # Do not perform a full model save.
+            meeting.save(update_fields=[
+                'distance_km',
+                'fuel_cost',
+            ])
 
         from .models import AuditLog
+
         AuditLog.objects.create(
             event_type='OTHER',
-            description=f"Ad-Hoc Meeting created: {meeting.meeting_title} with {meeting.client_name} ({meeting.distance_km}km)",
+            description=(
+                f"Ad-Hoc Meeting created: {meeting.meeting_title} "
+                f"with {meeting.client_name} "
+                f"({meeting.distance_km}km)"
+            ),
             user_id=self.request.user.id,
-            employee_name=self.request.user.get_full_name() or self.request.user.username
+            employee_name=(
+                self.request.user.get_full_name()
+                or self.request.user.username
+            ),
         )
 
 @extend_schema_view(
