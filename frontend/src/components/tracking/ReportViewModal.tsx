@@ -57,11 +57,35 @@ export function ReportViewModal({ isOpen, onClose, reportData, siteName, attachm
       
       setAllTemplates(combined);
 
-      // Set the initial template
+      // Auto-detect the real form_type from reportData keys
+      // If reportData is stored as { "form_type_slug": { ...answers } }, match to a template
+      let detectedFormType: string | null = null;
+      if (reportData && typeof reportData === 'object') {
+        const rdKeys = Object.keys(reportData);
+        for (const k of rdKeys) {
+          const match = combined.find((t: any) => t.form_type === k);
+          if (match) { detectedFormType = k; break; }
+        }
+      } else if (reportData && typeof reportData === 'string') {
+        try {
+          const parsed = JSON.parse(reportData);
+          const rdKeys = Object.keys(parsed);
+          for (const k of rdKeys) {
+            const match = combined.find((t: any) => t.form_type === k);
+            if (match) { detectedFormType = k; break; }
+          }
+        } catch {}
+      }
+
+      // Set the initial template — prefer detected form_type, then fall back to the passed reportType
       let current = null;
-      if (reportType === 'visit') current = siteVisit;
-      else if (reportType === 'meeting' || reportType === 'mom') current = mom;
-      else current = adminTemplates.find((t: any) => t.form_type === reportType || t.id.toString() === reportType);
+      const effectiveType = detectedFormType || reportType;
+      if (effectiveType === 'visit') current = siteVisit;
+      else if (effectiveType === 'meeting' || effectiveType === 'mom') current = mom;
+      else current = adminTemplates.find((t: any) => t.form_type === effectiveType || t.id?.toString() === effectiveType);
+      
+      // If detected, also update the active tab so the right tab is shown immediately
+      if (detectedFormType) setActiveTab(detectedFormType);
       
       setTemplate(current);
     } catch (error: any) {
@@ -71,6 +95,7 @@ export function ReportViewModal({ isOpen, onClose, reportData, siteName, attachm
       setLoading(false);
     }
   };
+
 
   const parsedReportData = useMemo(() => {
     if (!reportData) return null;

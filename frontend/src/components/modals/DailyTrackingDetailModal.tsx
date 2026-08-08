@@ -1765,11 +1765,24 @@ export function DailyTrackingDetailModal({
                                           <DropdownMenuContent align="end" className="min-w-[260px] p-1">
                                             {dynamicFormTemplates && dynamicFormTemplates.length > 0 ? (
                                               dynamicFormTemplates.map((template: any) => {
-                                                const isFilled = task.reportType === template.form_type || (
-                                                  task.reportData && (typeof task.reportData === 'object' ? !!task.reportData[template.form_type] : (
-                                                    (() => { try { return !!JSON.parse(task.reportData)[template.form_type]; } catch { return false; } })()
-                                                  ))
-                                                );
+                                                // Parse reportData once to check for nested form_type keys
+                                                const parsedRd: Record<string, any> = (() => {
+                                                  if (!task.reportData) return {};
+                                                  if (typeof task.reportData === 'object') return task.reportData as Record<string, any>;
+                                                  try { return JSON.parse(task.reportData); } catch { return {}; }
+                                                })();
+                                                const isFilled =
+                                                  // Backend's report_type field explicitly matches
+                                                  task.reportType === template.form_type ||
+                                                  // report_data is stored as { form_type_slug: { ...answers } }
+                                                  !!parsedRd[template.form_type] ||
+                                                  // Fallback: check visitReportData too
+                                                  (task.visitReportData && (() => {
+                                                    try {
+                                                      const vrd = typeof task.visitReportData === 'object' ? task.visitReportData : JSON.parse(task.visitReportData);
+                                                      return !!vrd[template.form_type];
+                                                    } catch { return false; }
+                                                  })());
                                                 return (
                                                   <div key={template.id} className={`flex items-center justify-between px-2 py-1.5 rounded-sm transition-colors ${isFilled ? 'hover:bg-muted/50' : 'opacity-60'}`}>
                                                     <div className="flex items-center text-sm cursor-default truncate mr-4">

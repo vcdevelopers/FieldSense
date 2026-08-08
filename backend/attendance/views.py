@@ -29,6 +29,7 @@ class EmployeeCheckInView(views.APIView):
         responses={200: CheckInResponseSerializer}
     )
     def post(self, request):
+        check_site_scope_validity(request)
         serializer = CheckInSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         
@@ -71,6 +72,7 @@ class EmployeeCheckOutView(views.APIView):
         responses={200: CheckOutResponseSerializer}
     )
     def post(self, request):
+        check_site_scope_validity(request)
         serializer = CheckOutSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         

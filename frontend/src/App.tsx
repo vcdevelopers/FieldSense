@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import { safeSessionStorage } from './utils/storage';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -6,7 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { MasterDataProvider } from "./contexts/MasterDataContext";
 import { ThemeProvider } from "./contexts/ThemeProvider";
-import { useEffect } from "react";
+
 
 import Index from "./pages/Index";
 import Login from "./pages/Login";
@@ -28,29 +29,50 @@ const queryClient = new QueryClient({
   },
 });
 
+import EmployeePortal from "./pages/EmployeePortal";
+import Handoff from "./pages/Handoff";
+
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
-  const isLoggedIn = safeSessionStorage.getItem("isAdminLoggedIn") === "true";
-  return isLoggedIn ? <>{children}</> : <Navigate to="/login" replace />;
+  const token = safeSessionStorage.getItem("token");
+  const fieldRole = safeSessionStorage.getItem("fieldRole");
+  const isAdminLoggedIn = safeSessionStorage.getItem("isAdminLoggedIn") === "true";
+
+  if (fieldRole === "EMPLOYEE") {
+    return <EmployeePortal />;
+  }
+
+  if (!isAdminLoggedIn && !token) {
+    return <Navigate to="/login" replace />;
+  }
+
+  return <>{children}</>;
 };
 
-const AdminProtectedRoute = ({ children, allowedRoles = ["ADMIN", "admin"] }: { children: React.ReactNode, allowedRoles?: string[] }) => {
-  const isLoggedIn = safeSessionStorage.getItem("isAdminLoggedIn") === "true";
+const AdminProtectedRoute = ({ children, allowedRoles = ["ADMIN", "MANAGER", "OPERATIONS_MANAGER", "SALES_MANAGER"] }: { children: React.ReactNode, allowedRoles?: string[] }) => {
+  const token = safeSessionStorage.getItem("token");
+  const isLoggedIn = safeSessionStorage.getItem("isAdminLoggedIn") === "true" || !!token;
+  const fieldRole = safeSessionStorage.getItem("fieldRole");
   const rawRole = safeSessionStorage.getItem("userRole") || "";
-  
-  // Normalize roles
-  const normalizedRole = rawRole.toUpperCase();
-  const normalizedAllowedRoles = allowedRoles.map(r => r.toUpperCase());
-  
-  const hasAccess = normalizedAllowedRoles.includes(normalizedRole);
-  
+
   if (!isLoggedIn) return <Navigate to="/login" replace />;
+  if (fieldRole === "EMPLOYEE") return <Navigate to="/" replace />;
+
+  // Prioritize fieldRole claim (ADMIN / MANAGER) over raw legacy userRole
+  const effectiveRole = (fieldRole || rawRole).toUpperCase();
+  const normalizedAllowedRoles = allowedRoles.map(r => r.toUpperCase());
+  const isManagerOrAdmin = ["ADMIN", "MANAGER", "OPERATIONS_MANAGER", "SALES_MANAGER"].includes(effectiveRole);
+  
+  const hasAccess = normalizedAllowedRoles.includes(effectiveRole) || isManagerOrAdmin;
+  
   if (!hasAccess) return <Navigate to="/" replace />;
   return <>{children}</>;
 };
 
+
 const SalesProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const userRole = safeSessionStorage.getItem("userRole");
-  const isLoggedIn = userRole === "sales";
+  const fieldRole = safeSessionStorage.getItem("fieldRole");
+  const isLoggedIn = userRole === "sales" || fieldRole === "SALES";
   return isLoggedIn ? <>{children}</> : <Navigate to="/login" replace />;
 };
 
@@ -78,14 +100,30 @@ const SSOHandler = ({ children }: { children: React.ReactNode }) => {
       const payload = JSON.parse(payloadStr);
       
       safeSessionStorage.setItem("token", token);
-      safeSessionStorage.setItem("isAdminLoggedIn", "true");
-      
-      if (payload.is_staff || payload.user_type?.toLowerCase() === 'internal') {
-        safeSessionStorage.setItem("userRole", "ADMIN");
-      } else {
-        safeSessionStorage.setItem("userRole", payload.user_type?.toUpperCase() || "USER");
+      if (payload.user_id || payload.sub) {
+        safeSessionStorage.setItem("userId", String(payload.user_id || payload.sub));
       }
+      
+      let resolvedRole = "MANAGER";
+      if (payload.field_role) {
+        resolvedRole = payload.field_role.toUpperCase();
+      } else if (payload.is_staff || payload.is_superuser || payload.user_type === 'admin') {
+        resolvedRole = "ADMIN";
+      } else if (payload.user_type === 'field') {
+        resolvedRole = "EMPLOYEE";
+      } else if (payload.user_type) {
+        resolvedRole = payload.user_type.toUpperCase();
+      }
+
+      safeSessionStorage.setItem("fieldRole", resolvedRole);
+      safeSessionStorage.setItem("userRole", resolvedRole);
+
+      if (resolvedRole !== "EMPLOYEE") {
+        safeSessionStorage.setItem("isAdminLoggedIn", "true");
+      }
+
     } catch (e) {
+
       console.error("Invalid token format in SSO", e);
     }
   }
@@ -100,97 +138,120 @@ const SSOHandler = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
-const App = () => (
-  <ThemeProvider defaultTheme="system" storageKey="field-senses-theme">
-    <QueryClientProvider client={queryClient}>
-      <MasterDataProvider>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <SSOHandler>
-              <Routes>
-                <Route path="/login" element={<Login />} />
-                
-                <Route
-                  path="/"
-                  element={
-                    <ProtectedRoute>
-                      <Index />
-                    </ProtectedRoute>
-                  }
-                />
+const App = () => {
+  const [memoryToken, setMemoryToken] = React.useState<string | null>(null);
 
-                <Route
-                  path="/master-setup"
-                  element={
-                    <AdminProtectedRoute>
-                      <MasterSetup />
-                    </AdminProtectedRoute>
-                  }
-                />
+  const handleTokenReceived = (token: string, fieldRole: string) => {
+    setMemoryToken(token);
+    const normalizedRole = (fieldRole || "EMPLOYEE").toUpperCase();
+    safeSessionStorage.setItem("token", token);
+    safeSessionStorage.setItem("fieldRole", normalizedRole);
+    safeSessionStorage.setItem("userRole", normalizedRole);
+    if (normalizedRole !== "EMPLOYEE") {
+      safeSessionStorage.setItem("isAdminLoggedIn", "true");
+    }
+  };
 
-                <Route
-                  path="/tracking-sites"
-                  element={
-                    <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
-                      <TrackingSites />
-                    </AdminProtectedRoute>
-                  }
-                />
 
-                <Route
-                  path="/tracking-history"
-                  element={
-                    <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
-                      <TrackingHistory />
-                    </AdminProtectedRoute>
-                  }
-                />
 
-                <Route
-                  path="/audit-logs"
-                  element={
-                    <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
-                      <AuditLogs />
-                    </AdminProtectedRoute>
-                  }
-                />
+  return (
+    <ThemeProvider defaultTheme="system" storageKey="field-senses-theme">
+      <QueryClientProvider client={queryClient}>
+        <MasterDataProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <SSOHandler>
+                <Routes>
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/handoff" element={<Handoff onTokenReceived={handleTokenReceived} />} />
+                  
+                  <Route
+                    path="/"
+                    element={
+                      <ProtectedRoute>
+                        {safeSessionStorage.getItem("fieldRole") === "EMPLOYEE" ? (
+                          <EmployeePortal authToken={memoryToken || undefined} />
+                        ) : (
+                          <Index />
+                        )}
+                      </ProtectedRoute>
+                    }
+                  />
 
-                <Route
-                  path="/employee/:id"
-                  element={
-                    <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
-                      <EmployeeProfile />
-                    </AdminProtectedRoute>
-                  }
-                />
+                  <Route
+                    path="/master-setup"
+                    element={
+                      <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
+                        <MasterSetup />
+                      </AdminProtectedRoute>
+                    }
+                  />
 
-                <Route
-                  path="/attendance-dashboard"
-                  element={
-                    <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
-                      <AttendanceDashboard />
-                    </AdminProtectedRoute>
-                  }
-                />
 
-                <Route
-                  path="/sales-portal"
-                  element={
-                    <SalesProtectedRoute>
-                      <SalesPortal />
-                    </SalesProtectedRoute>
-                  }
-                />
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </SSOHandler>
-          </BrowserRouter>
-        </TooltipProvider>
-      </MasterDataProvider>
-    </QueryClientProvider>
-  </ThemeProvider>
-);
+                  <Route
+                    path="/tracking-sites"
+                    element={
+                      <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
+                        <TrackingSites />
+                      </AdminProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/tracking-history"
+                    element={
+                      <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
+                        <TrackingHistory />
+                      </AdminProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/audit-logs"
+                    element={
+                      <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
+                        <AuditLogs />
+                      </AdminProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/employee/:id"
+                    element={
+                      <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
+                        <EmployeeProfile />
+                      </AdminProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/attendance-dashboard"
+                    element={
+                      <AdminProtectedRoute allowedRoles={["ADMIN", "MANAGER"]}>
+                        <AttendanceDashboard />
+                      </AdminProtectedRoute>
+                    }
+                  />
+
+                  <Route
+                    path="/sales-portal"
+                    element={
+                      <SalesProtectedRoute>
+                        <SalesPortal />
+                      </SalesProtectedRoute>
+                    }
+                  />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </SSOHandler>
+            </BrowserRouter>
+          </TooltipProvider>
+        </MasterDataProvider>
+      </QueryClientProvider>
+    </ThemeProvider>
+  );
+};
 
 export default App;

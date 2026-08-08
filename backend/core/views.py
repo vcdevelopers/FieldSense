@@ -1,6 +1,7 @@
 from rest_framework import viewsets, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
 from .models import Role, Department, StatusMaster, Project, Employee, RolePermission, ReportingManager, RegistrationRequest, Task, Document, PermissionRequest
 from .serializers import (
@@ -51,17 +52,24 @@ class EmployeeViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         queryset = super().get_queryset()
+        user = getattr(self.request, 'user', None)
         user_id = self.request.headers.get('X-User-Id')
-        user_role = self.request.headers.get('X-User-Role')
-        
-        if user_role == 'ADMIN' or user_id == 'admin':
+        user_role = (getattr(self.request, 'field_role', None) or self.request.headers.get('X-User-Role') or '').upper()
+
+        is_field_worker = (user_role == 'EMPLOYEE') or (user and getattr(user, 'user_type', '') == 'field')
+        is_manager_or_admin = not is_field_worker or (user and (user.is_staff or user.is_superuser)) or user_id == 'admin'
+
+        if is_manager_or_admin:
             return queryset
-        elif user_role == 'MANAGER':
-            return queryset.filter(Q(id=user_id) | Q(reportingManager=user_id))
-        elif user_id:
-            return queryset.filter(id=user_id)
-            
-        return queryset
+        elif user and user.is_authenticated:
+            logicon_emp_id = getattr(self.request, 'logicon_employee_id', None)
+            return queryset.filter(Q(email__iexact=user.email) | Q(logicon_employee_id=logicon_emp_id))
+
+        return queryset.none()
+
+
+
+
 
     def create(self, request, *args, **kwargs):
         role_id = request.data.get('roleId')
@@ -343,4 +351,305 @@ class AppUserRegisterView(APIView):
                 "employeeId": employee.employeeId
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+from django.conf import settings
+from rest_framework.exceptions import PermissionDenied
+from core.authentication import ServiceAccountAuthentication
+from core.models import ProvisioningLog, Role, generate_employee_id
+from django.contrib.auth import get_user_model
+from django.utils import timezone
+
+User = get_user_model()
+
+
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0].strip()
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
+
+
+class ProvisioningView(APIView):
+    """
+    Internal endpoint for Logicon to push-provision or update an Employee in FieldSense.
+    Protected by ServiceAccountAuthentication and network IP check.
+    """
+    authentication_classes = [ServiceAccountAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        allowed_ips = getattr(settings, 'ALLOWED_INTERNAL_PROVISIONING_IPS', ['127.0.0.1', 'localhost', '*'])
+        client_ip = get_client_ip(request)
+        if '*' not in allowed_ips and client_ip not in allowed_ips:
+            raise PermissionDenied('Access denied: client IP is not authorized for internal provisioning.')
+
+        idempotency_key = request.data.get('idempotency_key')
+        logicon_emp_id = request.data.get('logicon_employee_id')
+
+        if not idempotency_key or not logicon_emp_id:
+            return Response(
+                {'detail': 'idempotency_key and logicon_employee_id are required.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        existing_log = ProvisioningLog.objects.filter(idempotency_key=idempotency_key).first()
+        if existing_log:
+            return Response(
+                {
+                    'status': 'skipped',
+                    'detail': 'Idempotency key already processed.',
+                    'logicon_employee_id': logicon_emp_id,
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        email = request.data.get('email', '').strip()
+        first_name = request.data.get('first_name', '').strip()
+        last_name = request.data.get('last_name', '').strip()
+        field_role_code = request.data.get('field_role', 'EMPLOYEE')
+        deploy_id = request.data.get('logicon_deployment_id')
+        site_scope = request.data.get('field_site_scope', [])
+
+        if not email:
+            email = f"emp-{logicon_emp_id}@logicon-employee.internal"
+
+        role = Role.objects.filter(roleCode=field_role_code).first()
+        if not role:
+            role = Role.objects.filter(roleCode='EMPLOYEE').first()
+
+        emp = Employee.objects.filter(logicon_employee_id=logicon_emp_id).first()
+        if not emp:
+            emp = Employee.objects.filter(email__iexact=email).first()
+
+        user = User.objects.filter(email__iexact=email).first()
+        if not user:
+            user = User.objects.create(
+                username=email,
+                email=email,
+                first_name=first_name,
+                last_name=last_name,
+                is_active=True,
+            )
+        else:
+            user.is_active = True
+            user.first_name = first_name or user.first_name
+            user.last_name = last_name or user.last_name
+            user.save(update_fields=['is_active', 'first_name', 'last_name'])
+
+        if not emp:
+            emp = Employee.objects.create(
+                employeeId=generate_employee_id(),
+                fullName=f"{first_name} {last_name}".strip() or email.split('@')[0],
+                email=email,
+
+                roleId=role,
+                mobileNumber='',
+                password='',
+                designation='Deployed Field Worker',
+                employmentType='Full-time',
+                workMode='Field',
+                joiningDate=timezone.now().date(),
+                accountStatus=True,
+                logicon_employee_id=logicon_emp_id,
+                logicon_deployment_id=deploy_id,
+                current_site_scope=site_scope,
+            )
+        else:
+            emp.accountStatus = True
+            emp.roleId = role or emp.roleId
+            emp.logicon_employee_id = logicon_emp_id
+            emp.logicon_deployment_id = deploy_id or emp.logicon_deployment_id
+            emp.current_site_scope = site_scope
+            emp.save(update_fields=[
+                'accountStatus', 'roleId', 'logicon_employee_id',
+                'logicon_deployment_id', 'current_site_scope'
+            ])
+
+        ProvisioningLog.objects.create(
+            idempotency_key=idempotency_key,
+            action='provision',
+            logicon_employee_id=logicon_emp_id,
+            result='success',
+        )
+
+        return Response(
+            {
+                'status': 'success',
+                'logicon_employee_id': logicon_emp_id,
+                'fieldsense_employee_id': emp.id,
+            },
+            status=status.HTTP_201_CREATED,
+        )
+
+
+class DeprovisioningView(APIView):
+    """
+    Internal endpoint for Logicon to deprovision an Employee in FieldSense upon exit/suspension.
+    """
+    authentication_classes = [ServiceAccountAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        allowed_ips = getattr(settings, 'ALLOWED_INTERNAL_PROVISIONING_IPS', ['127.0.0.1', 'localhost', '*'])
+        client_ip = get_client_ip(request)
+        if '*' not in allowed_ips and client_ip not in allowed_ips:
+            raise PermissionDenied('Access denied: client IP is not authorized for internal provisioning.')
+
+        idempotency_key = request.data.get('idempotency_key')
+        logicon_emp_id = request.data.get('logicon_employee_id')
+
+        if not idempotency_key or not logicon_emp_id:
+            return Response(
+                {'detail': 'idempotency_key and logicon_employee_id are required.'},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        existing_log = ProvisioningLog.objects.filter(idempotency_key=idempotency_key).first()
+        if existing_log:
+            return Response(
+                {
+                    'status': 'skipped',
+                    'detail': 'Idempotency key already processed.',
+                    'logicon_employee_id': logicon_emp_id,
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        emp = Employee.objects.filter(logicon_employee_id=logicon_emp_id).first()
+        if emp:
+            emp.accountStatus = False
+            emp.save(update_fields=['accountStatus'])
+
+            user = User.objects.filter(email__iexact=emp.email).first()
+            if user:
+                user.is_active = False
+                user.save(update_fields=['is_active'])
+
+                try:
+                    from attendance.models import AttendanceRecord
+                    AttendanceRecord.objects.filter(
+                        employee=user,
+                        check_out_time__isnull=True
+                    ).update(
+                        check_out_time=timezone.now(),
+                        check_out_address='Auto-closed on employee deprovisioning/exit'
+                    )
+                except Exception:
+                    pass
+
+
+        ProvisioningLog.objects.create(
+            idempotency_key=idempotency_key,
+            action='deprovision',
+            logicon_employee_id=logicon_emp_id,
+            result='success',
+        )
+
+        return Response(
+            {
+                'status': 'success',
+                'logicon_employee_id': logicon_emp_id,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+
+class RevokeTokenView(APIView):
+    """
+    Internal endpoint for Logicon to push JTI claim revocations to FieldSense blocklist.
+    """
+    authentication_classes = [ServiceAccountAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        jti = request.data.get('jti')
+        ttl = request.data.get('ttl', 86400)
+        if not jti:
+            return Response({'detail': 'jti is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        from core.blocklist import blocklist_jti
+        blocklist_jti(jti, int(ttl))
+        return Response({'status': 'success', 'jti': jti}, status=status.HTTP_200_OK)
+
+
+class RegisterHandoffCodeView(APIView):
+    """
+    Internal endpoint for Logicon backend to register a 60-second single-use handoff code.
+    """
+    authentication_classes = [ServiceAccountAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        from .models import HandoffCode
+        from django.core.cache import cache
+        code = request.data.get('code')
+        tokens = request.data.get('tokens')
+        if not code or not tokens:
+            return Response({'detail': 'code and tokens are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        cache.set(f"handoff:{code}", tokens, timeout=60)
+        HandoffCode.objects.update_or_create(
+            code=code,
+            defaults={
+                'access_token': tokens.get('access', ''),
+                'refresh_token': tokens.get('refresh', ''),
+            }
+        )
+        return Response({'status': 'success', 'code': code}, status=status.HTTP_200_OK)
+
+
+class ExchangeHandoffCodeView(APIView):
+    """
+    Exchanges a 60-second single-use handoff code for access and refresh JWT tokens.
+    Deletes the code immediately upon retrieval (single-use enforcement).
+    """
+    authentication_classes = []
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        from .models import HandoffCode
+        from django.core.cache import cache
+        from django.utils import timezone
+        code = request.data.get('code')
+        if not code:
+            return Response({'detail': 'code is required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        cache_key = f"handoff:{code}"
+        cached_tokens = cache.get(cache_key)
+
+        if cached_tokens:
+            cache.delete(cache_key)
+            HandoffCode.objects.filter(code=code).delete()
+            return Response(cached_tokens, status=status.HTTP_200_OK)
+
+        handoff = HandoffCode.objects.filter(code=code).first()
+
+        if not handoff:
+            return Response(
+                {'detail': 'Handoff code is invalid, expired, or already used.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        if (timezone.now() - handoff.created_at).total_seconds() > 60:
+            handoff.delete()
+            return Response(
+                {'detail': 'Handoff code has expired.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        tokens = {
+            'access': handoff.access_token,
+            'refresh': handoff.refresh_token,
+        }
+        handoff.delete()
+        cache.delete(cache_key)
+        return Response(tokens, status=status.HTTP_200_OK)
+
+
+
+
+
 

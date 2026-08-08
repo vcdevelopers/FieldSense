@@ -91,7 +91,10 @@ export function KPICards() {
         setEmployeeCount(filteredEmployees.length);
         
         const liveArr = Array.isArray(liveData) ? liveData : [];
-        setOnlineCount(liveArr.filter((t: any) => t.status !== "Offline").length);
+        // Count employees who are actively online: checked in but not checked out yet
+        const ONLINE_STATUSES = new Set(['Active', 'At Site', 'Traveling', 'In Progress']);
+        setOnlineCount(liveArr.filter((t: any) => ONLINE_STATUSES.has(t.status)).length);
+
         
         // Calculate today's site visits from completed events
         const totalVisits = liveArr.reduce((sum: number, emp: any) => sum + (emp.completed_events || 0), 0);
@@ -112,6 +115,10 @@ export function KPICards() {
     };
 
     fetchData();
+
+    // Auto-refresh every 60 seconds so the online count stays live
+    const interval = setInterval(fetchData, 60_000);
+    return () => clearInterval(interval);
   }, []);
 
   const kpis = [

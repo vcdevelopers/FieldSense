@@ -215,6 +215,7 @@ class AdminLiveOverviewView(generics.ListAPIView):
         description="Returns a live overview of all employees' daily routes and check-ins for a specific date."
     )
     def list(self, request, *args, **kwargs):
+        from attendance.models import AttendanceRecord
         date_str = request.query_params.get('date', None)
         if date_str:
             try:
@@ -226,6 +227,13 @@ class AdminLiveOverviewView(generics.ListAPIView):
             
         data = []
         employees = Employee.objects.all()
+
+        # Pre-fetch today's attendance records for all employees to avoid N+1 queries
+        from django.contrib.auth.models import User as DjangoUser
+        attendance_map = {}
+        for ar in AttendanceRecord.objects.filter(date=target_date).select_related('employee'):
+            attendance_map[ar.employee.email] = ar
+
         for emp in employees:
             if emp.id == 'admin' or 'admin' in emp.fullName.lower():
                 continue
@@ -261,6 +269,7 @@ class AdminLiveOverviewView(generics.ListAPIView):
                     'report_data': log.report_data,
                     'attachment_url': request.build_absolute_uri(log.photo.url) if log.photo else None
                 })
+
             
             for m in meetings:
                 meeting_photo = m.photo if m.photo else None
@@ -281,6 +290,25 @@ class AdminLiveOverviewView(generics.ListAPIView):
                     if is_empty and linked_visit.report_data:
                         meeting_report = linked_visit.report_data
                         report_type = 'visit'
+
+                # Detect actual form_type from the stored report_data keys
+                # If the data is stored as { "form_type_slug": {...} }, extract the real form_type
+                import json as _json
+                _report_dict = meeting_report
+                if isinstance(_report_dict, str):
+                    try:
+                        _report_dict = _json.loads(_report_dict)
+                    except Exception:
+                        _report_dict = {}
+                if isinstance(_report_dict, dict) and _report_dict:
+                    _known_generic = {'mom_purpose', 'mom_discussion', 'mom_action_items', 'mom_client_feedback', 'mom_followup_date'}
+                    _non_generic_keys = [k for k in _report_dict.keys() if k not in _known_generic and not k.startswith('photo_')]
+                    # If any key looks like a form_type slug (not a field answer key), use it
+                    from field_tracking.models import FormTemplate as _FT
+                    for _k in _non_generic_keys:
+                        if _FT.objects.filter(form_type=_k).exists():
+                            report_type = _k
+                            break
                 
                 timeline.append({
                     'type': 'Meeting',
@@ -312,7 +340,21 @@ class AdminLiveOverviewView(generics.ListAPIView):
             current_location = None
             total_distance = sum(item.get('distance_km', 0) for item in timeline)
             
-            # Find any actively running meeting
+            # Check AttendanceRecord — the definitive source for "is this employee online today"
+            att_record = attendance_map.get(emp.email)
+            check_in_time = None
+            check_out_time = None
+            if att_record:
+                check_in_time = att_record.check_in_time.isoformat() if att_record.check_in_time else None
+                check_out_time = att_record.check_out_time.isoformat() if att_record.check_out_time else None
+                if att_record.check_in_time and not att_record.check_out_time:
+                    # Employee has checked in today but not yet checked out — they are Active
+                    status = 'Active'
+                elif att_record.check_in_time and att_record.check_out_time:
+                    # Employee has both checked in and checked out today — completed their shift
+                    status = 'Completed'
+
+            # Find any actively running meeting (overrides attendance status with more specific value)
             active_meeting = None
             for m in meetings:
                 if m.status == 'In Progress':
@@ -344,7 +386,9 @@ class AdminLiveOverviewView(generics.ListAPIView):
                 
                 if latest_meeting:
                     if latest_meeting.status in ['Completed', 'Closed']:
-                        status = latest_meeting.status
+                        # Don't downgrade 'Active' (still checked in) to 'Completed' for a single meeting
+                        if status not in ('Active',):
+                            status = latest_meeting.status
                         current_location = {
                             'lat': latest_meeting.destination_lat,
                             'lng': latest_meeting.destination_lng,
@@ -352,7 +396,8 @@ class AdminLiveOverviewView(generics.ListAPIView):
                             'site_name': latest_meeting.meeting_title
                         }
                     elif latest_meeting.status == 'Upcoming':
-                        status = 'Not Started'
+                        if status == 'Offline':
+                            status = 'Not Started'
                         current_location = {
                             'lat': latest_meeting.current_lat,
                             'lng': latest_meeting.current_lng,
@@ -360,7 +405,8 @@ class AdminLiveOverviewView(generics.ListAPIView):
                             'site_name': 'Pending'
                         }
                 elif latest_visit:
-                    status = 'At Site'
+                    if status not in ('Active', 'Traveling', 'At Site'):
+                        status = 'At Site'
                     if latest_visit.meeting:
                         current_location = {
                             'lat': latest_visit.meeting.destination_lat,
@@ -387,6 +433,8 @@ class AdminLiveOverviewView(generics.ListAPIView):
                 'role': emp.designation,
                 'travel_mode': emp.travelMode,
                 'status': status,
+                'check_in_time': check_in_time,
+                'check_out_time': check_out_time,
                 'total_distance': total_distance,
                 'current_location': current_location,
                 'timeline': timeline,
@@ -395,6 +443,7 @@ class AdminLiveOverviewView(generics.ListAPIView):
             })
             
         return Response(data)
+
 
 from drf_spectacular.utils import extend_schema, OpenApiExample
 
@@ -1500,6 +1549,23 @@ class LiveEmployeeDetailsView(APIView):
                     if is_empty and linked_visit.report_data:
                         meeting_report = linked_visit.report_data
                         report_type = 'visit'
+
+                # Detect actual form_type from the stored report_data keys
+                import json as _json
+                _report_dict = meeting_report
+                if isinstance(_report_dict, str):
+                    try:
+                        _report_dict = _json.loads(_report_dict)
+                    except Exception:
+                        _report_dict = {}
+                if isinstance(_report_dict, dict) and _report_dict:
+                    _known_generic = {'mom_purpose', 'mom_discussion', 'mom_action_items', 'mom_client_feedback', 'mom_followup_date'}
+                    _non_generic_keys = [k for k in _report_dict.keys() if k not in _known_generic and not k.startswith('photo_')]
+                    from field_tracking.models import FormTemplate as _FT
+                    for _k in _non_generic_keys:
+                        if _FT.objects.filter(form_type=_k).exists():
+                            report_type = _k
+                            break
                     
                 timeline.append({
                     'type': 'Meeting',

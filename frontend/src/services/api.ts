@@ -2,12 +2,20 @@ import { safeSessionStorage } from '../utils/storage';
 import { API_BASE_URL } from '@/config';
 
 const getHeaders = () => {
+  const token = safeSessionStorage.getItem('token');
+  const fieldRole = safeSessionStorage.getItem('fieldRole');
+  const userRole = safeSessionStorage.getItem('userRole');
+  const effectiveRole = (fieldRole || userRole || 'EMPLOYEE').toUpperCase();
+
   return {
     'Content-Type': 'application/json',
-    'X-User-Role': safeSessionStorage.getItem('userRole') || '',
+    ...(token ? { 'Authorization': `Bearer ${token}` } : {}),
+    'X-User-Role': effectiveRole,
     'X-User-Id': safeSessionStorage.getItem('userId') || '',
   };
 };
+
+
 
 export const apiClient = {
   get: async <T = any>(endpoint: string): Promise<T | null> => {

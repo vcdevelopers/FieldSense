@@ -90,9 +90,31 @@ class Employee(models.Model):
     taskAssignmentAllowed = models.BooleanField(default=True)
     statusId = models.ForeignKey(StatusMaster, on_delete=models.SET_NULL, null=True, blank=True)
     accountStatus = models.BooleanField(default=True)
+    logicon_employee_id = models.IntegerField(null=True, blank=True, db_index=True)
+    logicon_deployment_id = models.IntegerField(null=True, blank=True)
+    current_site_scope = models.JSONField(default=list, blank=True)
 
     def __str__(self):
         return self.fullName
+
+
+class ProvisioningLog(models.Model):
+    id = models.CharField(max_length=50, primary_key=True, default=generate_uuid, editable=False)
+    idempotency_key = models.CharField(max_length=64, unique=True, db_index=True)
+    action = models.CharField(
+        max_length=16,
+        choices=[('provision', 'Provision'), ('deprovision', 'Deprovision'), ('update', 'Update')],
+    )
+    logicon_employee_id = models.IntegerField(db_index=True)
+    processed_at = models.DateTimeField(auto_now_add=True)
+    expires_at = models.DateTimeField(null=True, blank=True)
+    result = models.CharField(
+        max_length=16,
+        choices=[('success', 'Success'), ('skipped', 'Skipped'), ('failed', 'Failed')],
+    )
+
+    def __str__(self):
+        return f"{self.action} key={self.idempotency_key[:8]} emp#{self.logicon_employee_id} ({self.result})"
 
 class RolePermission(models.Model):
     id = models.CharField(max_length=50, primary_key=True, default=generate_uuid, editable=False)
@@ -192,3 +214,14 @@ class PermissionRequest(models.Model):
 
     def __str__(self):
         return f"{self.title} - {self.requester.fullName}"
+
+
+class HandoffCode(models.Model):
+    code = models.CharField(max_length=128, primary_key=True)
+    access_token = models.TextField()
+    refresh_token = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"HandoffCode({self.code[:8]}...)"
+

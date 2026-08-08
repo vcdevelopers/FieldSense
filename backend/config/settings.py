@@ -62,7 +62,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'core.middleware.SecurityHeadersMiddleware',
 ]
+
 
 # --- CORS Configuration ---
 # Allow all origins for local development
@@ -108,6 +110,8 @@ DATABASES = {
         conn_max_age=600
     )
 }
+DATABASES['default']['OPTIONS'] = {'timeout': 30}
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
