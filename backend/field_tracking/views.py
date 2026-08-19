@@ -289,25 +289,29 @@ class AdminLiveOverviewView(generics.ListAPIView):
                     
                     if is_empty and linked_visit.report_data:
                         meeting_report = linked_visit.report_data
-                        report_type = 'visit'
+                        report_type = 'site_visit'
 
                 # Detect actual form_type from the stored report_data keys
-                # If the data is stored as { "form_type_slug": {...} }, extract the real form_type
                 import json as _json
-                _report_dict = meeting_report
+                _report_dict = meeting_report or visit_report
                 if isinstance(_report_dict, str):
                     try:
                         _report_dict = _json.loads(_report_dict)
                     except Exception:
                         _report_dict = {}
                 if isinstance(_report_dict, dict) and _report_dict:
-                    _known_generic = {'mom_purpose', 'mom_discussion', 'mom_action_items', 'mom_client_feedback', 'mom_followup_date'}
-                    _non_generic_keys = [k for k in _report_dict.keys() if k not in _known_generic and not k.startswith('photo_')]
-                    # If any key looks like a form_type slug (not a field answer key), use it
+                    if 'data' in _report_dict:
+                        try:
+                            _inner = _json.loads(_report_dict['data']) if isinstance(_report_dict['data'], str) else _report_dict['data']
+                            if isinstance(_inner, dict):
+                                _report_dict = {**_report_dict, **_inner}
+                        except Exception:
+                            pass
                     from field_tracking.models import FormTemplate as _FT
-                    for _k in _non_generic_keys:
-                        if _FT.objects.filter(form_type=_k).exists():
-                            report_type = _k
+                    for _ft in _FT.objects.filter(is_active=True):
+                        _schema_ids = [f.get('id') for f in (_ft.schema or []) if isinstance(f, dict) and f.get('id')]
+                        if _ft.form_type in _report_dict or any(k in _report_dict for k in _schema_ids):
+                            report_type = _ft.form_type
                             break
                 
                 timeline.append({
@@ -1548,23 +1552,29 @@ class LiveEmployeeDetailsView(APIView):
                         
                     if is_empty and linked_visit.report_data:
                         meeting_report = linked_visit.report_data
-                        report_type = 'visit'
+                        report_type = 'site_visit'
 
                 # Detect actual form_type from the stored report_data keys
                 import json as _json
-                _report_dict = meeting_report
+                _report_dict = meeting_report or visit_report
                 if isinstance(_report_dict, str):
                     try:
                         _report_dict = _json.loads(_report_dict)
                     except Exception:
                         _report_dict = {}
                 if isinstance(_report_dict, dict) and _report_dict:
-                    _known_generic = {'mom_purpose', 'mom_discussion', 'mom_action_items', 'mom_client_feedback', 'mom_followup_date'}
-                    _non_generic_keys = [k for k in _report_dict.keys() if k not in _known_generic and not k.startswith('photo_')]
+                    if 'data' in _report_dict:
+                        try:
+                            _inner = _json.loads(_report_dict['data']) if isinstance(_report_dict['data'], str) else _report_dict['data']
+                            if isinstance(_inner, dict):
+                                _report_dict = {**_report_dict, **_inner}
+                        except Exception:
+                            pass
                     from field_tracking.models import FormTemplate as _FT
-                    for _k in _non_generic_keys:
-                        if _FT.objects.filter(form_type=_k).exists():
-                            report_type = _k
+                    for _ft in _FT.objects.filter(is_active=True):
+                        _schema_ids = [f.get('id') for f in (_ft.schema or []) if isinstance(f, dict) and f.get('id')]
+                        if _ft.form_type in _report_dict or any(k in _report_dict for k in _schema_ids):
+                            report_type = _ft.form_type
                             break
                     
                 timeline.append({

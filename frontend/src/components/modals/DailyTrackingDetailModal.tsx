@@ -1765,24 +1765,54 @@ export function DailyTrackingDetailModal({
                                           <DropdownMenuContent align="end" className="min-w-[260px] p-1">
                                             {dynamicFormTemplates && dynamicFormTemplates.length > 0 ? (
                                               dynamicFormTemplates.map((template: any) => {
-                                                // Parse reportData once to check for nested form_type keys
-                                                const parsedRd: Record<string, any> = (() => {
-                                                  if (!task.reportData) return {};
-                                                  if (typeof task.reportData === 'object') return task.reportData as Record<string, any>;
-                                                  try { return JSON.parse(task.reportData); } catch { return {}; }
+                                                const isFilled = (() => {
+                                                  const extractKeys = (rd: any): string[] => {
+                                                    if (!rd) return [];
+                                                    let obj = rd;
+                                                    if (typeof obj === 'string') {
+                                                      try { obj = JSON.parse(obj); } catch { return []; }
+                                                    }
+                                                    if (!obj || typeof obj !== 'object') return [];
+                                                    let keys = Object.keys(obj);
+                                                    if (obj.data) {
+                                                      let inner = obj.data;
+                                                      if (typeof inner === 'string') {
+                                                        try { inner = JSON.parse(inner); } catch {}
+                                                      }
+                                                      if (inner && typeof inner === 'object') {
+                                                        keys = [...keys, ...Object.keys(inner)];
+                                                      }
+                                                    }
+                                                    return keys;
+                                                  };
+
+                                                  const rdKeys = [...extractKeys(task.reportData), ...extractKeys(task.visitReportData)];
+                                                  if (rdKeys.length === 0) return false;
+
+                                                  // 1. Direct form_type match or common aliases
+                                                  if (task.reportType === template.form_type) return true;
+                                                  if ((task.reportType === 'visit' || task.reportType === 'site_visit') && (template.form_type === 'visit' || template.form_type === 'site_visit')) return true;
+                                                  if ((task.reportType === 'mom' || task.reportType === 'meeting') && (template.form_type === 'mom' || template.form_type === 'meeting')) return true;
+
+                                                  // 2. Nested form_type key in report_data
+                                                  if (rdKeys.includes(template.form_type)) return true;
+
+                                                  // 3. Match against template schema field IDs
+                                                  if (template.schema && Array.isArray(template.schema)) {
+                                                    const schemaFieldIds = template.schema.map((f: any) => f.id || f.name).filter(Boolean);
+                                                    const hasMatchingField = schemaFieldIds.some((fId: string) => 
+                                                      rdKeys.includes(fId) || rdKeys.some((k: string) => k.startsWith(`photo_${fId}`) || k.includes(fId))
+                                                    );
+                                                    if (hasMatchingField) return true;
+                                                  }
+
+                                                  // 4. Fallback for site visit reports when visit data exists
+                                                  if ((template.form_type === 'site_visit' || template.form_type === 'visit') && (task.visitReportData || (task.reportData && !rdKeys.some((k: string) => k.startsWith('mom_'))))) {
+                                                    return true;
+                                                  }
+
+                                                  return false;
                                                 })();
-                                                const isFilled =
-                                                  // Backend's report_type field explicitly matches
-                                                  task.reportType === template.form_type ||
-                                                  // report_data is stored as { form_type_slug: { ...answers } }
-                                                  !!parsedRd[template.form_type] ||
-                                                  // Fallback: check visitReportData too
-                                                  (task.visitReportData && (() => {
-                                                    try {
-                                                      const vrd = typeof task.visitReportData === 'object' ? task.visitReportData : JSON.parse(task.visitReportData);
-                                                      return !!vrd[template.form_type];
-                                                    } catch { return false; }
-                                                  })());
                                                 return (
                                                   <div key={template.id} className={`flex items-center justify-between px-2 py-1.5 rounded-sm transition-colors ${isFilled ? 'hover:bg-muted/50' : 'opacity-60'}`}>
                                                     <div className="flex items-center text-sm cursor-default truncate mr-4">
@@ -2058,12 +2088,10 @@ export function DailyTrackingDetailModal({
                   <ReportViewModal
                     isOpen={!!viewingReportTask}
                     onClose={() => setViewingReportTask(null)}
-                    reportData={(viewingReportTask as any)?.viewType === 'visit' && viewingReportTask?.visitReportData 
-                                ? viewingReportTask.visitReportData 
-                                : viewingReportTask?.reportData}
+                    reportData={viewingReportTask?.reportData || viewingReportTask?.visitReportData}
                     siteName={viewingReportTask?.taskName || ""}
                     attachmentUrl={viewingReportTask?.proofUrl}
-                    reportType={(viewingReportTask as any)?.viewType || (viewingReportTask?.taskType === 'Meeting' ? 'meeting' : 'visit')}
+                    reportType={((viewingReportTask as any)?.viewType === 'site_visit' ? 'visit' : (viewingReportTask as any)?.viewType) || (viewingReportTask?.taskType === 'Meeting' ? 'meeting' : 'visit')}
                     meetingDetails={viewingReportTask}
                   />
                 )}
