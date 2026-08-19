@@ -236,6 +236,34 @@ class FieldSenseSecurityAuditTests(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
         self.assertIn("ambiguous_account", str(response.data))
 
+    def test_synthetic_user_repeated_authentication_no_integrity_error(self):
+        """Repeated JWT auth without email creates and reuses synthetic user without UNIQUE constraint IntegrityError."""
+        secret = settings.SECRET_KEY
+        now = datetime.now(timezone.utc)
+        payload = {
+            "token_type": "access",
+            "user_id": 999123,
+            "field_access": True,
+            "field_role": "ADMIN",
+            "field_site_scope": ["*"],
+            "iat": int(now.timestamp()),
+            "exp": int((now + timedelta(minutes=30)).timestamp()),
+        }
+        token_str = jwt.encode(payload, secret, algorithm="HS256")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token_str}")
+
+        # First request provisions the synthetic user
+        resp1 = self.client.get("/api/roles/")
+        self.assertEqual(resp1.status_code, status.HTTP_200_OK)
+
+        # Second request reuses the synthetic user without IntegrityError
+        resp2 = self.client.get("/api/roles/")
+        self.assertEqual(resp2.status_code, status.HTTP_200_OK)
+
+        synthetic_username = "synthetic-user-999123@fieldsense.internal"
+        self.assertTrue(User.objects.filter(username=synthetic_username).exists())
+
+
 
 
 

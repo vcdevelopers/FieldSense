@@ -114,13 +114,15 @@ class SharedJWTAuthentication(JWTAuthentication):
                 user_id_claim = validated_token.get(api_settings.USER_ID_CLAIM) or validated_token.get('sub') or 'anon'
                 email = f"synthetic-user-{user_id_claim}@fieldsense.internal"
 
-            user = User.objects.create(
+            user, _ = User.objects.get_or_create(
                 username=email,
-                email=email,
-                first_name=first_name,
-                last_name=last_name,
-                is_staff=is_staff,
-                is_superuser=is_staff,
+                defaults={
+                    "email": email,
+                    "first_name": first_name,
+                    "last_name": last_name,
+                    "is_staff": is_staff,
+                    "is_superuser": is_staff,
+                },
             )
 
         if not user.is_active:
