@@ -1817,47 +1817,45 @@ def get_journey_summary(meeting):
         "start_time": meeting.start_time,
         "reached_time": meeting.end_time,
         "duration": None,
+        "actual_time_taken": None,
         "distance": "0 km",
+        "actual_distance": "0 km",
         "traffic_condition": "Unknown"
     }
     
-    if meeting.start_time and meeting.end_time:
-        duration_delta = meeting.end_time - meeting.start_time
-        hours, remainder = divmod(duration_delta.total_seconds(), 3600)
+    start_time = meeting.start_time or meeting.created_at
+    end_time = meeting.end_time
+    if start_time and end_time:
+        duration_delta = end_time - start_time
+        total_seconds = max(0, int(duration_delta.total_seconds()))
+        hours, remainder = divmod(total_seconds, 3600)
         minutes, seconds = divmod(remainder, 60)
-        result['duration'] = f"{int(hours)}h {int(minutes)}m" if hours else f"{int(minutes)}m"
-        
-    if meeting.start_lat and meeting.start_lng and meeting.end_lat and meeting.end_lng:
-        api_key = getattr(settings, 'GOOGLE_MAPS_API_KEY', '')
-        if api_key:
-            url = "https://maps.googleapis.com/maps/api/distancematrix/json"
-            params = {
-                "origins": f"{meeting.start_lat},{meeting.start_lng}",
-                "destinations": f"{meeting.end_lat},{meeting.end_lng}",
-                "key": api_key,
-                "departure_time": "now",
-            }
-            try:
-                response = requests.get(url, params=params, timeout=5)
-                data = response.json()
-                if data['status'] == 'OK' and data['rows'][0]['elements'][0]['status'] == 'OK':
-                    element = data['rows'][0]['elements'][0]
-                    result['distance'] = element['distance']['text']
-                    
-                    duration_value = element['duration']['value']
-                    traffic_value = element.get('duration_in_traffic', {}).get('value', duration_value)
-                    
-                    if traffic_value > duration_value * 1.5:
-                        result['traffic_condition'] = "Heavy"
-                    elif traffic_value > duration_value * 1.2:
-                        result['traffic_condition'] = "Moderate"
-                    else:
-                        result['traffic_condition'] = "Light"
-            except Exception:
-                pass
+        if hours > 0:
+            result['duration'] = f"{int(hours)}h {int(minutes)}m"
+            result['actual_time_taken'] = f"{int(hours)}h {int(minutes)}m {int(seconds)}s" if seconds else f"{int(hours)}h {int(minutes)}m"
         else:
-            result['distance'] = "12.5 km (est)"
-            result['traffic_condition'] = "Moderate (est)"
+            result['duration'] = f"{int(minutes)}m"
+            result['actual_time_taken'] = f"{int(minutes)}m {int(seconds)}s" if seconds else f"{int(minutes)}m"
+
+    start_lat = meeting.start_lat or meeting.current_lat
+    start_lng = meeting.start_lng or meeting.current_lng
+    end_lat = meeting.end_lat or meeting.destination_lat
+    end_lng = meeting.end_lng or meeting.destination_lng
+        
+    exact_dist_km = 0.0
+    if meeting.distance_km and float(meeting.distance_km) > 0:
+        exact_dist_km = round(float(meeting.distance_km), 2)
+    elif start_lat and start_lng and end_lat and end_lng:
+        try:
+            from .utils import calculate_haversine_distance
+            exact_dist_km = round(calculate_haversine_distance(float(start_lat), float(start_lng), float(end_lat), float(end_lng)) / 1000.0, 2)
+        except Exception:
+            pass
+
+    if exact_dist_km > 0:
+        result['distance'] = f"{exact_dist_km} km"
+        result['actual_distance'] = f"{exact_dist_km} km"
+        result['traffic_condition'] = "Light"
             
     return result
 

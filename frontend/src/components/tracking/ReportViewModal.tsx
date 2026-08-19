@@ -33,61 +33,68 @@ export function ReportViewModal({ isOpen, onClose, reportData, siteName, attachm
     setErrorMsg(null);
     try {
       // Fetch all templates to support tabs
-      let adminTemplates = [];
+      let adminTemplates: any[] = [];
       try {
-        const adminRes = await api.get('/field-tracking/admin/form-templates/');
-        adminTemplates = Array.isArray(adminRes) ? adminRes : (adminRes.data || []);
+        const adminRes: any = await api.get('/field-tracking/admin/form-templates/');
+        const raw = Array.isArray(adminRes) ? adminRes : (adminRes.results || adminRes.data?.results || adminRes.data || []);
+        adminTemplates = Array.isArray(raw) ? raw : [];
       } catch (e) { console.warn("Could not fetch admin templates", e); }
+
+      if (adminTemplates.length === 0) {
+        try {
+          const listRes: any = await api.get('/field-tracking/checklists/');
+          const raw = Array.isArray(listRes) ? listRes : (listRes.results || listRes.data?.results || listRes.data || []);
+          adminTemplates = Array.isArray(raw) ? raw : [];
+        } catch (e) { console.warn("Could not fetch checklists", e); }
+      }
       
       let siteVisit = null;
       try {
-        const visitRes = await api.get('/field-tracking/form-template/');
+        const visitRes: any = await api.get('/field-tracking/form-template/');
         siteVisit = visitRes.data || visitRes;
       } catch (e) { console.warn("Could not fetch visit template", e); }
       
       let mom = null;
       try {
-        const momRes = await api.get('/field-tracking/mom-form-template/');
+        const momRes: any = await api.get('/field-tracking/mom-form-template/');
         mom = momRes.data || momRes;
       } catch (e) { console.warn("Could not fetch mom template", e); }
       
+      const momDefault = {
+        form_type: 'mom',
+        title: 'Minutes of Meeting (MOM)',
+        schema: [
+          { id: 'mom_purpose', label: 'Meeting Purpose / Objective' },
+          { id: 'mom_discussion', label: 'Discussion & Key Points' },
+          { id: 'mom_action_items', label: 'Action Items & Next Steps' },
+          { id: 'mom_client_feedback', label: 'Client Feedback' },
+          { id: 'mom_followup_date', label: 'Follow-up Date' }
+        ]
+      };
+
       const combined = [...adminTemplates];
-      if (siteVisit) combined.push({ ...siteVisit, form_type: 'visit', title: 'Site Visit Report' });
-      if (mom) combined.push({ ...mom, form_type: 'mom', title: 'Minutes of Meeting (MOM)' });
+      if (siteVisit && !combined.some(t => t.form_type === 'visit' || t.form_type === 'site_visit')) {
+        combined.push({ ...siteVisit, form_type: 'visit', title: siteVisit.title || siteVisit.name || 'Site Visit Report' });
+      }
+      if (mom) {
+        combined.push({ ...mom, form_type: 'mom', title: 'Minutes of Meeting (MOM)', schema: (mom.schema && mom.schema.length > 0) ? mom.schema : momDefault.schema });
+      } else {
+        combined.push(momDefault);
+      }
       
       setAllTemplates(combined);
 
-      // Auto-detect the real form_type from reportData keys
-      // If reportData is stored as { "form_type_slug": { ...answers } }, match to a template
-      let detectedFormType: string | null = null;
-      if (reportData && typeof reportData === 'object') {
-        const rdKeys = Object.keys(reportData);
-        for (const k of rdKeys) {
-          const match = combined.find((t: any) => t.form_type === k);
-          if (match) { detectedFormType = k; break; }
-        }
-      } else if (reportData && typeof reportData === 'string') {
-        try {
-          const parsed = JSON.parse(reportData);
-          const rdKeys = Object.keys(parsed);
-          for (const k of rdKeys) {
-            const match = combined.find((t: any) => t.form_type === k);
-            if (match) { detectedFormType = k; break; }
-          }
-        } catch {}
+      // Determine effective initial tab
+      const requested = reportType === 'visit' ? 'site_visit' : reportType;
+      const initialMatch = combined.find((t: any) => t.form_type === requested || t.id?.toString() === requested || (requested === 'site_visit' && t.form_type === 'visit'));
+      
+      if (initialMatch) {
+        setTemplate(initialMatch);
+        setActiveTab(initialMatch.form_type);
+      } else if (combined.length > 0) {
+        setTemplate(combined[0]);
+        setActiveTab(combined[0].form_type);
       }
-
-      // Set the initial template — prefer detected form_type, then fall back to the passed reportType
-      let current = null;
-      const effectiveType = detectedFormType || reportType;
-      if (effectiveType === 'visit') current = siteVisit;
-      else if (effectiveType === 'meeting' || effectiveType === 'mom') current = mom;
-      else current = adminTemplates.find((t: any) => t.form_type === effectiveType || t.id?.toString() === effectiveType);
-      
-      // If detected, also update the active tab so the right tab is shown immediately
-      if (detectedFormType) setActiveTab(detectedFormType);
-      
-      setTemplate(current);
     } catch (error: any) {
       console.error("Failed to fetch template:", error);
       setErrorMsg(`Fetch error: ${error.response?.data?.detail || error.message || 'Unknown error'}`);
@@ -96,74 +103,134 @@ export function ReportViewModal({ isOpen, onClose, reportData, siteName, attachm
     }
   };
 
-
   const parsedReportData = useMemo(() => {
-    if (!reportData) return null;
-    
-    let finalData = reportData;
-    if (typeof reportData === 'string') {
-      try {
-        finalData = JSON.parse(reportData);
-      } catch (e) {
-        console.error("Failed to parse reportData string:", e);
-        return {};
+    const extractAndMerge = (source: any) => {
+      if (!source) return {};
+      let obj = source;
+      if (typeof obj === 'string') {
+        try { obj = JSON.parse(obj); } catch { return {}; }
       }
-    }
-
-    // Safely extract if app developer nested the answers inside a 'data' string or object
-    if (finalData && finalData.data) {
-      if (typeof finalData.data === 'string') {
-        try {
-          const innerData = JSON.parse(finalData.data);
-          finalData = { ...finalData, ...innerData };
-        } catch(e) {}
-      } else if (typeof finalData.data === 'object') {
-        finalData = { ...finalData, ...finalData.data };
+      if (!obj || typeof obj !== 'object') return {};
+      
+      let res = { ...obj };
+      if (obj.data) {
+        let inner = obj.data;
+        if (Array.isArray(inner) && inner.length > 0) {
+          inner = inner[0];
+        }
+        if (typeof inner === 'string') {
+          try { inner = JSON.parse(inner); } catch {}
+        }
+        if (inner && typeof inner === 'object' && !Array.isArray(inner)) {
+          res = { ...res, ...inner };
+        }
       }
-    }
+      return res;
+    };
 
-    return finalData;
-  }, [reportData]);
+    const d1 = extractAndMerge(reportData);
+    const d2 = extractAndMerge(meetingDetails?.visit_report_data || meetingDetails?.visitReportData);
+    const d3 = extractAndMerge(meetingDetails?.report_data || meetingDetails?.reportData);
+
+    return { ...d2, ...d3, ...d1 };
+  }, [reportData, meetingDetails]);
 
   const availableTabs = useMemo(() => {
     if (!parsedReportData) return [];
     
-    // Check if it's a composite object by looking for known form_types
-    const compositeKeys = Object.keys(parsedReportData).filter(key => 
-      allTemplates.some(t => t.form_type === key) && typeof parsedReportData[key] === 'object'
-    );
-    
-    if (compositeKeys.length > 0) {
-      return compositeKeys.map(key => {
-        const t = allTemplates.find(t => t.form_type === key);
-        return {
-          id: key,
-          title: t?.title || t?.name || `Form ${key}`,
-          template: t,
-          data: parsedReportData[key]
-        };
+    const tabs: any[] = [];
+    const keys = Object.keys(parsedReportData);
+
+    // 1. Check for MOM data
+    const hasMomData = keys.some(k => k.startsWith('mom_')) || !!parsedReportData.mom;
+    const momT = allTemplates.find((t: any) => t.form_type === 'mom') || {
+      form_type: 'mom',
+      title: 'Minutes of Meeting (MOM)',
+      schema: [
+        { id: 'mom_purpose', label: 'Meeting Purpose / Objective' },
+        { id: 'mom_discussion', label: 'Discussion & Key Points' },
+        { id: 'mom_action_items', label: 'Action Items & Next Steps' },
+        { id: 'mom_client_feedback', label: 'Client Feedback' },
+        { id: 'mom_followup_date', label: 'Follow-up Date' }
+      ]
+    };
+
+    if (hasMomData || meetingDetails?.taskType === 'Meeting') {
+      tabs.push({
+        id: 'mom',
+        title: momT.title || momT.name || 'Minutes of Meeting (MOM)',
+        template: momT,
+        data: parsedReportData.mom && typeof parsedReportData.mom === 'object' ? parsedReportData.mom : parsedReportData
       });
-    } else {
-      // Legacy flat structure
-      return [{
-        id: reportType,
+    }
+
+    // 2. Check for each FormTemplate (Custom Forms, Training Report, Site Visit Report)
+    allTemplates.forEach((t: any) => {
+      if (t.form_type === 'mom') return;
+      
+      const schemaFieldIds = (t.schema || []).map((f: any) => f.id || f.name).filter(Boolean);
+      const isMatchedByFields = schemaFieldIds.some((fId: string) => 
+        keys.includes(fId) || keys.some(k => k.startsWith(`photo_${fId}`) || k.includes(fId))
+      );
+      const isMatchedBySlug = !!parsedReportData[t.form_type];
+
+      if (isMatchedByFields || isMatchedBySlug) {
+        tabs.push({
+          id: t.form_type,
+          title: t.title || t.name || `Checklist (${t.form_type})`,
+          template: t,
+          data: parsedReportData[t.form_type] && typeof parsedReportData[t.form_type] === 'object' 
+            ? parsedReportData[t.form_type] 
+            : parsedReportData
+        });
+      }
+    });
+
+    // Fallback: If non-MOM keys exist but no custom template matched, create a Checklist tab
+    const nonMomKeys = keys.filter(k => !k.startsWith('mom_') && k !== 'mom' && k !== 'data');
+    if (nonMomKeys.length > 0 && !tabs.some(t => t.id !== 'mom')) {
+      const fallbackT = allTemplates.find((t: any) => t.form_type !== 'mom') || {
+        form_type: 'checklist',
+        title: 'Checklist Report',
+        schema: nonMomKeys.map(k => ({ id: k, label: k.replace(/^photo_/, 'Photo: ').replace(/_/g, ' ') }))
+      };
+      tabs.push({
+        id: fallbackT.form_type || 'checklist',
+        title: fallbackT.title || fallbackT.name || 'Checklist Report',
+        template: fallbackT,
+        data: parsedReportData
+      });
+    }
+
+    if (tabs.length === 0) {
+      tabs.push({
+        id: reportType || 'report',
         title: template?.title || template?.name || 'Report',
         template: template,
         data: parsedReportData
-      }];
+      });
     }
-  }, [parsedReportData, allTemplates, reportType, template]);
 
-  // Ensure activeTab is valid
+    return tabs;
+  }, [parsedReportData, allTemplates, reportType, template, meetingDetails]);
+
+  // Sync template with activeTab
   useEffect(() => {
-    if (availableTabs.length > 0 && !availableTabs.some(t => t.id === activeTab)) {
-      setActiveTab(availableTabs[0].id);
+    if (availableTabs.length > 0) {
+      const match = availableTabs.find(t => t.id === activeTab);
+      if (match) {
+        setTemplate(match.template);
+      } else {
+        const fallback = availableTabs[0];
+        setActiveTab(fallback.id);
+        setTemplate(fallback.template);
+      }
     }
   }, [availableTabs, activeTab]);
 
-  const activeTabData = availableTabs.find(t => t.id === activeTab);
-  const currentTemplate = activeTabData?.template;
-  const currentData = activeTabData?.data;
+  const activeTabData = availableTabs.find(t => t.id === activeTab) || availableTabs[0];
+  const currentTemplate = activeTabData?.template || template;
+  const currentData = activeTabData?.data || parsedReportData;
 
   if (!isOpen) return null;
 
@@ -323,7 +390,7 @@ export function ReportViewModal({ isOpen, onClose, reportData, siteName, attachm
               const getPhotoUrl = (url: string) => {
                 if (!url || typeof url !== 'string' || url === 'null' || url === 'undefined') return '';
                 if (url.startsWith('http://') || url.startsWith('https://') || url.startsWith('blob:') || url.startsWith('data:')) return url;
-                const baseUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+                const baseUrl = import.meta.env.VITE_API_URL || 'https://fieldops.vibecopilot.ai';
                 return url.startsWith('/') ? `${baseUrl}${url}` : `${baseUrl}/${url}`;
               };
               

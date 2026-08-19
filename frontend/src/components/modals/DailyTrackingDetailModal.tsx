@@ -1743,143 +1743,25 @@ export function DailyTrackingDetailModal({
                                   </TableCell>
                                   <TableCell>
                                     <p className="text-sm text-muted-foreground max-w-[200px] truncate">
-                                      {task.notes}
+                                      {task.notes || "-"}
                                     </p>
                                   </TableCell>
                                   <TableCell className="text-right">
                                     <div className="flex items-center justify-end gap-2 whitespace-nowrap">
-                                      {task.proofSubmitted && (
-                                        <DropdownMenu>
-                                          <DropdownMenuTrigger asChild>
-                                            <Button
-                                              variant="outline"
-                                              size="sm"
-                                              className="h-8 text-xs bg-primary/5 text-primary border-primary/20 hover:bg-primary/10"
-                                              onClick={(e) => e.stopPropagation()}
-                                            >
-                                              <FileText className="w-3.5 h-3.5 mr-1.5" />
-                                              View Checklists
-                                              <ChevronDown className="w-3.5 h-3.5 ml-1" />
-                                            </Button>
-                                          </DropdownMenuTrigger>
-                                          <DropdownMenuContent align="end" className="min-w-[260px] p-1">
-                                            {dynamicFormTemplates && dynamicFormTemplates.length > 0 ? (
-                                              dynamicFormTemplates.map((template: any) => {
-                                                const isFilled = (() => {
-                                                  const extractKeys = (rd: any): string[] => {
-                                                    if (!rd) return [];
-                                                    let obj = rd;
-                                                    if (typeof obj === 'string') {
-                                                      try { obj = JSON.parse(obj); } catch { return []; }
-                                                    }
-                                                    if (!obj || typeof obj !== 'object') return [];
-                                                    let keys = Object.keys(obj);
-                                                    if (obj.data) {
-                                                      let inner = obj.data;
-                                                      if (typeof inner === 'string') {
-                                                        try { inner = JSON.parse(inner); } catch {}
-                                                      }
-                                                      if (inner && typeof inner === 'object') {
-                                                        keys = [...keys, ...Object.keys(inner)];
-                                                      }
-                                                    }
-                                                    return keys;
-                                                  };
-
-                                                  const rdKeys = [...extractKeys(task.reportData), ...extractKeys(task.visitReportData)];
-                                                  if (rdKeys.length === 0) return false;
-
-                                                  // 1. Direct form_type match or common aliases
-                                                  if (task.reportType === template.form_type) return true;
-                                                  if ((task.reportType === 'visit' || task.reportType === 'site_visit') && (template.form_type === 'visit' || template.form_type === 'site_visit')) return true;
-                                                  if ((task.reportType === 'mom' || task.reportType === 'meeting') && (template.form_type === 'mom' || template.form_type === 'meeting')) return true;
-
-                                                  // 2. Nested form_type key in report_data
-                                                  if (rdKeys.includes(template.form_type)) return true;
-
-                                                  // 3. Match against template schema field IDs
-                                                  if (template.schema && Array.isArray(template.schema)) {
-                                                    const schemaFieldIds = template.schema.map((f: any) => f.id || f.name).filter(Boolean);
-                                                    const hasMatchingField = schemaFieldIds.some((fId: string) => 
-                                                      rdKeys.includes(fId) || rdKeys.some((k: string) => k.startsWith(`photo_${fId}`) || k.includes(fId))
-                                                    );
-                                                    if (hasMatchingField) return true;
-                                                  }
-
-                                                  // 4. Fallback for site visit reports when visit data exists
-                                                  if ((template.form_type === 'site_visit' || template.form_type === 'visit') && (task.visitReportData || (task.reportData && !rdKeys.some((k: string) => k.startsWith('mom_'))))) {
-                                                    return true;
-                                                  }
-
-                                                  return false;
-                                                })();
-                                                return (
-                                                  <div key={template.id} className={`flex items-center justify-between px-2 py-1.5 rounded-sm transition-colors ${isFilled ? 'hover:bg-muted/50' : 'opacity-60'}`}>
-                                                    <div className="flex items-center text-sm cursor-default truncate mr-4">
-                                                      {isFilled ? (
-                                                        <CheckCircle2 className="w-4 h-4 mr-2 text-success shrink-0" />
-                                                      ) : (
-                                                        <FileText className="w-4 h-4 mr-2 text-muted-foreground shrink-0" />
-                                                      )}
-                                                      <span className={`font-medium truncate max-w-[150px] ${!isFilled ? 'text-muted-foreground' : ''}`} title={template.name || template.title || `Custom Form ${template.id}`}>
-                                                        {template.name || template.title || `Custom Form ${template.id}`}
-                                                      </span>
-                                                    </div>
-                                                    {isFilled && (
-                                                      <div className="flex items-center gap-1 shrink-0">
-                                                        <Button 
-                                                          variant="ghost" 
-                                                          size="icon" 
-                                                          className="h-7 w-7 text-muted-foreground hover:text-primary hover:bg-primary/10" 
-                                                          title="View Form"
-                                                          onClick={(e) => {
-                                                            e.stopPropagation();
-                                                            setViewingReportTask({ ...task, viewType: template.form_type || template.id.toString() } as any);
-                                                          }}
-                                                        >
-                                                          <Eye className="w-3.5 h-3.5" />
-                                                        </Button>
-                                                        <Button 
-                                                          variant="ghost" 
-                                                          size="icon" 
-                                                          className="h-7 w-7 text-muted-foreground hover:text-primary hover:bg-primary/10" 
-                                                          title="Download PDF"
-                                                          onClick={async (e) => {
-                                                            e.stopPropagation();
-                                                            const employeeName = employeeData?.employee_name || employee?.name || "Employee";
-                                                            let actualReportData = task.reportType === template.form_type ? task.reportData : (task.visitReportData || task.reportData);
-                                                            if (typeof actualReportData === 'string') {
-                                                              try { actualReportData = JSON.parse(actualReportData); } catch {}
-                                                            }
-                                                            if (actualReportData && actualReportData[template.form_type]) {
-                                                              actualReportData = actualReportData[template.form_type];
-                                                            }
-                                                            const tName: string = template.name || template.title || "Checklist Report";
-                                                            
-                                                            if (template.form_type === 'mom') {
-                                                              await generateMOMPDF({ ...task, reportData: actualReportData }, employeeName);
-                                                            } else if (tName.toLowerCase().includes("training")) {
-                                                              await generateTrainingReportPDF({ ...task, reportData: actualReportData }, employeeName, tName, template.schema || []);
-                                                            } else {
-                                                              await generateSiteVisitPDF({ ...task, reportData: actualReportData }, employeeName, tName);
-                                                            }
-                                                          }}
-                                                        >
-                                                          <Download className="w-3.5 h-3.5" />
-                                                        </Button>
-                                                      </div>
-                                                    )}
-                                                  </div>
-                                                );
-                                              })
-                                            ) : (
-                                              <div className="px-2 py-3 text-xs text-muted-foreground text-center">
-                                                No checklists available
-                                              </div>
-                                            )}
-                                          </DropdownMenuContent>
-                                        </DropdownMenu>
-                                      )}
+                                       {task.proofSubmitted && (
+                                         <Button
+                                           variant="outline"
+                                           size="sm"
+                                           className="h-8 text-xs bg-primary/5 text-primary border-primary/20 hover:bg-primary/10 flex items-center gap-1.5"
+                                           onClick={(e) => {
+                                             e.stopPropagation();
+                                             setViewingReportTask(task);
+                                           }}
+                                         >
+                                           <FileText className="w-3.5 h-3.5" />
+                                           View Checklists
+                                         </Button>
+                                       )}
                                       
                                       {task.isMeeting && task.fuelApproved && (
                                         <Badge variant="outline" className="bg-success/10 text-success border-success/20">

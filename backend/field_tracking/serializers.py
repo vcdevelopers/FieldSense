@@ -138,14 +138,16 @@ class AdHocMeetingSerializer(serializers.ModelSerializer):
     
     reached_time = serializers.SerializerMethodField()
     duration = serializers.SerializerMethodField()
+    actual_time_taken = serializers.SerializerMethodField()
     journey_distance = serializers.SerializerMethodField()
+    actual_distance = serializers.SerializerMethodField()
     journey_traffic_condition = serializers.SerializerMethodField()
     visit_report_data = serializers.SerializerMethodField()
 
     class Meta:
         model = AdHocMeeting
         fields = '__all__'
-        read_only_fields = ['employee', 'eta_time', 'total_distance', 'traffic_status', 'reached_time', 'duration', 'journey_distance', 'journey_traffic_condition', 'visit_report_data']
+        read_only_fields = ['employee', 'eta_time', 'total_distance', 'traffic_status', 'reached_time', 'duration', 'actual_time_taken', 'journey_distance', 'actual_distance', 'journey_traffic_condition', 'visit_report_data']
 
     def to_internal_value(self, data):
         if hasattr(data, '_mutable'):
@@ -311,71 +313,53 @@ class AdHocMeetingSerializer(serializers.ModelSerializer):
             return self.context[cache_key]
             
         # Calculate actual elapsed duration from timestamps
-        duration_delta = obj.end_time - obj.start_time
-        hours, remainder = divmod(duration_delta.total_seconds(), 3600)
-        minutes, _ = divmod(remainder, 60)
-        duration_text = f"{int(hours)}h {int(minutes)}m" if hours else f"{int(minutes)}m"
+        start_time = obj.start_time or obj.created_at
+        end_time = obj.end_time or (obj.updated_at if obj.status in ('Completed', 'Closed') else None)
+
+        duration_text = None
+        actual_time_text = None
+        if start_time and end_time:
+            duration_delta = end_time - start_time
+            total_seconds = max(0, int(duration_delta.total_seconds()))
+            hours, remainder = divmod(total_seconds, 3600)
+            minutes, seconds = divmod(remainder, 60)
+            if hours > 0:
+                duration_text = f"{int(hours)}h {int(minutes)}m"
+                actual_time_text = f"{int(hours)}h {int(minutes)}m {int(seconds)}s" if seconds else f"{int(hours)}h {int(minutes)}m"
+            else:
+                duration_text = f"{int(minutes)}m"
+                actual_time_text = f"{int(minutes)}m {int(seconds)}s" if seconds else f"{int(minutes)}m"
             
+        # Calculate exact distance from user's GPS lat/lng coordinates
+        start_lat = obj.start_lat or obj.current_lat
+        start_lng = obj.start_lng or obj.current_lng
+        end_lat = obj.end_lat or obj.destination_lat
+        end_lng = obj.end_lng or obj.destination_lng
+
+        linked_visit = obj.visit_logs.first()
+        if linked_visit and linked_visit.recorded_lat and linked_visit.recorded_lng:
+            end_lat = end_lat or linked_visit.recorded_lat
+            end_lng = end_lng or linked_visit.recorded_lng
+
+        exact_dist_km = 0.0
+        if obj.distance_km and float(obj.distance_km) > 0:
+            exact_dist_km = round(float(obj.distance_km), 2)
+        elif start_lat and start_lng and end_lat and end_lng:
+            try:
+                from .utils import calculate_haversine_distance
+                exact_dist_km = round(calculate_haversine_distance(float(start_lat), float(start_lng), float(end_lat), float(end_lng)) / 1000.0, 2)
+            except Exception:
+                pass
+
+        distance_text = f"{exact_dist_km} km" if exact_dist_km > 0 else "0 km"
+
         result = {
-            "duration": duration_text,
-            "distance": "0 km",
-            "traffic_condition": "Unknown"
+            "duration": duration_text or "0m",
+            "actual_time_taken": actual_time_text or duration_text or "0m",
+            "distance": distance_text,
+            "actual_distance": distance_text,
+            "traffic_condition": "Light" if exact_dist_km > 0 else "Unknown"
         }
-        
-        # Fetch distance and traffic from Routes API using the journey start/end coordinates
-        if obj.start_lat and obj.start_lng and obj.end_lat and obj.end_lng:
-            api_key = getattr(settings, 'GOOGLE_MAPS_API_KEY', '')
-            if api_key:
-                url = "https://routes.googleapis.com/directions/v2:computeRoutes"
-                headers = {
-                    "Content-Type": "application/json",
-                    "X-Goog-Api-Key": api_key,
-                    "X-Goog-FieldMask": "routes.duration,routes.distanceMeters",
-                }
-                body = {
-                    "origin": {
-                        "location": {
-                            "latLng": {
-                                "latitude": float(obj.start_lat),
-                                "longitude": float(obj.start_lng)
-                            }
-                        }
-                    },
-                    "destination": {
-                        "location": {
-                            "latLng": {
-                                "latitude": float(obj.recorded_lat),
-                                "longitude": float(obj.recorded_lng)
-                            }
-                        }
-                    },
-                    "travelMode": "DRIVE",
-                    "routingPreference": "TRAFFIC_AWARE_OPTIMAL",
-                }
-                try:
-                    response = requests.post(url, json=body, headers=headers, timeout=5)
-                    data = response.json()
-
-                    if 'error' in data:
-                        logger.error(f"Routes API journey error for meeting {obj.id}: {data['error']}")
-                    elif data.get('routes'):
-                        route = data['routes'][0]
-                        distance_meters = route.get('distanceMeters', 0)
-                        route_duration_s = int(route.get('duration', '0s').rstrip('s'))
-
-                        distance_km = round(distance_meters / 1000, 1)
-                        result['distance'] = f"{distance_km} km"
-
-                        # Compare actual travel time vs. route estimate for traffic condition
-                        actual_seconds = duration_delta.total_seconds()
-                        if actual_seconds > route_duration_s * 1.5:
-                            result['traffic_condition'] = "Heavy"
-                        elif actual_seconds > route_duration_s * 1.2:
-                            result['traffic_condition'] = "Moderate"
-                        else:
-                            result['traffic_condition'] = "Light"
-                except Exception as e:
-                    logger.error(f"Routes API journey exception for meeting {obj.id}: {e}")
                 
         self.context[cache_key] = result
         return result
@@ -387,9 +371,17 @@ class AdHocMeetingSerializer(serializers.ModelSerializer):
         data = self._get_journey_data(obj)
         return data['duration'] if data else None
 
+    def get_actual_time_taken(self, obj):
+        data = self._get_journey_data(obj)
+        return data.get('actual_time_taken') if data else None
+
     def get_journey_distance(self, obj):
         data = self._get_journey_data(obj)
         return data['distance'] if data else None
+
+    def get_actual_distance(self, obj):
+        data = self._get_journey_data(obj)
+        return data.get('actual_distance') if data else None
 
     def get_journey_traffic_condition(self, obj):
         data = self._get_journey_data(obj)
@@ -419,10 +411,21 @@ class AdHocMeetingSerializer(serializers.ModelSerializer):
                 except Exception:
                     return obj
             if isinstance(obj, dict):
-                if isinstance(obj.get('data'), str):
+                data_val = obj.get('data')
+                if isinstance(data_val, list) and len(data_val) > 0:
                     try:
                         import json
-                        obj['data'] = json.loads(obj['data'])
+                        first_item = data_val[0]
+                        if isinstance(first_item, str):
+                            first_item = json.loads(first_item)
+                        if isinstance(first_item, dict):
+                            obj['data'] = first_item
+                    except Exception:
+                        pass
+                elif isinstance(data_val, str):
+                    try:
+                        import json
+                        obj['data'] = json.loads(data_val)
                     except Exception:
                         pass
             return obj
@@ -439,12 +442,26 @@ class AdHocMeetingSerializer(serializers.ModelSerializer):
                 ret['report_data'] = visit_data
             elif isinstance(ret.get('report_data'), dict) and isinstance(visit_data, dict):
                 merged = dict(visit_data)
-                if isinstance(merged.get('data'), dict) and isinstance(ret['report_data'].get('data'), dict):
-                    merged_inner = dict(merged['data'])
-                    merged_inner.update(ret['report_data']['data'])
-                    merged['data'] = merged_inner
+                v_data = visit_data.get('data')
+                r_data = ret['report_data'].get('data')
+                merged_inner = {}
+                if isinstance(v_data, dict):
+                    merged_inner.update(v_data)
+                if isinstance(r_data, dict):
+                    merged_inner.update(r_data)
+                
                 merged.update(ret['report_data'])
+                if merged_inner:
+                    merged['data'] = merged_inner
                 ret['report_data'] = merged
+
+        # Populate calculated journey fields
+        journey = self._get_journey_data(instance)
+        if journey:
+            ret['journey_distance'] = journey.get('distance', ret.get('journey_distance'))
+            ret['actual_distance'] = journey.get('actual_distance', ret.get('actual_distance'))
+            ret['duration'] = journey.get('duration', ret.get('duration'))
+            ret['actual_time_taken'] = journey.get('actual_time_taken', ret.get('actual_time_taken'))
 
         return ret
 
