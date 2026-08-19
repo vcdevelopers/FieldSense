@@ -263,6 +263,40 @@ class FieldSenseSecurityAuditTests(APITestCase):
         synthetic_username = "synthetic-user-999123@fieldsense.internal"
         self.assertTrue(User.objects.filter(username=synthetic_username).exists())
 
+    def test_existing_local_user_resolved_from_user_id_claim_without_email(self):
+        """When token has no email claim but user_id matches local user with real email, resolve to local user and employee."""
+        rojer_user = User.objects.create(
+            username="rojer_user@test.com",
+            email="rojer_user@test.com",
+            first_name="Rojer",
+            last_name="Tester",
+        )
+        rojer_emp = Employee.objects.create(
+            email="rojer_user@test.com",
+            fullName="Rojer Tester",
+            designation="Field Engineer",
+            roleId=self.role_employee,
+            joiningDate="2026-01-01",
+        )
+
+        secret = settings.SECRET_KEY
+        now = datetime.now(timezone.utc)
+        payload = {
+            "token_type": "access",
+            "user_id": rojer_user.id,
+            "iat": int(now.timestamp()),
+            "exp": int((now + timedelta(minutes=30)).timestamp()),
+        }
+        token_str = jwt.encode(payload, secret, algorithm="HS256")
+        self.client.credentials(HTTP_AUTHORIZATION=f"Bearer {token_str}")
+
+        response = self.client.get("/api/roles/")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        # Confirm no synthetic-user was created, and resolved directly to rojer_emp
+        self.assertFalse(User.objects.filter(username__startswith=f"synthetic-user-{rojer_user.id}").exists())
+
+
 
 
 

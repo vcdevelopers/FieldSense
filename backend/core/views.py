@@ -184,8 +184,14 @@ class LoginView(APIView):
             
         roleCode = employee.roleId.roleCode if employee.roleId else "NONE"
         
-        # Generate JWT Token for the standard User
+        # Generate JWT Token for the standard User with explicit user claims
         refresh = RefreshToken.for_user(user)
+        refresh['email'] = employee.email if employee else user.email
+        refresh['first_name'] = user.first_name or (employee.fullName.split()[0] if employee and employee.fullName else '')
+        refresh['last_name'] = user.last_name or (employee.fullName.split()[-1] if employee and employee.fullName and len(employee.fullName.split()) > 1 else '')
+        if employee:
+            refresh['logicon_employee_id'] = employee.logicon_employee_id
+            refresh['field_role'] = roleCode
         
         return Response({
             "id": str(employee.id),

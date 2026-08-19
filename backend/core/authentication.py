@@ -108,7 +108,18 @@ class SharedJWTAuthentication(JWTAuthentication):
                 raise AuthenticationFailed('Multiple matching accounts found for email', code='ambiguous_account')
             user = matching_users.first()
 
-        # Priority 3: Safe Auto-Provisioning (Never query User.objects.get(id=user_id) directly!)
+        # Priority 3: Local User lookup via user_id claim (for tokens generated directly by FieldSense SimpleJWT)
+        if not user and not email:
+            user_id_claim = validated_token.get(api_settings.USER_ID_CLAIM) or validated_token.get('sub')
+            if user_id_claim and str(user_id_claim).isdigit():
+                local_user = User.objects.filter(id=int(user_id_claim)).first()
+                if local_user and local_user.email and not local_user.email.startswith('synthetic-user-'):
+                    user = local_user
+                    email = local_user.email
+                    first_name = first_name or local_user.first_name
+                    last_name = last_name or local_user.last_name
+
+        # Priority 4: Safe Auto-Provisioning for unknown external SSO tokens
         if not user:
             if not email:
                 user_id_claim = validated_token.get(api_settings.USER_ID_CLAIM) or validated_token.get('sub') or 'anon'
