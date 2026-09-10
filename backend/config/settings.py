@@ -159,6 +159,13 @@ REST_FRAMEWORK = {
 
 from datetime import timedelta
 
+
+# --- Shared JWT Secret for Logicon SSO token validation ---
+# Must match the SHARED_JWT_SECRET (or SECRET_KEY) used by Logicon backend to sign JWTs.
+# In production, set this via environment variable to the same value on both services.
+SHARED_JWT_SECRET = os.environ.get('SHARED_JWT_SECRET', 'your-secret-key-here')
+FIELD_SENSES_SERVICE_ACCOUNT_KEY = os.environ.get('FIELD_SENSES_SERVICE_ACCOUNT_KEY', 'fieldsense-secret-service-key-2026')
+
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=30),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),

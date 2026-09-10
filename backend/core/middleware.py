@@ -9,5 +9,5 @@ class SecurityHeadersMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
         response['X-Frame-Options'] = 'ALLOW-FROM http://localhost:5173'
-        response['Content-Security-Policy'] = "frame-ancestors 'self' http://localhost:5173 http://127.0.0.1:5173 http://localhost:8001 http://127.0.0.1:8001"
+        response['Content-Security-Policy'] = "frame-ancestors 'self' http://localhost:5173 http://127.0.0.1:5173 http://localhost:8001 http://127.0.0.1:8001 https://hr.vibecopilot.ai https://*.vibecopilot.ai"
         return response
