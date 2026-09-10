@@ -92,48 +92,62 @@ const SSOHandler = ({ children }: { children: React.ReactNode }) => {
     document.body.setAttribute("data-embedded", "true");
   }
 
-  if (token) {
+  const isValidToken = Boolean(
+    token &&
+    token !== "null" &&
+    token !== "undefined" &&
+    typeof token === "string" &&
+    token.includes(".")
+  );
+
+  if (isValidToken && token) {
     try {
-      let base64Url = token.split('.')[1];
-      let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-      const payloadStr = atob(base64);
-      const payload = JSON.parse(payloadStr);
-      
-      safeSessionStorage.setItem("token", token);
-      if (payload.user_id || payload.sub) {
-        safeSessionStorage.setItem("userId", String(payload.user_id || payload.sub));
-      }
-      
-      let resolvedRole = "MANAGER";
-      if (payload.field_role) {
-        resolvedRole = payload.field_role.toUpperCase();
-      } else if (payload.is_staff || payload.is_superuser || payload.user_type === 'admin') {
-        resolvedRole = "ADMIN";
-      } else if (payload.user_type === 'field') {
-        resolvedRole = "EMPLOYEE";
-      } else if (payload.user_type) {
-        resolvedRole = payload.user_type.toUpperCase();
-      }
+      const parts = token.split('.');
+      if (parts.length >= 2) {
+        let base64Url = parts[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        while (base64.length % 4) {
+          base64 += '=';
+        }
+        const payloadStr = atob(base64);
+        const payload = JSON.parse(payloadStr);
+        
+        safeSessionStorage.setItem("token", token);
+        if (payload.user_id || payload.sub) {
+          safeSessionStorage.setItem("userId", String(payload.user_id || payload.sub));
+        }
+        
+        let resolvedRole = "MANAGER";
+        if (payload.field_role) {
+          resolvedRole = payload.field_role.toUpperCase();
+        } else if (payload.is_staff || payload.is_superuser || payload.user_type === 'admin') {
+          resolvedRole = "ADMIN";
+        } else if (payload.user_type === 'field') {
+          resolvedRole = "EMPLOYEE";
+        } else if (payload.user_type) {
+          resolvedRole = payload.user_type.toUpperCase();
+        }
 
-      safeSessionStorage.setItem("fieldRole", resolvedRole);
-      safeSessionStorage.setItem("userRole", resolvedRole);
+        safeSessionStorage.setItem("fieldRole", resolvedRole);
+        safeSessionStorage.setItem("userRole", resolvedRole);
 
-      if (resolvedRole !== "EMPLOYEE") {
-        safeSessionStorage.setItem("isAdminLoggedIn", "true");
+        if (resolvedRole !== "EMPLOYEE") {
+          safeSessionStorage.setItem("isAdminLoggedIn", "true");
+        }
       }
-
     } catch (e) {
-
       console.error("Invalid token format in SSO", e);
     }
   }
 
   useEffect(() => {
     // If we processed a token, clean the URL by navigating to the same path without search params
-    if (token) {
-      navigate(location.pathname, { replace: true });
+    // Also normalize any duplicate slashes (e.g. "//tracking-sites" -> "/tracking-sites" or "//" -> "/")
+    const normalizedPath = (location.pathname.replace(/\/+/g, '/') || '/');
+    if (isValidToken || location.pathname !== normalizedPath) {
+      navigate(normalizedPath, { replace: true });
     }
-  }, [token, location.pathname, navigate]);
+  }, [isValidToken, location.pathname, navigate]);
 
   return <>{children}</>;
 };

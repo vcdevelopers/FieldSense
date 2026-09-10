@@ -12,8 +12,9 @@ import { MasterDataProvider } from "@/contexts/MasterDataContext";
 const Index = () => {
   const location = useLocation();
   const [activeTab, setActiveTab] = useState("tracking");
-  const userRole = safeSessionStorage.getItem("userRole") || "";
-  const isAdminOrManager = userRole === "ADMIN" || userRole === "MANAGER" || userRole === "admin" || userRole === "manager" || userRole === "INTERNAL" || userRole === "internal";
+  const rawRole = safeSessionStorage.getItem("fieldRole") || safeSessionStorage.getItem("userRole") || "";
+  const effectiveRole = rawRole.toUpperCase();
+  const isAdminOrManager = ["ADMIN", "MANAGER", "OPERATIONS_MANAGER", "INTERNAL"].includes(effectiveRole);
 
   const [isEmbedded, setIsEmbedded] = useState(() => safeSessionStorage.getItem("isEmbedded") === "true");
 
